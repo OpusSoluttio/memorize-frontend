@@ -1,0 +1,94 @@
+@font-face {
+    font-family: Ballo2;
+    src: url(../../assets/font/Baloo2-ExtraBold.ttf)
+}
+*{
+    font-family: 'Ballo2';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.header{
+    background-color: #FFE5E5;
+    height: 100vh;
+    width: 100vw;
+}
+.main-header-container{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.main-nav{
+    width: 90vw;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: fixed;
+    background-color: rgba(255, 241, 241, 0.822);
+    border-radius: 0px 0px 30px 30px;
+}
+.main-nav a{
+    text-decoration: none;
+    color: #0383C4;
+    font-style: bold;
+    font-size: 25px;
+    align-self: center;
+}
+.main-nav a:hover{
+    color: #4C3CB4;
+}
+.home-principal{
+    margin-top: 80px;
+    display: flex;
+    height: calc(100vh - 80px);
+    width: 100vw;
+    justify-content: space-around;
+    background-image: url(../../assets/img/cerebro.png);
+    background-repeat: no-repeat;
+    background-position: left bottom;
+}
+.secreto{
+    width: 70vw;
+}
+.home-logo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.sub-logo{
+    color: #0383C4;
+    text-align: center;
+    font-size: 	1.125em;
+    width: 70%;
+}
+.botao-jogar{
+    background-color: #4C3CB4;
+    width: 60%;
+    display: flex;
+    align-items: center;
+    color: #FFF1F1;
+    justify-content: center;
+    border-radius: 100px 100px;
+    height: 10%;
+}
+.botao-jogar p{
+    font-size: 33px;
+    text-decoration: bold;
+    padding-left: 3%;
+}
+.botao-jogar img{
+    height: 33px;
+}
+.como-jogar-container{
+    background-color: #EBEBEB;
+}
+.sobre-container{
+    background-color: #4C3CB4;
+}
+.colletivo-container{
+    background-color: #EBEBEB;
+}
