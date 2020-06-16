@@ -1,10 +1,22 @@
 /* TUDO */
-@font-face {
-    font-family: Ballo2;
-    src: url(../../assets/font/Baloo2-ExtraBold.ttf)
+@font-face{
+    font-family: "Baloo 2";
+    src: url("../../assets/font/Baloo2-Regular.ttf");
+
+    font-family: "Baloo 2 Medium";
+    src: url("../../assets/font/Baloo2-Medium.ttf");
+
+    font-family: "Baloo 2 SemiBold";
+    src: url("../../assets/font/Baloo2-SemiBold.ttf");
+
+    font-family: "Baloo 2 Bold";
+    src: url("../../assets/font/Baloo2-Bold.ttf");
+
+    font-family: "Baloo 2 ExtraBold";
+    src: url("../../assets/font/Baloo2-ExtraBold.ttf");
 }
 *{
-    font-family: 'Ballo2';
+    font-family: "Baloo 2 ExtraBold", sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -17,13 +29,17 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    overflow: hidden;
+
 }
 .content{
-    margin-top: 80px;
+    padding-top: 80px;
     height: calc(100vh - 80px);
     width: 90vw;
+    overflow: hidden;
 }
 /* TUDO */
+
 /* COMEÇO HEADER */
 .header{
     background-color: #FFE5E5;
@@ -108,7 +124,15 @@
     justify-content: center;
     border-radius: 100px 100px;
     height: 10%;
+    cursor: pointer;
+    transition: 0.2s
 }
+.botao-jogar-home:hover{
+    /* filter: brightness(150%); */
+    background-color: #EF4E30;
+}
+
+
 .botao-jogar-home p{
     font-size: 33px;
     text-decoration: bold;
@@ -118,6 +142,7 @@
     height: 33px;
 }
 /* FINAL HEADER */
+
 /* COMEÇO COMO JOGAR */
 .como-jogar{
     background-color: #FFFDFD;
@@ -133,33 +158,41 @@
     width: 20%;
 }
 .title-comojogar h2{
-    font-size: 30px;
+    font-size: 2em;
     color: #4C3CB4;
+    overflow-y: hidden;
+    line-height: 3em;
 }
-.title-comojogar hr{
+.title-comojogar::after{
+    content: "";
+    display: block;
     width: 100%;
-    border: none;
-    height: 5px;
-    background: #4C3CB4;
+    margin-top:  0.25em;
+    background-color: #4C3CB4;
+    height: 0.375em;
 }
 .comojogar-section{
     width: 80%;
-    height: 70%;
+    /* height: 70%; */
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 .comojogar-section ul{
-    width: 40%;
-    height: 60%;
+    width: 45%;
+    padding: 0.75em 0;
     display: flex;
     flex-direction: column;
     text-align: justify;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 .comojogar-section > ul > li{
-    font-size: 20px;
+    font-size: 1.2em;
     color: #4B4860;
+    margin-left: 0.2em;
+}
+.comojogar-section img{
+    height: 100%;
 }
 .botao-jogar-comojogar{
     background-color: #4C3CB4;
@@ -169,7 +202,15 @@
     color: #FFF1F1;
     justify-content: center;
     border-radius: 100px 100px;
-    height: 8%;
+    /* height: 8%; */
+    padding:0.25em;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 1em;
+    overflow-y: hidden;
+}
+.botao-jogar-comojogar:hover{
+    background-color: #EF4E30;
 }
 .botao-jogar-comojogar p{
     font-size: 33px;
@@ -180,39 +221,161 @@
     height: 33px;
 }
 /* FINAL COMO JOGAR */
+
 /* COMEÇO SOBRE */
 .sobre{
     background-color: #4C3CB4;
+    overflow: hidden;
+}
+#sobre-title{
+    font-size: 3em;
+    text-align: center;
+    color: #FFFDFD;
+    /* margin-bottom: 1em; */
+    margin-top: -0.5em;
+    font-weight: 400;
+}
+.titulo-e-texto{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-around;
+    padding: 1em 5%;
+}
+.titulo-e-texto h2{
+    text-align: center;
+    border-radius: 0.5em;
+    font-size: 4em;
+    background-color: #FFFDFD;
+    color: #4C3CB4;
+    line-height: 1em;
+    overflow: hidden;
+    padding: 0.75em 0;
+    width: 40%;
+}
+.titulo-e-texto p{
+    color: #FFFDFD;
+    width: 40%;
+    text-align: justify;
+}
+.inverte{
+    flex-flow: row-reverse;
+}
+.center-line{
+    background-color: #FFFDFD;
+    height: 70%;
+    width: 4px;
+    margin: auto;
+    position: absolute;
+    left: 50.5%;
+    /* right: 50%; */
+    background-position: center;
 }
 /* FINAL SOBRE */
+
 /* COMEÇO COLLETIVO */
 .colletivo{
-    background-color: #FFFDFD;
+    background: #FFFDFD;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+}
+
+.colletivo-content{
+    width: 80%;
+    background: #FFFDFD;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.colletivo-titulo{
+    color: #EF4E30;
+    font-size: 1.2em;
+}
+
+.colletivo-content::before{
+    content: "";
+    display: block;
+    width: 100%;
+    height: 6px;
+    background-color: #EF4E30;
+    margin-bottom: 1.5em;
+
+}
+
+.colletivo-titulo, .colletivo-banner{
+    text-align: center;
+}
+
+.colletivo-banner{
+    margin-top: 0.5e;
+}
+
+.colletivo-banner img{
+    height: 5em;
+}
+
+.colletivo-informacao{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top : 2em;
+    width: 80%;
+}
+
+.colletivo-informacao p{
+    width: 45%;
+    text-align: justify;
+}
+
+.btn-colletivo{
+    color: #000;
+    width: 30%;
+    position: relative;
+    bottom: 0em;
+    margin-top: 2em;
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.25s;
+    cursor: pointer;
+    text-decoration: none;
+}
+.btn-colletivo:hover{
+    color: #EF4E30;
+}
+
+.btn-colletivo:hover > img{
+    transform: translateX(1em);
+}
+
+.btn-colletivo img{
+    margin-left: 0.25em;
+    height: 1em;
+    transform: rotate(180deg);
+    transition: 0.2s;
 }
 /* FINAL COLLETIVO */
 
 /* COMEÇO RODAPE */
-
-/* .rodape{
-    background-color: #4C3CB4;
-} */
 .wavy-footer{
     /* background: #4C3CB4; */
     width: 100%;
+    margin-top: -14em;
 }
-
 svg{
     margin-bottom: -2em;
 }
-
-
 .footer-container{
     width: 100%;
     margin-top: 1em;
     background-color: #4C3CB4;
     padding-bottom: 2em;
 }
-
 .footer-content{
     position: relative;
     /* bottom: 1em; */
@@ -222,23 +385,18 @@ svg{
     flex-flow: column;
     align-items: center;
 }
-
-
 .logo-footer{
     height: 5em;
     margin: auto;
 }
-
 .copyright{
     width: 100%;
     text-align: center;
-    font-family: "Baloo 2", cursive;
     font-size: 1.2em;
     margin: auto;
     padding: 0 2em;
     color: #fff;
 }
-
 .copyright::before{
     content: "";
     display: block;
@@ -247,5 +405,4 @@ svg{
     background-color: #FFF;
     margin: 0.5em auto 1em auto ;
 }
-
 /* FINAL RODAPE */
