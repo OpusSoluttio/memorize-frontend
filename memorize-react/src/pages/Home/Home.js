@@ -3,12 +3,13 @@ import Cerebro from '../../assets/img/cerebro.png'
 import LogoMemorize from '../../assets/img/logo-memorize.png'
 import LogoColletivo from '../../assets/img/logo-colletivo.png'
 import OnibusColletivo from '../../assets/img/onibus-colletivo.png'
-import LogoFooter from '../../assets/img/logofooter.png';
+// import LogoFooter from '../../assets/img/logofooter.png';
 import MemorizeJogo from '../../assets/img/memorize-jogo.png';
 import BtnIniciar from '../../assets/img/btn-iniciar.png'
 import {Link} from 'react-router-dom';
 import './Home.css';
 import PageProgress from 'react-page-progress';
+import Footer from "../../components/Footer";
 
 export default function Home(){
     return(
@@ -77,13 +78,7 @@ export default function Home(){
                     </span>
                 </div>
             </section>
-            <footer className='rodape'>
-                {/* TODO: ADICIONAR LOGO BRANCO */}
-                <div>
-                    {/* TODO: FAZER LINHA */}
-                </div>
-                <p>©2020 Opus Soluttio. Todos os direitos reservados</p>
-            </footer>
+            <Footer />
         </div>
     )
 }
