@@ -1,3 +1,4 @@
+/* TUDO */
 @font-face {
     font-family: Ballo2;
     src: url(../../assets/font/Baloo2-ExtraBold.ttf)
@@ -7,13 +8,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow-x: hidden;
 }
-.header{
-    background-color: #FFE5E5;
-    height: 100vh;
-    width: 100vw;
-}
-.main-header-container{
+.container{
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -21,15 +18,45 @@
     justify-content: space-between;
     align-items: center;
 }
-.main-nav{
+.content{
+    margin-top: 80px;
+    height: calc(100vh - 80px);
     width: 90vw;
-    height: 80px;
+}
+/* TUDO */
+/* COMEÇO HEADER */
+.header{
+    background-color: #FFE5E5;
+    height: 100vh;
+    width: 100vw;
+}
+.main-header{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.blur-nav{
+    width: 69.8vw;
+    height: 72px;
+    position: fixed;
+    background-color: #ffe5e570;
+    border-radius: 0px 0px 30px 30px;
+    filter: blur(3px);
+}
+.main-nav{
+    width: 70vw;
+    height: 70px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     position: fixed;
-    background-color: rgba(255, 241, 241, 0.822);
-    border-radius: 0px 0px 30px 30px;
+    background: #ffe5e5f3;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 0px 0px 20px 20px;
+    z-index: 100;
 }
 .main-nav a{
     text-decoration: none;
@@ -41,6 +68,11 @@
 .main-nav a:hover{
     color: #4C3CB4;
 }
+.page-progress{
+    position: fixed;
+    left: 0%;
+    z-index: 1001;
+}
 .home-principal{
     margin-top: 80px;
     display: flex;
@@ -51,21 +83,23 @@
     background-repeat: no-repeat;
     background-position: left bottom;
 }
-.secreto{
-    width: 70vw;
-}
-.home-logo{
+.home-section{
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: absolute;
+    top: 20%;
+    right: 5%;
+    width: 35%;
+    z-index: 1;
 }
-.sub-logo{
+.texto-home-section{
     color: #0383C4;
     text-align: center;
     font-size: 	1.125em;
-    width: 70%;
+    width: 80%;
 }
-.botao-jogar{
+.botao-jogar-home{
     background-color: #4C3CB4;
     width: 60%;
     display: flex;
@@ -75,20 +109,89 @@
     border-radius: 100px 100px;
     height: 10%;
 }
-.botao-jogar p{
+.botao-jogar-home p{
     font-size: 33px;
     text-decoration: bold;
     padding-left: 3%;
 }
-.botao-jogar img{
+.botao-jogar-home img{
     height: 33px;
 }
-.como-jogar-container{
-    background-color: #EBEBEB;
+/* FINAL HEADER */
+/* COMEÇO COMO JOGAR */
+.como-jogar{
+    background-color: #FFFDFD;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.sobre-container{
+.title-comojogar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+}
+.title-comojogar h2{
+    font-size: 30px;
+    color: #4C3CB4;
+}
+.title-comojogar hr{
+    width: 100%;
+    border: none;
+    height: 5px;
+    background: #4C3CB4;
+}
+.comojogar-section{
+    width: 80%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.comojogar-section ul{
+    width: 40%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    justify-content: space-around;
+}
+.comojogar-section > ul > li{
+    font-size: 20px;
+    color: #4B4860;
+}
+.botao-jogar-comojogar{
+    background-color: #4C3CB4;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    color: #FFF1F1;
+    justify-content: center;
+    border-radius: 100px 100px;
+    height: 8%;
+}
+.botao-jogar-comojogar p{
+    font-size: 33px;
+    text-decoration: bold;
+    padding-left: 3%;
+}
+.botao-jogar-comojogar img{
+    height: 33px;
+}
+/* FINAL COMO JOGAR */
+/* COMEÇO SOBRE */
+.sobre{
     background-color: #4C3CB4;
 }
-.colletivo-container{
-    background-color: #EBEBEB;
+/* FINAL SOBRE */
+/* COMEÇO COLLETIVO */
+.colletivo{
+    background-color: #FFFDFD;
 }
+/* FINAL COLLETIVO */
+/* COMEÇO RODAPE */
+.rodape{
+    background-color: #4C3CB4;
+}
+/* FINAL RODAPE */
