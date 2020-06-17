@@ -30,7 +30,6 @@
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
-    transition: 10s;
 }
 .content{
     padding-top: 80px;
@@ -81,6 +80,11 @@
     font-size: 25px;
     align-self: center;
 }
+
+.nav-link{
+    cursor: pointer;
+}
+
 .main-nav a:hover{
     color: #4C3CB4;
 }

@@ -20,9 +20,9 @@ export default function Home(){
                 <header className='main-header container'>
                     <div className='blur-nav'></div>
                     <nav className='main-nav'>
-                        <SmoothLink to="comojogar" smooth={true}>Como jogar</SmoothLink>
-                        <SmoothLink to="sobre" smooth={true}>Sobre</SmoothLink>
-                        <SmoothLink to="colletivo" smooth={true}>Colletivo</SmoothLink>
+                        <SmoothLink to="comojogar" smooth={true} className="nav-link">Como jogar</SmoothLink>
+                        <SmoothLink to="sobre" smooth={true} className="nav-link">Sobre</SmoothLink>
+                        <SmoothLink to="colletivo" smooth={true} className="nav-link">Colletivo</SmoothLink>
                     </nav>
                     <div className='page-progress'>
                         <PageProgress color={'#FF7D76'} height={'5px'}/>
