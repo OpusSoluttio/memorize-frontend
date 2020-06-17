@@ -10,6 +10,8 @@ import BtnIniciar from '../../assets/img/btn-iniciar.png'
 // import {Link} from 'react-router-dom';
 import {Link as SmoothLink} from "react-scroll";
 import './Home.css';
+import './Home768.css'
+import './Home1920.css'
 import PageProgress from 'react-page-progress';
 import Footer from "../../components/Footer";
 
@@ -20,7 +22,7 @@ export default function Home(){
                 <header className='main-header container'>
                     <div className='blur-nav'></div>
                     <nav className='main-nav'>
-                        <SmoothLink to="comojogar" smooth={true} className="nav-link">Como jogar</SmoothLink>
+                        <SmoothLink to="comojogar" smooth={true} className="nav-link">Como Jogar</SmoothLink>
                         <SmoothLink to="sobre" smooth={true} className="nav-link">Sobre</SmoothLink>
                         <SmoothLink to="colletivo" smooth={true} className="nav-link">Colletivo</SmoothLink>
                     </nav>
@@ -29,7 +31,7 @@ export default function Home(){
                     </div>
                     <div className='home-principal content'>
                         <div className='home-section'>
-                            <img src={LogoMemorize}/>
+                            <img className='logo' src={LogoMemorize}/>
                             <p className='texto-home-section'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra rutrum tempor!</p> 
                             <br/>
                             <span className='botao-jogar-home'>
@@ -51,7 +53,7 @@ export default function Home(){
                             <li>2.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum urna orci, aliquam vel sagittis a, molestie lobortis nibh.</li>
                             <li>3.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum urna orci, aliquam vel sagittis a, molestie lobortis nibh.</li>
                         </ul>
-                        <img src={MemorizeJogo}/>
+                        <img className='memorize-jogo' src={MemorizeJogo}/>
                     </div>
                     <span href='#' className='botao-jogar-comojogar'>
                         <img src={BtnIniciar}/>

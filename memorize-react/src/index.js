@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
 import Home from "../src/pages/Home/Home";
+import Game from "../src/pages/Game/Game";
 
 // ReactDOM.render(
 //   <React.StrictMode>
@@ -18,6 +19,7 @@ const Routes = (
   <BrowserRouter>
     <div>
       <Switch>
+        <Route exact path="/game" component={Game}/>
         <Route exact path="/" component={Home}/>
       </Switch>
     </div>

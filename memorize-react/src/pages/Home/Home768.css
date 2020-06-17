@@ -1,0 +1,125 @@
+@media only screen and (max-width: 768px) {
+    /* COMEÇO HEADER */
+    .main-nav a:hover{
+        color: #0383C4;
+    }
+    .home-principal{
+        background-size: 60% auto;
+    }
+    .home-section{
+        top: 10%;
+        right: auto;
+        width: auto;
+    }
+    .botao-jogar-home{
+        width: 50%;
+    }
+    .botao-jogar-home:hover{
+        background-color: #4C3CB4;
+    }
+    /* FINAL HEADER */
+
+    /* COMEÇO COMO JOGAR */
+    .title-comojogar{
+        width: 30%;
+    }
+    .title-comojogar h2{
+        font-size: 2.3em;
+        line-height: 1.3em;
+    }
+    .comojogar-section{
+        width: 100%;
+        height: 70%;
+    }
+    .comojogar-section ul{
+        width: 50%;
+        height: 70%;
+    }
+    .comojogar-section > ul > li{
+        font-size: 1.2em;
+    }
+    .comojogar-section img{
+        height: 68%;
+        width: 60%;
+        margin-right: -8%;
+    }
+    .botao-jogar-comojogar{
+        height: 8%;
+        width: 40%;
+        margin: 0;
+    }
+    .botao-jogar-comojogar:hover{
+        background-color: #4C3CB4;
+    }
+    .botao-jogar-comojogar p{
+        font-size: 1.6em;
+        text-align: center;
+        width: 80%;
+        padding-left: 0;
+    }
+    .botao-jogar-comojogar img{
+        width: 10%;
+        height: auto;
+    }
+    /* FINAL COMO JOGAR */
+
+    /* COMEÇO SOBRE */
+    #sobre-title{
+        margin-bottom: 0.5em;
+        margin-top: -0.2em;
+    }
+    .titulo-e-texto{
+        display: flex;
+        justify-content: space-between;
+        padding: 2em 6%;
+    }
+    .titulo-e-texto h2{
+        line-height: 1.2em;
+        font-size: 3.5em;
+    }
+    .titulo-e-texto p{
+        width: 45%;
+        font-size: 1.1em;
+    }
+    /* FINAL SOBRE */
+
+    /* COMEÇO COLLETIVO */
+    .colletivo-content{
+        justify-content: space-around;
+    }
+    .colletivo-informacao{
+        width: 100%;
+    }
+    .colletivo-banner{
+        margin-top: 0;
+    }
+    .colletivo-titulo{
+        font-size: 1.3em;
+    }
+    .btn-colletivo{
+        width: 40%;
+    }
+    .btn-colletivo:hover{
+        color: #000;
+    }
+    .btn-colletivo img{
+        transform: rotate(180deg);
+    }
+    .btn-colletivo:hover > img{
+        transform: none;
+    }
+    /* FINAL COLLETIVO */
+
+    /* COMEÇO RODAPE */
+    .wavy-footer{
+        margin-top: -7.5em;
+    }
+    .logo-footer{
+        height: 3.5em;
+        margin-top: 2em;
+    }
+    .copyright{
+        font-size: 1em;
+    }
+    /* FINAL RODAPE */
+}
