@@ -7,7 +7,8 @@ import OnibusColletivo from '../../assets/img/onibus-colletivo.gif'
 import MemorizeJogo from '../../assets/img/memorize-jogo.png';
 import SetaColletivo from '../../assets/icons/arrow-icon.png'
 import BtnIniciar from '../../assets/img/btn-iniciar.png'
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
+import {Link as SmoothLink} from "react-scroll";
 import './Home.css';
 import PageProgress from 'react-page-progress';
 import Footer from "../../components/Footer";
@@ -19,9 +20,9 @@ export default function Home(){
                 <header className='main-header container'>
                     <div className='blur-nav'></div>
                     <nav className='main-nav'>
-                        <a href='#comojogar'>Como Jogar</a>
-                        <a href='#sobre'>Sobre</a>
-                        <a href='#colletivo'>Colletivo Design</a>
+                        <SmoothLink to="comojogar" smooth={true}>Como jogar</SmoothLink>
+                        <SmoothLink to="sobre" smooth={true}>Sobre</SmoothLink>
+                        <SmoothLink to="colletivo" smooth={true}>Colletivo</SmoothLink>
                     </nav>
                     <div className='page-progress'>
                         <PageProgress color={'#FF7D76'} height={'5px'}/>

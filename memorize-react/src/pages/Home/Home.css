@@ -30,7 +30,7 @@
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
-
+    transition: 10s;
 }
 .content{
     padding-top: 80px;
