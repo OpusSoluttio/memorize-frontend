@@ -21,6 +21,7 @@
     padding: 0;
     box-sizing: border-box;
     overflow-x: hidden;
+    
 }
 .container{
     height: 100vh;
@@ -297,6 +298,7 @@
 
 .colletivo-titulo{
     color: #EF4E30;
+    overflow-y: hidden;
     font-size: 1.2em;
 }
 
@@ -315,7 +317,8 @@
 }
 
 .colletivo-banner{
-    margin-top: 0.5e;
+    margin-top: 0.5em;
+    overflow-y: hidden;
 }
 
 .colletivo-banner img{
@@ -328,6 +331,7 @@
     align-items: center;
     padding-top : 2em;
     width: 80%;
+    overflow-y: hidden;
 }
 
 .colletivo-informacao p{
@@ -348,6 +352,7 @@
     transition: 0.25s;
     cursor: pointer;
     text-decoration: none;
+    overflow-y: hidden;
 }
 .btn-colletivo:hover{
     color: #EF4E30;

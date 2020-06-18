@@ -1,5 +1,6 @@
 import React from "react";
 import LogoFooter from '../assets/img/logofooter.png';
+import anime from 'animejs/lib/anime.es.js';
 
 
 export default function Footer(){

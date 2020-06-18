@@ -1,36 +1,51 @@
 import React from 'react';
-import Cerebro from '../../assets/img/cerebro.png'
-import LogoMemorize from '../../assets/img/logo-memorize.png'
-import LogoColletivo from '../../assets/img/logo-colletivo.png'
-import OnibusColletivo from '../../assets/img/onibus-colletivo.gif'
+import Cerebro from '../../assets/img/cerebro.png';
+import LogoMemorize from '../../assets/img/logo-memorize.png';
+import LogoColletivo from '../../assets/img/logo-colletivo.png';
+import OnibusColletivo from '../../assets/img/onibus-colletivo.gif';
 // import LogoFooter from '../../assets/img/logofooter.png';
 import MemorizeJogo from '../../assets/img/memorize-jogo.png';
+
 import SetaColletivo from '../../assets/icons/arrow-icon.png'
-import BtnIniciar from '../../assets/img/btn-iniciar.png'
+import BtnIniciar from '../../assets/img/btn-iniciar.png';
 // import {Link} from 'react-router-dom';
 import {Link as SmoothLink} from "react-scroll";
+import anime from 'animejs/lib/anime.es.js';
 import './Home.css';
-import './Home768.css'
-import './Home1920.css'
+import './Home425.css'
+import './Home768.css';
+import './Home1920.css';
 import PageProgress from 'react-page-progress';
 import Footer from "../../components/Footer";
 
 export default function Home(){
+
+    anime({
+        targets: '.logo',
+        scale: 1.2,
+        duration: 1000,
+        loop: 10,
+        direction: 'alternate',
+        easing: 'easeInOutExpo',
+      });
+
     return(
         <div className='Home'>
+
             <section className='header'>
                 <header className='main-header container'>
                     <div className='blur-nav'></div>
                     <nav className='main-nav'>
                         <SmoothLink to="comojogar" smooth={true} className="nav-link">Como Jogar</SmoothLink>
                         <SmoothLink to="sobre" smooth={true} className="nav-link">Sobre</SmoothLink>
-                        <SmoothLink to="colletivo" smooth={true} className="nav-link">Colletivo</SmoothLink>
+                        <SmoothLink to="colletivo" smooth={true} className="nav-link">Colletivo Design</SmoothLink>
                     </nav>
                     <div className='page-progress'>
                         <PageProgress color={'#FF7D76'} height={'5px'}/>
                     </div>
                     <div className='home-principal content'>
                         <div className='home-section'>
+  
                             <img className='logo' src={LogoMemorize}/>
                             <p className='texto-home-section'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra rutrum tempor!</p> 
                             <br/>

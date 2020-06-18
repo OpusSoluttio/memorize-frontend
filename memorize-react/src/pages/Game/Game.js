@@ -1,4 +1,7 @@
 import React,{Component} from "react";
+import "./Game.css";
+import anime from 'animejs/lib/anime.es.js';
+
 
 
 const cores = ["AMARELO","AZUL","VERDE","VERMELHO"];
@@ -223,12 +226,32 @@ export default class Game extends Component{
             this.obterStatus();
         },3000)
 
+        anime({
+            targets: '.destaque',
+            scale: 1.11,
+            duration: 1000,
+            loop: 10,
+            direction: 'alternate',
+            easing: 'easeInOutExpo',
+          });
+
     }
 
     render(){
         return(
             <div className="Game">
                 <h1> O JOGO </h1>
+
+                <div className="botao-principal">
+                    <div className="botao-cor amarelo destaque">
+                    </div>
+                    <div className="botao-cor verde">
+                    </div>
+                    <div className="botao-cor vermelho">
+                    </div>
+                    <div className="botao-cor azul destaque">
+                    </div>
+                </div>
             </div>
         )
     }

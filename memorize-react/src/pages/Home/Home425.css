@@ -1,0 +1,56 @@
+@media only screen and (max-width:425px){
+    /* HEADER */
+    .main-nav{
+        width: 90%;
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+        height: 55px;
+    }
+    .blur-nav{
+        display: none;
+    }
+    .main-nav a{
+        font-size: 1em;
+    }
+    .home-principal{
+        height: 110%;
+        margin-top: 10%;
+    }
+    .logo{
+        width: 60%;
+    }
+    .texto-home-section{
+        font-size: 0.90em;
+    }
+    .botao-jogar-home{
+        margin-top: -5%;
+    }
+    .botao-jogar-home p{
+        font-size: 1.3em;
+    }
+    .botao-jogar-home img{
+        width: 1.3em;
+        height: 1.3em;
+    }
+    /* COMO JOGAR */
+    .title-comojogar{
+        font-size: 0.55em;
+        margin-top: -5%;
+    }
+    .comojogar-section{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .memorize-jogo{
+        margin-left: -5.7%;
+        height: 600px;
+        background-color: greenyellow;
+    }
+    .botao-jogar-comojogar{
+        margin-top: 1000px;
+        
+    }
+    li{
+        font-size: 1px;
+    }
+}

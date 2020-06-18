@@ -1,0 +1,60 @@
+.botao-principal{
+    background-color: #4C3CB4;
+    padding: 2.5em;
+    width: 20em;
+    height: 20em;
+    margin: auto;
+    margin-top: 2em;
+    min-height: 15em;
+    display : flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+    clip-path: circle(50% at 50% 50%);
+    transform: rotate(45deg);
+    /* animation: rotate 1.5s linear infinite; */
+
+}
+
+  /* @keyframes rotate {
+    to {
+      transform: rotate(360deg);
+    }
+  } */
+
+.botao-cor{
+    height: 45%;
+    width: 45%;
+    clip-path: circle(50% at 50% 50%);
+    /* display: none; */
+
+    box-shadow: 0px 4px 26px #000;
+    transition: 0.2s;
+
+}
+
+.amarelo{
+    background-color: #FFD166;
+}
+
+.azul{
+    background-color: #118AB2;
+
+}
+
+.verde{
+    background-color: #06D6A0;
+
+}
+
+.vermelho{
+    background-color: #EF476F;
+}
+
+.destaque{
+    transform: scale(5%);
+    filter: brightness(150%);
+    transition: 0.2s;
+
+    box-shadow: 1px 4px 10px darkcyan;
+}

@@ -44,6 +44,10 @@
     .memorize-jogo{
         width: 40%;
     }
+    .botao-jogar-comojogar{
+        text-align: center;
+        height: 80px;
+    }
     /* SOBRE */
     .titulo-e-texto{
         margin-top: 2%;
@@ -63,6 +67,7 @@
     .colletivo-banner{
         width: 600px;
         height: 150px;
+        overflow: hidden;
     }
     .colletivo-banner img{
         width: 100%;
