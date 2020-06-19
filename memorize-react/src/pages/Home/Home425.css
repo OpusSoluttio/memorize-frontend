@@ -1,10 +1,21 @@
 @media only screen and (max-width:425px){
+    .content{
+        width: 95%;
+        padding: 2em 0;
+    }
+
+    .container{
+        margin-top: 0;
+
+    }
+
     /* HEADER */
     .main-nav{
-        width: 90%;
+        width: 100%;
         border-bottom-left-radius: 25px;
         border-bottom-right-radius: 25px;
         height: 55px;
+        position: absolute;
     }
     .blur-nav{
         display: none;
@@ -17,12 +28,15 @@
         margin-top: 10%;
     }
     .logo{
+        margin:1.5em;
         width: 60%;
     }
     .texto-home-section{
         font-size: 0.90em;
+        margin-bottom: 4em;
     }
     .botao-jogar-home{
+        padding: 0.25em;
         margin-top: -5%;
     }
     .botao-jogar-home p{
@@ -32,25 +46,85 @@
         width: 1.3em;
         height: 1.3em;
     }
+
     /* COMO JOGAR */
+
     .title-comojogar{
-        font-size: 0.55em;
-        margin-top: -5%;
+        width: 90%;
+        font-size: 0.9em;
     }
+
+    .como-jogar{
+        height: unset;
+    }
+
     .comojogar-section{
         display: flex;
         flex-direction: column-reverse;
+        justify-content: space-between;
+        height: 80%;
+        width: 100%;
     }
+    
+    .comojogar-section ul{
+        width: 90%;
+        margin: auto;
+    }
+
+    .comojogar-section ul li{
+        font-size: 1em;
+        padding: 0.25em 0;
+    }
+
     .memorize-jogo{
-        margin-left: -5.7%;
-        height: 600px;
-        background-color: greenyellow;
+        margin: 1em 0 0em -5.7%;
+        width: 17.5em;
+        height: 17.5em; 
+        margin-left: -5.7%; 
     }
+
     .botao-jogar-comojogar{
-        margin-top: 1000px;
+        width: 90%;
+        font-size: 1em;
         
     }
-    li{
-        font-size: 1px;
+
+    /* SOBRE */
+    #sobre-title{
+        font-size: 2em;
     }
+
+    .sobre{
+        height: unset;
+    }
+
+    .center-line{
+        display: none;
+    }
+
+    .titulo-e-texto{
+        flex-flow: column nowrap;
+        width: 95%;
+        margin: auto;
+    }
+
+    .titulo-e-texto p, .titulo-e-texto h2{
+        width: 100%;
+    }
+
+    .titulo-e-texto h2{
+        padding: 0.25em;
+        margin-bottom: 0.5em;
+        font-size: 2em;
+    }
+
+    /* .titulo-e-texto::after{
+        content: "";
+        display: block;
+        width: 90%;
+        height: 3px;
+        background-color: #fff;
+        margin-bottom: 1em;
+    } */
+
 }

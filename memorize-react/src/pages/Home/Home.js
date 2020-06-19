@@ -12,9 +12,9 @@ import BtnIniciar from '../../assets/img/btn-iniciar.png';
 import {Link as SmoothLink} from "react-scroll";
 import anime from 'animejs/lib/anime.es.js';
 import './Home.css';
-import './Home425.css'
-import './Home768.css';
 import './Home1920.css';
+import './Home768.css';
+import './Home425.css'
 import PageProgress from 'react-page-progress';
 import Footer from "../../components/Footer";
 
