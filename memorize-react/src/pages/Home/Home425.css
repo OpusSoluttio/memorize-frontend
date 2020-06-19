@@ -1,4 +1,5 @@
 @media only screen and (max-width:425px){
+    
     .content{
         width: 95%;
         padding: 2em 0;
@@ -126,5 +127,64 @@
         background-color: #fff;
         margin-bottom: 1em;
     } */
+
+    /* COLLETIVO */
+    .colletivo{
+        height: unset;
+        margin-bottom:3em;
+    }
+
+    .colletivo-content{
+        padding-top: 2em;
+    }
+
+    footer{
+        z-index: 1000;
+    }
+
+    .colletivo-banner img{
+        height: 4em;
+    }
+
+    .colletivo-content{
+        width: 95%;
+        height: unset;
+    }
+
+    .colletivo-content::before{
+        height: 7px;
+    }
+
+    .colletivo-informacao{
+        margin-top: -2em;
+        flex-flow: column nowrap;
+        height: unset;
+    }
+
+    .colletivo-informacao p{
+        width: 90%;
+    }
+
+    .btn-colletivo{
+        width: 70%;
+        position: relative;
+        bottom: 0em;
+        margin: unset;
+        font-size: 1.5em;
+    }
+
+    /* FOOTER */
+    .footer-content{
+        width: 100%;
+    }
+
+    .copyright{
+        font-size: 1em;
+    }
+
+    .copyright::before{
+        height: 4px;
+        margin-top: 1empx;
+    }
 
 }

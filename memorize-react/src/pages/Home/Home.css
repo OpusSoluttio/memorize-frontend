@@ -375,6 +375,7 @@
     /* background: #4C3CB4; */
     width: 100%;
     margin-top: -14em;
+    z-index: 1000;
 }
 svg{
     margin-bottom: -2em;
