@@ -9,27 +9,30 @@ import MemorizeJogo from '../../assets/img/memorize-jogo.png';
 import SetaColletivo from '../../assets/icons/arrow-icon.png'
 import BtnIniciar from '../../assets/img/btn-iniciar.png';
 // import {Link} from 'react-router-dom';
-import {Link as SmoothLink} from "react-scroll";
-import anime from 'animejs/lib/anime.es.js';
+import { Link as SmoothLink } from "react-scroll";
+// import anime from 'animejs/lib/anime.es.js';
 import './Home.css';
 import './Home1920.css';
 import './Home768.css';
 import './Home425.css'
 import PageProgress from 'react-page-progress';
 import Footer from "../../components/Footer";
+import Anime from "@mollycule/react-anime";
 
-export default function Home(){
+export default function Home() {
 
-    anime({
-        targets: '.logo',
-        scale: 1.2,
-        duration: 1000,
-        loop: 10,
-        direction: 'alternate',
-        easing: 'easeInOutExpo',
-      });
+    // anime({
+    //     targets: '.logo',
+    //     scale: 1.2,
+    //     duration: 1000,
+    //     loop: 10,
+    //     direction: 'alternate',
+    //     easing: 'easeInOutExpo',
+    //   });
 
-    return(
+
+
+    return (
         <div className='Home'>
 
             <section className='header'>
@@ -41,40 +44,51 @@ export default function Home(){
                         <SmoothLink to="colletivo" smooth={true} className="nav-link">Colletivo Design</SmoothLink>
                     </nav>
                     <div className='page-progress'>
-                        <PageProgress color={'#FF7D76'} height={'5px'}/>
+                        <PageProgress color={'#FF7D76'} height={'5px'} />
                     </div>
                     <div className='home-principal content'>
                         <div className='home-section'>
-  
-                            <img className='logo' src={LogoMemorize}/>
-                            <p className='texto-home-section'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra rutrum tempor!</p> 
-                            <br/>
+
+                            <img className='logo' src={LogoMemorize} />
+                            <p className='texto-home-section'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra rutrum tempor!</p>
+                            <br />
                             <span className='botao-jogar-home'>
-                                <img src={BtnIniciar}/>
+                                <img src={BtnIniciar} />
                                 <p>INICIAR</p>
-                            </span>   
-                        </div>       
+                            </span>
+                        </div>
                     </div>
                 </header>
             </section>
+
             <section className='como-jogar container' id='comojogar'>
-                <div className='como-jogar content' >
-                    <div className='title-comojogar'>
-                        <h2>Como Jogar</h2>
+                <Anime
+                    in
+                    appear
+                    mountOnEnter={true}
+                    duration={3000}
+                    onExited={{ translateY: -20, opacity: 0 }}
+                    onEntered={{ translateY: [-20, 0], opacity: [0, 1] }}
+
+                >
+                    <div className='como-jogar content' >
+                        <div className='title-comojogar'>
+                            <h2>Como Jogar</h2>
+                        </div>
+                        <div className='comojogar-section'>
+                            <ul>
+                                <li>1.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum urna orci</li>
+                                <li>2.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum urna orci, aliquam vel sagittis a, molestie lobortis nibh.</li>
+                                <li>3.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum urna orci, aliquam vel sagittis a, molestie lobortis nibh.</li>
+                            </ul>
+                            <img className='memorize-jogo' src={MemorizeJogo} />
+                        </div>
+                        <span href='#' className='botao-jogar-comojogar'>
+                            <img src={BtnIniciar} />
+                            <p>JOGAR AGORA</p>
+                        </span>
                     </div>
-                    <div className='comojogar-section'>
-                        <ul>
-                            <li>1.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum urna orci</li>
-                            <li>2.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum urna orci, aliquam vel sagittis a, molestie lobortis nibh.</li>
-                            <li>3.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum urna orci, aliquam vel sagittis a, molestie lobortis nibh.</li>
-                        </ul>
-                        <img className='memorize-jogo' src={MemorizeJogo}/>
-                    </div>
-                    <span href='#' className='botao-jogar-comojogar'>
-                        <img src={BtnIniciar}/>
-                        <p>JOGAR AGORA</p>
-                    </span>    
-                </div>
+                </Anime>
             </section>
             <section className='sobre container' id='sobre'>
                 <div className='sobre content'>
@@ -92,22 +106,33 @@ export default function Home(){
                 </div>
             </section>
             <section className='colletivo container' id='colletivo'>
-                <div className='colletivo-content content'>
-                    <div className='colletivo-titulo'>
-                        <p>Este projeto é oferecido por</p>
+                <Anime
+                    in
+                    appear
+                    mountOnEnter={true}
+                    duration={3000}
+                    onEntered={{ translateY: [-20, 0], opacity: [0, 1] }}
+                    onExited={{ translateY: -20, opacity: 0 }}
+                    easing="easeOutCubic"
+
+                >
+                    <div className='colletivo-content content'>
+                        <div className='colletivo-titulo'>
+                            <p>Este projeto é oferecido por</p>
+                        </div>
+                        <div className='colletivo-banner'>
+                            <img src={LogoColletivo} className='logoColletivo' />
+                        </div>
+                        <div className='colletivo-informacao'>
+                            <img src={OnibusColletivo} className='onibusColletivo' />
+                            <p>Conhecido por desenvolver e transformar design de forma estratégica para grandes empresas à startups, o Colletivo Design trabalha com branding, design gráfico e digital, ilustração, embalagem, sinalização, instalações digitais para publicidade, filmes, música e entretenimento em quase 15 anos de história.</p>
+                        </div>
+                        <a href="https://colletivo.com.br/" target="_blank" className='btn-colletivo'>
+                            <p>Ir para o site</p>
+                            <img src={SetaColletivo} alt="setaGiratoria" />
+                        </a>
                     </div>
-                    <div className='colletivo-banner'>
-                        <img src={LogoColletivo} className='logoColletivo'/>
-                    </div>
-                    <div className='colletivo-informacao'>
-                        <img src={OnibusColletivo} className='onibusColletivo'/>
-                        <p>Conhecido por desenvolver e transformar design de forma estratégica para grandes empresas à startups, o Colletivo Design trabalha com branding, design gráfico e digital, ilustração, embalagem, sinalização, instalações digitais para publicidade, filmes, música e entretenimento em quase 15 anos de história.</p>
-                    </div>
-                    <a href="https://colletivo.com.br/" target="_blank" className='btn-colletivo'>
-                        <p>Ir para o site</p>
-                        <img src={SetaColletivo} alt="setaGiratoria"/>
-                    </a>
-                </div>
+                </Anime>
             </section>
             <Footer />
         </div>
