@@ -21,7 +21,7 @@
     padding: 0;
     box-sizing: border-box;
     overflow-x: hidden;
-    
+    text-decoration: none;
 }
 .container{
     height: 100vh;
@@ -266,14 +266,19 @@
 .inverte{
     flex-flow: row-reverse;
 }
+
+.flex-vertical{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center ;
+    justify-content: space-between;
+}
+
 .center-line{
     background-color: #FFFDFD;
-    height: 70%;
-    width: 4px;
-    margin: auto;
-    position: absolute;
-    left: 50.5%;
-    /* right: 50%; */
+    height: 3px;
+    width: 80.5%;
+    margin: 1.5em auto;
     background-position: center;
 }
 /* FINAL SOBRE */

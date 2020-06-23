@@ -1,3 +1,74 @@
+/* CONTAINER GERAL */
+.game-content{
+    height: unset;
+    width: 92.5%;
+    margin: auto;
+}
+.Game{
+    height: 100vh;
+    background-color: #FFE5E5;
+    /* padding: 1em; */
+    width: 100%;
+
+    background-image: url(../../assets/img/ilustracao-game2.png);
+
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+}
+/* FIM DO CONTAINER GERAL */
+
+/* NAV */
+.game-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 10vh;
+    /* background-color: red; */
+    margin-top: -1em;
+ 
+}
+
+.voltar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.25em;
+    color: #959595;
+    transition: 0.25s;
+
+}
+
+.voltar img{
+    margin-right: 0.25em;
+}
+
+
+.nav-logo{
+    height: 12.5vh;
+    width: auto;
+    margin-right: 2em;
+}
+
+.interrogacao{
+    font-size: 5em;
+    color: #959595;
+    transition: 0.25s;
+}
+
+.voltar:hover, .interrogacao:hover{
+    transform: scale(2em);
+    filter: brightness(50%);
+}
+
+
+/* FIM DO NAV */
+
+.main{
+    height: auto;
+    overflow: hidden;
+}
+
 .botao-principal{
     background-color: #4C3CB4;
     padding: 2.5em;
@@ -12,23 +83,23 @@
     align-items: center;
     clip-path: circle(50% at 50% 50%);
     transform: rotate(45deg);
-    /* animation: rotate 1.5s linear infinite; */
 
+    -webkit-box-shadow:  0px 0px 10px 7px #000000;
+    -moz-box-shadow:  0px 0px 10px 7px #000000;
+    -ms-box-shadow:  0px 0px 10px 7px #000000;
+    -o-box-shadow:  0px 0px 10px 7px #000000;
+    box-shadow:  0px 0px 10px 7px #000000; 
+
+    cursor: none;
 }
-
-  /* @keyframes rotate {
-    to {
-      transform: rotate(360deg);
-    }
-  } */
-
+ 
 .botao-cor{
     height: 45%;
     width: 45%;
     clip-path: circle(50% at 50% 50%);
     /* display: none; */
 
-    box-shadow: 0px 4px 26px #000;
+    box-shadow: 10px 4px 26px #000;
     transition: 0.2s;
 
 }
@@ -53,7 +124,7 @@
 
 .destaque{
     transform: scale(5%);
-    filter: brightness(150%);
+    /* filter: brightness(150%); */
     transition: 0.2s;
 
     box-shadow: 1px 4px 10px darkcyan;

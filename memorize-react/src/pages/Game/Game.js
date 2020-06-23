@@ -1,44 +1,47 @@
-import React,{Component} from "react";
-import "./Game.css";
+import React, { Component } from 'react';
+import './Game1920.css'
+import './Game.css';
 import anime from 'animejs/lib/anime.es.js';
+import { Link } from 'react-router-dom';
+import SetaHome from '../../assets/img/voltar-home.png'
+import Logo from '../../assets/img/logo-memorize.png';
 
 
+const cores = ['AMARELO', 'AZUL', 'VERDE', 'VERMELHO'];
 
-const cores = ["AMARELO","AZUL","VERDE","VERMELHO"];
-
-export default class Game extends Component{
-    constructor(props){
+export default class Game extends Component {
+    constructor(props) {
         super(props);
         this.state = {
-            erro : false,
+            erro: false,
 
-            fase : null,
-            sequenciaCorreta : [],
-            sequenciaRecebida : [],
-            errouAFase : false,
-            passarDeFase : false,
-            mensagemExibida : "",
+            fase: null,
+            sequenciaCorreta: [],
+            sequenciaRecebida: [],
+            errouAFase: false,
+            passarDeFase: false,
+            mensagemExibida: '',
 
-            finalizarJogo : false,
+            finalizarJogo: false,
         }
     }
 
     transformarEmCores = (arrayDeCores) => {
         for (let i = 0; i < arrayDeCores.length; i++) {
             const numero = arrayDeCores[i];
-            
+
             switch (numero) {
                 case 1:
-                    arrayDeCores[i] = "AMARELO";
+                    arrayDeCores[i] = 'AMARELO';
                     break;
                 case 2:
-                    arrayDeCores[i] = "AZUL";
+                    arrayDeCores[i] = 'AZUL';
                     break;
                 case 3:
-                    arrayDeCores[i] = "VERDE";
+                    arrayDeCores[i] = 'VERDE';
                     break;
                 case 4:
-                    arrayDeCores[i] = "VERMELHO";
+                    arrayDeCores[i] = 'VERMELHO';
                     break;
                 default:
                     this.setState({ erro: true });
@@ -53,18 +56,18 @@ export default class Game extends Component{
     transformarEmNumeros = (arrayDeNumeros) => {
         for (let i = 0; i < arrayDeNumeros.length; i++) {
             const cor = arrayDeNumeros[i];
-            
+
             switch (cor.toUpperCase()) {
-                case "AMARELO":
+                case 'AMARELO':
                     arrayDeNumeros[i] = 1;
                     break;
-                case "AZUL":
+                case 'AZUL':
                     arrayDeNumeros[i] = 2;
                     break;
-                case "VERDE":
+                case 'VERDE':
                     arrayDeNumeros[i] = 3;
                     break;
-                case "VERMELHO":
+                case 'VERMELHO':
                     arrayDeNumeros[i] = 4;
                     break;
                 default:
@@ -76,8 +79,8 @@ export default class Game extends Component{
         return arrayDeNumeros;
     }
 
-    obterStatus = async() => {
-        // let url = "http://localhost:5000/api/teste";
+    obterStatus = async () => {
+        // let url = 'http://localhost:5000/api/teste';
 
         // await fetch(url)
         // .then(response => response.json())
@@ -90,11 +93,11 @@ export default class Game extends Component{
         // })
 
         var statusTeste = {
-            fase : 2,
-            passarDeFase : true,
-            sequenciaCorreta : [1,1,1,1],
-            sequenciaRecebida : [1,1,1,1],
-            errou : false,
+            fase: 2,
+            passarDeFase: true,
+            sequenciaCorreta: [1, 1, 1, 1],
+            sequenciaRecebida: [1, 1, 1, 1],
+            errou: false,
         }
 
         this.lidarComStatus(statusTeste);
@@ -106,16 +109,16 @@ export default class Game extends Component{
         try {
 
             this.setState({
-                fase : fase,
-                sequenciaCorreta : sequenciaCorreta,
-                sequenciaRecebida : sequenciaRecebida,
-                passarDeFase : passarDeFase,
-                errouAFase : errou,
+                fase: fase,
+                sequenciaCorreta: sequenciaCorreta,
+                sequenciaRecebida: sequenciaRecebida,
+                passarDeFase: passarDeFase,
+                errouAFase: errou,
             })
 
             // se deve fazer alguma coisa
             if (sequenciaRecebida.length === sequenciaCorreta.length) {
-                this.setState({mensagemExibida : "Essa foi a sua sequência"});
+                this.setState({ mensagemExibida: 'Essa foi a sua sequência' });
                 this.exibirSequencia(this.transformarEmCores(sequenciaRecebida));
 
                 // se erraram a sequencia
@@ -129,16 +132,16 @@ export default class Game extends Component{
                     this.finalizarJogo();
                 }
             } else {
-                this.setState({mensagemExibida : "Aguardando sequência..."})
+                this.setState({ mensagemExibida: 'Aguardando sequência...' })
             }
-        } catch(error) {
-            this.setState({erro : true});
+        } catch (error) {
+            this.setState({ erro: true });
             console.log(error);
-        }   
+        }
     }
 
 
-    criarFase = async(fase) =>{
+    criarFase = async (fase) => {
         let quantidade;
 
         switch (fase) {
@@ -167,24 +170,24 @@ export default class Game extends Component{
         }
 
         let sequenciaCorreta = this.criarSequencia(quantidade);
-        this.setState({mensagemExibida : "Decore essa sequência!"});
+        this.setState({ mensagemExibida: 'Decore essa sequência!' });
         this.exibirSequencia(sequenciaCorreta);
-        this.setState({mensagemExibida : "Aguardando sequência..."});
+        this.setState({ mensagemExibida: 'Aguardando sequência...' });
 
 
         let requestBody = {
-            fase : fase,
-            sequenciaCorreta : this.transformarEmNumeros(sequenciaCorreta),
+            fase: fase,
+            sequenciaCorreta: this.transformarEmNumeros(sequenciaCorreta),
         }
 
 
         // CRIAR SESSAO OU PASSAR DE FASE
-        // let url = "http://localhost:5000/api/teste";
+        // let url = 'http://localhost:5000/api/teste';
         // fetch(url,{
-        //     method: "POST",
+        //     method: 'POST',
         //     headers: {
-        //         "Content-type" : "application/json",
-        //         "Accept" : "application/json"
+        //         'Content-type' : 'application/json',
+        //         'Accept' : 'application/json'
         //     },
         //      body : JSON.stringify(requestBody)
         // })
@@ -199,14 +202,14 @@ export default class Game extends Component{
 
         console.log(JSON.stringify(requestBody));
 
-        
+
     }
 
     criarSequencia = (quantidade) => {
         let sequencia = [];
 
         for (let i = 0; i < quantidade; i++) {
-            var cor = cores[Math.floor(Math.random()*cores.length)];
+            var cor = cores[Math.floor(Math.random() * cores.length)];
             sequencia.push(cor);
         }
 
@@ -218,43 +221,64 @@ export default class Game extends Component{
     }
 
     finalizarJogo = () => {
-        this.setState( {finalizarJogo : true });
+        this.setState({ finalizarJogo: true });
     }
 
-    componentDidMount(){
+    componentDidMount() {
         setInterval(() => {
             this.obterStatus();
-        },3000)
+        }, 3000)
 
         anime({
             targets: '.destaque',
             scale: 1.11,
-            duration: 1000,
-            loop: 10,
+            duration: 100,
+            loop: true,
             direction: 'alternate',
             easing: 'easeInOutExpo',
-          });
+        });
+
+        anime({
+            targets: ".botao-principal",
+            rotate: 765,
+            duration: 4000,
+            loop: true,
+            direction: 'alternate',
+        })
 
     }
 
-    render(){
-        return(
-            <div className="Game">
-                <h1> O JOGO </h1>
+    render() {
+        return (
+            <div className='Game'>
 
-                <div className="botao-principal">
-                    <div className="botao-cor amarelo destaque">
-                    </div>
-                    <div className="botao-cor verde">
-                    </div>
-                    <div className="botao-cor vermelho">
-                    </div>
-                    <div className="botao-cor azul destaque">
+                <nav className='game-nav game-content'>
+                    <Link to='/' className='voltar'>
+                        {/* colocar setinha de voltar */}
+                        {/* <img alt='' src={}/> */}
+                        <img src={SetaHome} />
+                        <p>Voltar</p>
+                    </Link>
+                    <img alt='' src={Logo} className='nav-logo' />
+                    <Link to='/' className='interrogacao'>
+                        ?
+                    </Link>
+                </nav>
+
+                <div className='game-content main'>
+                    {/* fazer o pogreço aqui */}
+                    <div className='botao-principal'>
+                        <div className='botao-cor amarelo destaque'>
+                        </div>
+                        <div className='botao-cor verde destaque'>
+                        </div>
+                        <div className='botao-cor vermelho destaque'>
+                        </div>
+                        <div className='botao-cor azul destaque'>
+                        </div>
                     </div>
                 </div>
             </div>
         )
     }
-
-
 }

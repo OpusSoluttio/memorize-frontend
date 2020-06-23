@@ -8,7 +8,7 @@ import MemorizeJogo from '../../assets/img/memorize-jogo.png';
 
 import SetaColletivo from '../../assets/icons/arrow-icon.png'
 import BtnIniciar from '../../assets/img/btn-iniciar.png';
-// import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Link as SmoothLink } from "react-scroll";
 // import anime from 'animejs/lib/anime.es.js';
 import './Home.css';
@@ -51,7 +51,7 @@ export default function Home() {
                         appear
                         duration={0}
                         delay={0}
-                        onEntered={{ translateY: [-100, 0], opacity: [0, 1], duration:2500 }}
+                        onEntered={{ translateY: [-100, 0], opacity: [0, 1], duration: 2500 }}
                         onExited={{ translateY: -30, opacity: 0 }}
                     >
 
@@ -59,12 +59,12 @@ export default function Home() {
                             <div className='home-section'>
 
                                 <img className='logo' src={LogoMemorize} />
-                                <p className='texto-home-section'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra rutrum tempor!</p>
+                                <p className='texto-home-section'>Exercite a memória aprendendo, memorize agora!</p>
                                 <br />
-                                <span className='botao-jogar-home'>
+                                <Link className='botao-jogar-home' to="/game">
                                     <img src={BtnIniciar} />
                                     <p>INICIAR</p>
-                                </span>
+                                </Link>
                             </div>
                         </div>
                     </Anime>
@@ -79,34 +79,38 @@ export default function Home() {
                     </div>
                     <div className='comojogar-section'>
                         <ul>
-                            <li>1.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum urna orci</li>
-                            <li>2.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum urna orci, aliquam vel sagittis a, molestie lobortis nibh.</li>
-                            <li>3.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum urna orci, aliquam vel sagittis a, molestie lobortis nibh.</li>
+                            <li>1. Veja e memorize a sequência de cores que será exibida na tela;</li>
+                            <li>2. Em seguida utilize os sensores para reproduzir a sequência de cores anteriormente exibida e mostre seu potencial;</li>
+                            <li>3. Agora vá para a próxima fase e enfrente os novos desafios e novas sequências, evolua e desbloqueie os novos níveis até o liberar o maior prêmio, o conhecimento!</li>
                         </ul>
                         <img className='memorize-jogo' src={MemorizeJogo} />
                     </div>
-                    <span href='#' className='botao-jogar-comojogar'>
+                    <Link to="/game" className='botao-jogar-comojogar'>
                         <img src={BtnIniciar} />
                         <p>JOGAR AGORA</p>
-                    </span>
+                    </Link>
                 </div>
             </section>
-        <section className='sobre container' id='sobre'>
-            <div className='sobre content'>
-                <h2 id="sobre-title">Sobre</h2>
-                <div class="center-line"></div>
+            <section className='sobre container' id='sobre'>
+                <div className='sobre content'>
+                    <h2 id="sobre-title">Sobre</h2>
 
-                <div className="titulo-e-texto">
-                    <h2>O que é?</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et risus mollis, accumsan purus sit amet, pretium enim. Aliquam erat volutpat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent vel nisl ut odio efficitur ullamcorper ut at mauris</p>
+                    <div className="flex-vertical">
+
+                        <div className="titulo-e-texto">
+                            <h2>O que é?</h2>
+                            <p>Memorize é um jogo divertido e interativo para toda a família, é um game desenvolvido pela Opus Soluttio em parceria com a Colletivo Design. Veja, memorize a sequência de cores, utilize os sensores para reproduzi-la, apresente a sequência correta e passe para uma outra fase com maiores desafios!</p>
+                        </div>
+                        <div class="center-line"></div>
+                        <div className="titulo-e-texto inverte">
+                            <h2>Quem somos?</h2>
+                            <p>Somos um grupo de estudantes da escola SENAI de informática, apaixonados por tecnologia de redes de computadores e desenvolvimento de sistemas, esse é o projeto de conclusão de nosso curso, somos criativos, persistentes, e sobretudo, somos uma equipe, somos Opus Soluttio.</p>
+                        </div>
+                    </div>
+
                 </div>
-                <div className="titulo-e-texto inverte">
-                    <h2>Quem somos?</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et risus mollis, accumsan purus sit amet, pretium enim. Aliquam erat volutpat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent vel nisl ut odio efficitur ullamcorper ut at mauris</p>
-                </div>
-            </div>
-        </section>
-        <section className='colletivo container' id='colletivo'>
+            </section>
+            <section className='colletivo container' id='colletivo'>
                 <div className='colletivo-content content'>
                     <div className='colletivo-titulo'>
                         <p>Este projeto é oferecido por</p>
@@ -123,8 +127,8 @@ export default function Home() {
                         <img src={SetaColletivo} alt="setaGiratoria" />
                     </a>
                 </div>
-        </section>
-        <Footer />
+            </section>
+            <Footer />
         </div >
     )
 }
