@@ -1,0 +1,23 @@
+@media only screen and (max-width: 768px){
+    .Game{
+        background-image: url(../../assets/img/ilustracao-game-mobile.png);
+    }
+    .interrogacao{
+        position: absolute;
+        bottom: 0%;
+        right: 3%;
+    }
+    .game-nav{
+        margin-top: 1%;
+    }
+    .voltar{
+        margin-left: 4%;
+    }
+    .voltar p{
+        color: #FFE5E5;
+    }
+    .nav-logo{
+        position: absolute;
+        left: 50%;
+    }
+}

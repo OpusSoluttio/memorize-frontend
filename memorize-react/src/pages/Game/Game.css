@@ -1,4 +1,4 @@
-/* CONTAINER GERAL */
+CONTAINER GERAL
 .game-content{
     height: unset;
     width: 92.5%;
@@ -67,7 +67,118 @@
 .main{
     height: auto;
     overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
+
+/* PROGRESSO DE FASES */
+    .Progresso{
+        /* max-width: 7em; */
+        margin-left: 2em;
+        max-width: unset;
+        max-height: 70vh;
+
+        display: flex;
+        flex-flow: column-reverse nowrap;
+        align-items: center;
+        justify-content: flex-end;
+
+    }
+
+    .fase{
+        clip-path: circle(50% at 50% 50%);
+        /* background-color: #4C3CB4; */
+        /* width: 2em;
+        height: 2em; */
+        /* padding: 0.25em; */
+
+        overflow: hidden;
+        cursor: pointer;
+        /* display: flex;
+        align-items: center;
+        justify-content: space-between; */
+    }
+
+    .fase-desbloqueada{
+        clip-path: circle(50% at 50% 50%); 
+        background-color: #4C3CB4; 
+        width: 2em;
+        height: 2em; 
+        padding: 0.25em;
+
+    }
+
+
+    .fase::before{
+        content: "";
+        display: block;
+        height: 2em;
+        width: 5px;
+        background-color: #959595;
+        margin: auto;
+        margin-top: -0.9em;
+    }
+
+    .fase-desbloqueada::before{
+        content: "";
+        display: block;
+        height: 2em;
+        width: 5px;
+        background-color: #4C3CB4;
+        margin: auto;
+        margin-top: -0.9em;
+    }
+
+
+    .cadeado{
+        height: 1em;
+        width: 1em;
+        clip-path: circle(50% at 50% 50%);
+        background-color : #959595;
+        padding: 1em;
+
+    }
+
+    .trofeu{
+        clip-path: circle(50% at 50% 50%);
+        background-color: #4C3CB4;
+        padding: 1em;
+    }
+
+    .trofeu-bloqueado{
+        filter: saturate(0%);
+    }
+
+    .hover-text{
+        display: none;
+        transition: 0.5s;
+        width: auto;
+        color: #fff;
+        background-color: red;
+        padding: 0.5em;
+        margin-left: 2em;
+        border-radius: 10px 10px 10px 0px;
+    }
+
+    .fase-final::before, .fase-finak::after{
+        display: none;
+    }
+
+
+    /* .fase:hover .hover-text{
+        transition: 0.5s ease-in-out;
+        display: block;
+    } */
+
+
+    
+
+
+
+
+/* fim do progresso */
 
 .botao-principal{
     background-color: #4C3CB4;

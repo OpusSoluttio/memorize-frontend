@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import './Game1920.css'
 import './Game.css';
+import './Game425.css'; //MANO NADA FUNCIONA NESSA CACETA DE CSS
+import './Game768.css';
 import anime from 'animejs/lib/anime.es.js';
 import { Link } from 'react-router-dom';
 import SetaHome from '../../assets/img/voltar-home.png'
 import Logo from '../../assets/img/logo-memorize.png';
+import Progresso from "../../components/Progresso";
 
 
 const cores = ['AMARELO', 'AZUL', 'VERDE', 'VERMELHO'];
@@ -96,8 +98,8 @@ export default class Game extends Component {
             fase: 2,
             passarDeFase: true,
             sequenciaCorreta: [1, 1, 1, 1],
-            sequenciaRecebida: [1, 1, 1, 1],
-            errou: false,
+            sequenciaRecebida: [1, 1, 2, 1],
+            errou: true,
         }
 
         this.lidarComStatus(statusTeste);
@@ -240,9 +242,9 @@ export default class Game extends Component {
 
         anime({
             targets: ".botao-principal",
-            rotate: 765,
-            duration: 4000,
-            loop: true,
+            rotate: 360*5 + 45,
+            duration: 6000,
+            loop: false,
             direction: 'alternate',
         })
 
@@ -267,6 +269,10 @@ export default class Game extends Component {
 
                 <div className='game-content main'>
                     {/* fazer o pogreço aqui */}
+
+                    {/* <Progresso fase={5}/> */}
+
+
                     <div className='botao-principal'>
                         <div className='botao-cor amarelo destaque'>
                         </div>
