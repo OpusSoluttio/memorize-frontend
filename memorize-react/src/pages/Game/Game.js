@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import './Game.css';
 import './Game425.css'; //MANO NADA FUNCIONA NESSA CACETA DE CSS
 import './Game768.css';
+import './Game1920.css';
 import anime from 'animejs/lib/anime.es.js';
 import { Link } from 'react-router-dom';
 import SetaHome from '../../assets/img/voltar-home.png'
 import Logo from '../../assets/img/logo-memorize.png';
 import Progresso from "../../components/Progresso";
+import { Modal } from 'react-responsive-modal';
 
 
 const cores = ['AMARELO', 'AZUL', 'VERDE', 'VERMELHO'];
@@ -16,6 +18,8 @@ export default class Game extends Component {
         super(props);
         this.state = {
             erro: false,
+
+            open: false,
 
             fase: null,
             sequenciaCorreta: [],
@@ -95,7 +99,7 @@ export default class Game extends Component {
         // })
 
         var statusTeste = {
-            fase: 2,
+            fase: 5,
             passarDeFase: true,
             sequenciaCorreta: [1, 1, 1, 1],
             sequenciaRecebida: [1, 1, 2, 1],
@@ -242,7 +246,7 @@ export default class Game extends Component {
         anime({
             targets: ".botao-principal",
             rotate: 360*5 + 45,
-            duration: 6000,
+            duration: 10000,
             delay: 400,
             loop: false,
             direction: 'alternate',
@@ -262,15 +266,15 @@ export default class Game extends Component {
                         <p>Voltar</p>
                     </Link>
                     <img alt='' src={Logo} className='nav-logo' />
-                    <Link to='/' className='interrogacao'>
+                    <span className='interrogacao'>
                         ?
-                    </Link>
+                    </span>
                 </nav>
 
                 <div className='game-content main'>
                     {/* fazer o pogreço aqui */}
 
-                    <Progresso fase={2}/>
+                    <Progresso fase={this.state.fase} />
 
 
                     <div className='botao-principal'>

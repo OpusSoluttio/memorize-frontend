@@ -5,20 +5,28 @@
         margin-top: 1%;
     }
     .nav-logo{
-        position: absolute;
-        right: 25%;
-        
+        /* right: 25%; */
+        /* height: 50%; */
+        height: 10vh;
+        width: auto;
+        margin-left: -3.5em;
     }
     .voltar{
         margin-left: 4%;
     }
     .voltar p{
-        color: #FFE5E5;
+        display: none;
+        /* color: #FFE5E5; */
     }
     .botao-principal{
         height: 235px;
         width: 235px;
-        margin-top: 5%;
+        margin-top: 0;
+        
+        position: absolute;
+        top: calc(50% - (235px / 2));
+        left: calc(50% - (235px / 2));
+
     }
     .amarelo{
         width: 70px;
@@ -38,10 +46,8 @@
     }
     .Game{
         background-image: url(../../assets/img/ilustracao-game-mobile.png);
-        background-size: 165%;
-        background-position-x: 0%;
-       
-
+        background-size: 100%;
+        overflow: hidden;
     }
     .game-content{
         width: 100%;
@@ -51,4 +57,38 @@
         bottom: 0%;
         right: 5%;
     }
+
+
+    .main{
+        margin-top: 1em;
+        flex-flow: column nowrap;
+        align-items: center;
+        height: 60%;
+    }
+
+    .fases{
+        flex-flow: row;
+    }
+
+    .fase{
+        height: 1.5em;
+        width: 1.5em;
+    }
+
+    .fase-final{
+        height: 3em;
+        width: 3em;
+    }
+
+    .fase-group{
+        display: flex;
+        flex-flow: row-reverse;
+    }
+
+    .linha-progresso{
+        height: 4px;
+        width: 1.5em;
+    }
+
+    
 }

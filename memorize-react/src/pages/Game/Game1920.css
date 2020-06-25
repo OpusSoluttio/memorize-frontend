@@ -1,0 +1,48 @@
+@media only screen and (min-width:1920px){
+    nav{
+        position: relative;
+        top: 0%;
+        
+    }
+    .voltar{
+        font-size: 3em;
+    }
+    .voltar img{
+        width: 0.5em;
+    }
+    .interrogacao{
+        font-size: 5em;
+    }
+    .nav-logo{
+        width: 320px;
+        height: 160px;
+    }
+    .botao-principal{
+        height: 550px;
+        width: 550px;
+        margin-top: 5%;
+        margin-left: 40%;
+        padding: 4em;
+    }
+    .amarelo{
+        height: 190px;
+        width: 190px;
+    }
+    .azul{
+        height: 190px;
+        width: 190px;
+    }
+    .verde{
+        height: 190px;
+        width: 190px;
+    }
+    .vermelho{
+        height: 190px;
+        width: 190px;
+    }
+    .Progresso{
+        position: absolute;
+        left: 5%;
+        top: 20%;
+    }
+}

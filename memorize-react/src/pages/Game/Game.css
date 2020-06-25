@@ -1,4 +1,4 @@
-CONTAINER GERAL
+/* CONTAINER GERAL */
 .game-content{
     height: unset;
     width: 92.5%;
@@ -52,9 +52,11 @@ CONTAINER GERAL
 }
 
 .interrogacao{
+    border: none;
     font-size: 5em;
     color: #959595;
     transition: 0.25s;
+    cursor: pointer;
 }
 
 .voltar:hover, .interrogacao:hover{
@@ -77,7 +79,7 @@ CONTAINER GERAL
 /* PROGRESSO DE FASES */
     .Progresso{
         /* max-width: 7em; */
-        margin-left: 2em;
+        /* margin-left: 2em; */
         max-width: unset;
         height: 70vh;
     }
@@ -87,8 +89,7 @@ CONTAINER GERAL
         flex-flow: column-reverse nowrap;
         align-items: center;
         justify-content: space-between;
-        width: 5em;
-
+        /* width: 5em; */
         /* height: 60vh; */
 
     }
@@ -104,9 +105,10 @@ CONTAINER GERAL
 
         overflow: hidden;
         cursor: pointer;
-        /* display: flex;
-        align-items: center;
+        /* align-items: center;
         justify-content: space-between; */
+        display: flex;
+        flex-flow: column;
     }
 
     /* .fase-group{
@@ -124,15 +126,29 @@ CONTAINER GERAL
 
     .linha-bloqueada{
         background-color: #959595;
+    }
 
+    .seta-atual{
+        position: relative;
+        left: 20%;
+        bottom: 50%;
     }
 
     .linha-atual{
+        background-color: #949494;
     }
-
 
     .fase-atual{
     }
+
+/* 
+    .fase-atual::before{
+        content: "";
+        display: block;
+        height: 5px;
+        width: 5px;
+        background-color: red;
+    } */
 
     .fase-bloqueada{
         background-color: #959595;
@@ -158,14 +174,28 @@ CONTAINER GERAL
         cursor: pointer; */
     }
 
+    .fase-final-bloqueada{
+        background-image: url(../../assets/icons/trophy-icon-locked.png);
+    }
+
 
 /* fim do progresso */
+
+/* .grupo-principal{
+    position: absolute;
+    margin: auto;
+    left: calc(50% - 9em);
+    width: auto;
+    padding: 5em;
+} */
+
 
 .botao-principal{
     background-color: #4C3CB4;
     width: 18em;
     height: 18em;
     padding: 2.5em;
+    margin: auto;
 
     display : flex;
     margin: auto;
