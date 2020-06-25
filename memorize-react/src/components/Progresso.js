@@ -35,139 +35,43 @@ export default class Progresso extends Component {
                         /// verifica que tipo de fase criar de acordo com o progresso
                         if (i === 5 && item === "bloqueada") {
                             return (
-                                <div>
-                                    <li className="fase fase-bloqueada fase-final"></li>
-                                </div>
+                                <li>
+                                    <div className="fase fase-bloqueada fase-final"></div>
+                                </li>
                             )
                         } else if (i === 5 && item === "atual" || i === 5 && item === "desbloqueada") {
                             return (
-                                <div>
-                                    <li className="fase fase-atual fase-final"></li>
-                                </div>
+                                <li>
+                                    <div className="fase fase-atual fase-final"></div>
+                                </li>
                             )
 
                         } else if (item === "bloqueada") {
                             return (
-                                <div>
+                                <li>
                                     <span className="linha-progresso linha-bloqueada"></span>
-                                    <li className="fase fase-bloqueada"></li>
-                                </div>
+                                    <div className="fase fase-bloqueada"></div>
+                                </li>
                             )
                         } else if (item === "desbloqueada") {
                             return (
-                                <div>
+                                <li>
                                     <span className="linha-progresso"></span>
-                                    <li className="fase"></li>
-                                </div>
+                                    <div className="fase"></div>
+                                </li>
                             )
                         } else if (item === "atual") {
                             return (
-                                <div>
+                                <li>
                                     <span className="linha-progresso linha-atual"></span>
-                                    <li className="fase fase-atual"></li>
-                                </div>
+                                    <div className="fase fase-atual"></div>
+                                </li>
                             )
                         }
-
-
-
                     })}
                 </ul>
             </div>
-            // <div className="Progresso">
-            //     {this.props.fase <= 1 ?
-            //         <div className="fase fase-bloqueada">
-            //             <img src={Cadeado} alt="Fase bloqueada" className="cadeado" />
-            //             <span className="hover-text">
-            //                 Você ainda não desbloqueou essa fase :/
-            //             </span>
-            //         </div>
-            //         :
-            //         <div className="fase fase-desbloqueada">
-            //             <span className="hover-text">
-            //                 Lorem ipsum dolor sit amet
-            //             </span>
-            //         </div>
-            //     }
-
-            //     {this.props.fase <= 2 ?
-            //         <div className="fase fase-bloqueada">
-            //             <img src={Cadeado} alt="Fase bloqueada" className="cadeado" />
-            //             <span className="hover-text">
-            //                 Você ainda não desbloqueou essa fase :/
-            //             </span>
-            //         </div>
-            //         :
-            //         <div className="fase fase-desbloqueada">
-            //             <span className="hover-text">
-            //                 Lorem ipsum dolor sit amet
-            //             </span>
-            //         </div>
-            //     }
-
-            //     {this.props.fase <= 3 ?
-            //         <div className="fase fase-bloqueada">
-            //             <img src={Cadeado} alt="Fase bloqueada" className="cadeado" />
-            //             <span className="hover-text">
-            //                 Você ainda não desbloqueou essa fase :/
-            //             </span>
-            //         </div>
-            //         :
-            //         <div className="fase fase-desbloqueada">
-            //             <span className="hover-text">
-            //                 Lorem ipsum dolor sit amet
-            //             </span>
-            //         </div>
-            //     }
-
-            //     {this.props.fase <= 4 ?
-            //         <div className="fase fase-bloqueada">
-            //             <img src={Cadeado} alt="Fase bloqueada" className="cadeado" />
-            //             <span className="hover-text">
-            //                 Você ainda não desbloqueou essa fase :/
-            //             </span>
-            //         </div>
-            //         :
-            //         <div className="fase fase-desbloqueada">
-            //             <span className="hover-text">
-            //                 Lorem ipsum dolor sit amet
-            //             </span>
-            //         </div>
-            //     }
-
-            //     {this.props.fase <= 5 ?
-            //         <div className="fase fase-bloqueada">
-            //             <img src={Cadeado} alt="Fase bloqueada" className="cadeado" />
-            //             <span className="hover-text">
-            //                 Você ainda não desbloqueou essa fase :/
-            //             </span>
-            //         </div>
-            //         :
-            //         <div className="fase fase-desbloqueada">
-            //             <span className="hover-text">
-            //                 Lorem ipsum dolor sit amet
-            //             </span>
-            //         </div>
-            //     }
-
-            //     {this.props.fase <= 6 ?
-            //         <div className="fase fase-bloqueada fase-final">
-            //             <img src={Trofeu} alt="Fase bloqueada" className="trofeu trofeu-bloqueado" />
-            //             <span className="hover-text">
-            //                 Você ainda não desbloqueou essa fase :/
-            //             </span>
-            //         </div>
-            //         :
-            //         <div className="fase fase-desbloqueada fase-final">
-            //             <img src={Trofeu} alt="Você venceu" className="trofeu" />
-            //             <span className="hover-text">
-            //                 Fase final
-            //             </span>
-            //         </div>
-            //     }
-
-
-            // </div>
+            
         )
 
     }

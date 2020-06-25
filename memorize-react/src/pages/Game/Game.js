@@ -270,7 +270,7 @@ export default class Game extends Component {
                 <div className='game-content main'>
                     {/* fazer o pogreço aqui */}
 
-                    <Progresso fase={this.state.fase}/>
+                    <Progresso fase={2}/>
 
 
                     <div className='botao-principal'>

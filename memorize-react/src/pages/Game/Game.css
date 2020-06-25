@@ -26,7 +26,8 @@ CONTAINER GERAL
     min-height: 10vh;
     /* background-color: red; */
     margin-top: -1em;
- 
+    width: 95%;
+    margin:auto;
 }
 
 .voltar{
