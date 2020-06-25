@@ -78,21 +78,28 @@ CONTAINER GERAL
         /* max-width: 7em; */
         margin-left: 2em;
         max-width: unset;
-        max-height: 70vh;
+        height: 70vh;
+    }
 
+    .fases{
         display: flex;
         flex-flow: column-reverse nowrap;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: space-between;
+        width: 5em;
+
+        /* height: 60vh; */
 
     }
 
     .fase{
         clip-path: circle(50% at 50% 50%);
-        /* background-color: #4C3CB4; */
-        /* width: 2em;
-        height: 2em; */
-        /* padding: 0.25em; */
+        background-color: #4C3CB4;
+        width: 2em;
+        height: 2em;
+        margin: auto;
+
+        /* padding: 0.5em; */
 
         overflow: hidden;
         cursor: pointer;
@@ -101,97 +108,71 @@ CONTAINER GERAL
         justify-content: space-between; */
     }
 
-    .fase-desbloqueada{
-        clip-path: circle(50% at 50% 50%); 
-        background-color: #4C3CB4; 
-        width: 2em;
-        height: 2em; 
-        padding: 0.25em;
-
-    }
-
-
-    .fase::before{
-        content: "";
-        display: block;
-        height: 2em;
-        width: 5px;
-        background-color: #959595;
-        margin: auto;
-        margin-top: -0.9em;
-    }
-
-    .fase-desbloqueada::before{
-        content: "";
-        display: block;
-        height: 2em;
-        width: 5px;
-        background-color: #4C3CB4;
-        margin: auto;
-        margin-top: -0.9em;
-    }
-
-
-    .cadeado{
-        height: 1em;
-        width: 1em;
-        clip-path: circle(50% at 50% 50%);
-        background-color : #959595;
-        padding: 1em;
-
-    }
-
-    .trofeu{
-        clip-path: circle(50% at 50% 50%);
-        background-color: #4C3CB4;
-        padding: 1em;
-    }
-
-    .trofeu-bloqueado{
-        filter: saturate(0%);
-    }
-
-    .hover-text{
-        display: none;
-        transition: 0.5s;
-        width: auto;
-        color: #fff;
-        background-color: red;
-        padding: 0.5em;
-        margin-left: 2em;
-        border-radius: 10px 10px 10px 0px;
-    }
-
-    .fase-final::before, .fase-finak::after{
-        display: none;
-    }
-
-
-    /* .fase:hover .hover-text{
-        transition: 0.5s ease-in-out;
-        display: block;
+    /* .fase-group{
+        height: calc(100% / 6);
     } */
 
+    .linha-progresso{
+        display: block;
+        width: 6.5px;
+        height: 2em;
+        background-color: #4C3CB4;
+        margin: auto;
+        filter: brightness(80%);
+    }
 
-    
+    .linha-bloqueada{
+        background-color: #959595;
+
+    }
+
+    .linha-atual{
+    }
 
 
+    .fase-atual{
+    }
+
+    .fase-bloqueada{
+        background-color: #959595;
+        background-image: url(../../assets/icons/lock-icon.png);
+        background-size: 60%;
+        background-repeat: no-repeat;
+        background-position: center;
+        /* filter: saturate(0%); */
+    }
+
+    .fase-final{
+        clip-path: circle(50% at 50% 50%);
+        width: 4.5em;
+        height: 4.5em;
+        padding: 0.5em;
+
+        background-image: url(../../assets/icons/trophy-icon.png);
+        background-size: 60%;
+        background-repeat: no-repeat;
+        background-position: center;
+
+        /* overflow: hidden;
+        cursor: pointer; */
+    }
 
 
 /* fim do progresso */
 
 .botao-principal{
     background-color: #4C3CB4;
+    width: 18em;
+    height: 18em;
     padding: 2.5em;
-    width: 20em;
-    height: 20em;
+
+    display : flex;
     margin: auto;
     margin-top: 2em;
-    min-height: 15em;
-    display : flex;
     flex-flow: row wrap;
     justify-content: space-around;
     align-items: center;
+
     clip-path: circle(50% at 50% 50%);
     transform: rotate(45deg);
 
@@ -202,6 +183,10 @@ CONTAINER GERAL
     box-shadow:  0px 0px 10px 7px #000000; 
 
     cursor: none;
+
+    position: relative;
+    left: -3em;
+    /* left: 50%; */
 }
  
 .botao-cor{

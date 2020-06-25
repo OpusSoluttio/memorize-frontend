@@ -235,7 +235,6 @@ export default class Game extends Component {
             targets: '.destaque',
             scale: 1.11,
             duration: 100,
-            loop: true,
             direction: 'alternate',
             easing: 'easeInOutExpo',
         });
@@ -244,6 +243,7 @@ export default class Game extends Component {
             targets: ".botao-principal",
             rotate: 360*5 + 45,
             duration: 6000,
+            delay: 400,
             loop: false,
             direction: 'alternate',
         })
@@ -270,7 +270,7 @@ export default class Game extends Component {
                 <div className='game-content main'>
                     {/* fazer o pogreço aqui */}
 
-                    {/* <Progresso fase={5}/> */}
+                    <Progresso fase={this.state.fase}/>
 
 
                     <div className='botao-principal'>
