@@ -173,6 +173,10 @@
         font-size: 1.5em;
     }
 
+    .wavy-footer{
+        /* margin-top: -0.5em; */
+    }
+
     /* FOOTER */
     .footer-content{
         width: 100%;

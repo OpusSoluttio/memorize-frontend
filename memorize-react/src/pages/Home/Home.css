@@ -38,6 +38,24 @@
     width: 90vw;
     overflow: hidden;
 }
+
+
+::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+::-webkit-scrollbar-track {
+    background: #cccccc85;
+}
+  
+::-webkit-scrollbar-thumb {
+    background: #5e4bdd;
+    border-radius: 1em;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: #FF7D76;
+}
 /* TUDO */
 
 /* COMEÇO HEADER */
@@ -88,6 +106,7 @@
 
 .main-nav a:hover{
     color: #4C3CB4;
+    background : #4c3cb446
 }
 .page-progress{
     position: fixed;
@@ -382,7 +401,7 @@
     margin-top: -14em;
     z-index: 1000;
 }
-svg{
+.wavy-footer svg{
     margin-bottom: -2em;
 }
 .footer-container{

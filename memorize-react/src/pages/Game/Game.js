@@ -7,8 +7,10 @@ import anime from 'animejs/lib/anime.es.js';
 import { Link } from 'react-router-dom';
 import SetaHome from '../../assets/img/voltar-home.png'
 import Logo from '../../assets/img/logo-memorize.png';
-import Progresso from "../../components/Progresso";
+import Progresso from '../../components/Progresso';
 import { Modal } from 'react-responsive-modal';
+import "react-responsive-modal/styles.css";
+import MemorizeJogo from '../../assets/img/memorize-jogo.png';
 
 
 const cores = ['AMARELO', 'AZUL', 'VERDE', 'VERMELHO'];
@@ -99,7 +101,7 @@ export default class Game extends Component {
         // })
 
         var statusTeste = {
-            fase: 5,
+            fase: 1,
             passarDeFase: true,
             sequenciaCorreta: [1, 1, 1, 1],
             sequenciaRecebida: [1, 1, 2, 1],
@@ -124,7 +126,7 @@ export default class Game extends Component {
 
             // se deve fazer alguma coisa
             if (sequenciaRecebida.length === sequenciaCorreta.length) {
-                this.setState({ mensagemExibida: 'Essa foi a sua sequência' });
+                this.setState(() => ({ mensagemExibida: 'Essa foi a sua sequência' }));
                 this.exibirSequencia(this.transformarEmCores(sequenciaRecebida));
 
                 // se erraram a sequencia
@@ -231,6 +233,7 @@ export default class Game extends Component {
     }
 
     componentDidMount() {
+        this.obterStatus();
         setInterval(() => {
             this.obterStatus();
         }, 3000)
@@ -244,8 +247,8 @@ export default class Game extends Component {
         });
 
         anime({
-            targets: ".botao-principal",
-            rotate: 360*5 + 45,
+            targets: '.botao-principal',
+            rotate: 360*3 + 45,
             duration: 10000,
             delay: 400,
             loop: false,
@@ -254,7 +257,16 @@ export default class Game extends Component {
 
     }
 
+    onOpenModal = () => {
+        this.setState({ open: true });
+    };
+    
+    onCloseModal = () => {
+        this.setState({ open: false });
+    };
+
     render() {
+        const { open } = this.state;
         return (
             <div className='Game'>
 
@@ -266,17 +278,50 @@ export default class Game extends Component {
                         <p>Voltar</p>
                     </Link>
                     <img alt='' src={Logo} className='nav-logo' />
-                    <span className='interrogacao'>
-                        ?
-                    </span>
+                    <div>
+                        <p className='interrogacao' onClick={this.onOpenModal}>?</p>
+                        <Modal 
+                        open={open} 
+                        onClose={this.onCloseModal} 
+                        center 
+                        focusTrapped={false}
+                        styles={
+                            {modal: {
+                                backgroundColor : "#4C3CB4",
+                                borderRadius: "0.2em",
+                                color: "#fff"
+                                },
+                            overlay: {
+                                backdropFilter: "blur(15px)",
+                                backgroundColor : "#4c3cb446",
+                                borderRadius: "0.2em"
+                            }
+                            }
+                            // ,
+                            // {overlay: {
+                            //     backgroundColor : "#07AAFF",
+                            //     borderRadius: "0.2em"
+                            // }}
+                        }
+                        >
+                            <div className='comojogar-ajuda-content'>
+                                <h2>Como Jogar</h2>
+                                <br/>
+                                <br/>
+                                <ul>
+                                    <li>1. Veja e memorize a sequência de cores que será exibida na tela;</li>
+                                    <br/>
+                                    <li>2. Em seguida utilize os sensores para reproduzir a sequência de cores anteriormente exibida e mostre seu potencial;</li>
+                                    <br/>
+                                    <li>3. Agora vá para a próxima fase e enfrente os novos desafios e novas sequências, evolua e desbloqueie os novos níveis até o liberar o maior prêmio, o conhecimento!</li>
+                                </ul>
+                            </div>
+                        </Modal>
+                    </div>
                 </nav>
 
                 <div className='game-content main'>
-                    {/* fazer o pogreço aqui */}
-
-                    <Progresso fase={this.state.fase} />
-
-
+                    <Progresso fase={3} />
                     <div className='botao-principal'>
                         <div className='botao-cor amarelo destaque'>
                         </div>
@@ -287,6 +332,7 @@ export default class Game extends Component {
                         <div className='botao-cor azul destaque'>
                         </div>
                     </div>
+                    <p className='status-game'>{this.state.mensagemExibida}</p>
                 </div>
             </div>
         )

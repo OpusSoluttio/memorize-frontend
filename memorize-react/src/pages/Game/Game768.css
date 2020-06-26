@@ -1,24 +1,69 @@
 @media only screen and (max-width: 768px){
     .Game{
         background-image: url(../../assets/img/ilustracao-game-mobile.png);
+        background-size: 120%;
+        background-position-x: 0%;
     }
     .interrogacao{
         position: absolute;
         bottom: 0%;
         right: 3%;
+        font-size: 130px;
     }
     .game-nav{
         margin-top: 1%;
     }
     .voltar{
         margin-left: 4%;
+        
     }
     .voltar p{
         display: none;
-        /* color: #FFE5E5; */
+        
     }
-    .nav-logo{
-        position: absolute;
-        left: 50%;
+    .status-game{
+        color: #4C3CB4;
+        overflow-y: hidden;
+        font-size: 1.5em;
+        width: 100%;
+        margin-top: -1%;
+    }
+    .main{
+        margin-top: 1em;
+        flex-flow: column nowrap;
+        align-items: center;
+        height: 60%;
+    }
+
+    .fases{
+        flex-flow: row;
+    }
+
+    .fase{
+        height: 1.5em;
+        width: 1.5em;
+    }
+
+    .fase-final{
+        height: 3em;
+        width: 3em;
+    }
+
+    .fase-group{
+        display: flex;
+        flex-flow: row-reverse;
+    }
+
+    .linha-progresso{
+        height: 4px;
+        width: 1.5em;
+    }
+    .status-game{
+        color: #4C3CB4;
+        overflow-y: hidden;
+        font-size: 2em;
+        width: 100%;
+        margin-top: -1%;
+        text-align: center;
     }
 }

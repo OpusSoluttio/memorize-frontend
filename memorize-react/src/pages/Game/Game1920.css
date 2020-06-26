@@ -1,9 +1,16 @@
 @media only screen and (min-width:1920px){
+    
+    *{
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
     nav{
         position: relative;
         top: 0%;
         
     }
+    
+
     .voltar{
         font-size: 3em;
     }

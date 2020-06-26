@@ -1,15 +1,17 @@
 @media only screen and (max-width:425px){
     
-    
+    .interrogacao{
+        position: absolute;
+        bottom: 10%;
+        font-size: 75px !important;
+    }
     .game-nav{
         margin-top: 1%;
     }
     .nav-logo{
-        /* right: 25%; */
-        /* height: 50%; */
         height: 10vh;
         width: auto;
-        margin-left: -3.5em;
+
     }
     .voltar{
         margin-left: 4%;
@@ -46,17 +48,14 @@
     }
     .Game{
         background-image: url(../../assets/img/ilustracao-game-mobile.png);
-        background-size: 100%;
+        background-size: 150%;
         overflow: hidden;
+        background-position-x: 0%;
     }
     .game-content{
         width: 100%;
     }
-    .interrogacao{
-        position: absolute;
-        bottom: 0%;
-        right: 5%;
-    }
+    
 
 
     .main{
@@ -88,6 +87,13 @@
     .linha-progresso{
         height: 4px;
         width: 1.5em;
+    }
+    .status-game{
+        color: #4C3CB4;
+        overflow-y: hidden;
+        font-size: 1.25em !important;
+        width: 100%;
+        margin-top: -1%;
     }
 
     

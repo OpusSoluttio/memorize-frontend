@@ -52,7 +52,6 @@
 }
 
 .interrogacao{
-    border: none;
     font-size: 5em;
     color: #959595;
     transition: 0.25s;
@@ -75,7 +74,36 @@
     align-items: center;
     justify-content: space-between;
 }
-
+.status-game{
+    color: #4C3CB4;
+    position: absolute;
+    position: absolute;
+    text-align: center;
+    top: 70%;
+    bottom: 7em;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 30%;
+    height: 5%;
+}
+.comojogar-ajuda-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 5%;
+}
+.comojogar-ajuda-content > h2::after{
+    content: "";
+    display: block;
+    width: 100%;
+    margin-top:  0.25em;
+    background-color: #fff;
+    height: 0.2em;
+}
+.comojogar-ajuda-content > ul > li{
+    font-family: "Baloo 2 Medium";
+}
 /* PROGRESSO DE FASES */
     .Progresso{
         /* max-width: 7em; */
@@ -143,7 +171,7 @@
 
 /* 
     .fase-atual::before{
-        content: "";
+        content: '';
         display: block;
         height: 5px;
         width: 5px;
@@ -215,8 +243,10 @@
 
     cursor: none;
 
-    position: relative;
-    left: -3em;
+    position: absolute !important;
+    left: calc(50% - 9em);
+    bottom: calc(50% - 9em)
+    /* left: -2.5em; */
     /* left: 50%; */
 }
  
