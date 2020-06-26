@@ -1,7 +1,6 @@
 @media only screen and (min-width:1920px){
     
     *{
-        overflow-y: hidden;
         overflow-x: hidden;
     }
     nav{
@@ -9,8 +8,6 @@
         top: 0%;
         
     }
-    
-
     .voltar{
         font-size: 3em;
     }
@@ -25,11 +22,14 @@
         height: 160px;
     }
     .botao-principal{
+        padding: 4.5em;
         height: 550px;
         width: 550px;
-        margin-top: 5%;
-        margin-left: 40%;
-        padding: 4em;
+        margin-top: 0;
+        
+        position: absolute;
+        top: calc(50% - (550px / 2));
+        left: calc(50% - (550px / 2));
     }
     .amarelo{
         height: 190px;
@@ -47,9 +47,24 @@
         height: 190px;
         width: 190px;
     }
+    .status-game{
+        font-size: 2em;
+        top: 80%;
+    }
     .Progresso{
         position: absolute;
         left: 5%;
         top: 20%;
+    }
+    .comojogar-ajuda-content{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .comojogar-ajuda-content > h2{
+        font-size: 3em;
+    }
+    .comojogar-ajuda-content > ul > li{
+        font-size: 1.8em;
     }
 }

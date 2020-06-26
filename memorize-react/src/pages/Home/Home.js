@@ -37,7 +37,6 @@ export default function Home() {
 
             <section className='header'>
                 <header className='main-header container'>
-                    <div className='blur-nav'></div>
                     <nav className='main-nav'>
                         <SmoothLink to="comojogar" smooth={true} className="nav-link">Como Jogar</SmoothLink>
                         <SmoothLink to="sobre" smooth={true} className="nav-link">Sobre</SmoothLink>

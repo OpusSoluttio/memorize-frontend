@@ -280,30 +280,17 @@ export default class Game extends Component {
                     <img alt='' src={Logo} className='nav-logo' />
                     <div>
                         <p className='interrogacao' onClick={this.onOpenModal}>?</p>
-                        <Modal 
-                        open={open} 
-                        onClose={this.onCloseModal} 
-                        center 
-                        focusTrapped={false}
-                        styles={
-                            {modal: {
+                        <Modal open={open} onClose={this.onCloseModal} center focusTrapped={false}
+                        styles={{modal: {
                                 backgroundColor : "#4C3CB4",
                                 borderRadius: "0.2em",
                                 color: "#fff"
                                 },
-                            overlay: {
-                                backdropFilter: "blur(15px)",
-                                backgroundColor : "#4c3cb446",
-                                borderRadius: "0.2em"
-                            }
-                            }
-                            // ,
-                            // {overlay: {
-                            //     backgroundColor : "#07AAFF",
-                            //     borderRadius: "0.2em"
-                            // }}
-                        }
-                        >
+                                overlay: {
+                                    backdropFilter: "blur(15px)",
+                                    backgroundColor : "#4c3cb446",
+                                    borderRadius: "0.2em"
+                                }}}>
                             <div className='comojogar-ajuda-content'>
                                 <h2>Como Jogar</h2>
                                 <br/>
