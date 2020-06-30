@@ -15,7 +15,7 @@ export default class Sequenciador extends React.Component {
             this.exibirSequencia(this.props.sequencia);
             console.log("diferente")
         } else {
-            console.log("igual")
+            console.log("igual");
         }
 
         // console.log(prevProps);
@@ -44,15 +44,17 @@ export default class Sequenciador extends React.Component {
                     break;
             }
 
-                anime({
-                    targets: botao.current,
-                    delay: ((i + 1) * 1000) + 7000,
-                    brightness: 200,
-                    scale: 1.25,
-                    duration: 350,
-                    direction: 'alternate',
-                    easing: 'easeInOutExpo',
-                })
+            anime({
+                targets: "." + cor.toLowerCase(),
+                delay: (i * 1000) + 5000,
+                brightness: 200,
+                scale: 1.3,
+                duration: 350,
+                direction: 'alternate',
+                easing: 'easeInOutExpo',
+            })
+
+            console.log(botao.current)
 
         });
     }

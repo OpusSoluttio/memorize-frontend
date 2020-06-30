@@ -103,10 +103,10 @@ export default class Game extends Component {
         // })
 
         var statusTeste = {
-            fase: 1,
+            fase: 3,
             passarDeFase: true,
-            sequenciaCorreta: [1, 2, 4, 3],
-            sequenciaRecebida: [1, 4, 2, 3],
+            sequenciaCorreta: [1, 2, 1, 2],
+            sequenciaRecebida: [1, 4, 3],
             errou: true,
         }
 
@@ -268,7 +268,7 @@ export default class Game extends Component {
         anime({
             targets: '.botao-principal',
             rotate: 360*3 + 45,
-            duration: 10000,
+            duration: 7000,
             delay: 400,
             loop: false,
             direction: 'alternate',

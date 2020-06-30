@@ -3,16 +3,29 @@ import Cadeado from "../assets/icons/lock-icon.png";
 import Trofeu from "../assets/icons/trophy-icon.png";
 import Anime from "@mollycule/react-anime";
 import ReactTooltip from "react-tooltip";
+import { Modal } from 'react-responsive-modal';
+import "react-responsive-modal/styles.css";
 
 
 export default class Progresso extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            teste: 'PUTS gril',
+            faseModal : "",
+        }
+    }
+
+    onTeste = (fase) => {
+        this.setState({ teste: 'o jogo game', open : true, faseModal : fase });
+    };
+
+    onCloseModal = () => {
+        this.setState({ teste: '', open : false, faseModal : "" });
     }
 
     render() {
         const array = [];
-        // let alturaSeta = 0;
 
         for (let i = 0; i < 6; i++) {
             const element = i;
@@ -20,7 +33,6 @@ export default class Progresso extends Component {
             if (element > this.props.fase - 1) {
                 array.push("bloqueada");
             } else if (element === this.props.fase - 1) {
-                // alturaSeta = i + 1;
                 array.push("atual");
             } else if (element < this.props.fase - 1) {
                 array.push("desbloqueada");
@@ -30,7 +42,7 @@ export default class Progresso extends Component {
         return (
             <div className="Progresso">
                 <ReactTooltip 
-                id="fase-tooltip-bloqueado"
+                id="fase-tooltip"
                 place="right"
                 type="dark"
                 effect="solid"
@@ -38,23 +50,6 @@ export default class Progresso extends Component {
                 delayShow={0.5}
                 delayHide={0.5} />
 
-                <ReactTooltip 
-                id="fase-tooltip-desbloqueado"
-                place="right"
-                type="dark"
-                effect="solid"
-                multiline={true}
-                delayShow={0.5}
-                delayHide={0.5} />
-
-                <ReactTooltip 
-                id="fase-tooltip-atual"
-                place="right"
-                type="dark"
-                effect="solid"
-                multiline={true}
-                delayShow={0.5}
-                delayHide={0.5} />
 
                 <ul className="fases">
                     {array.map((item, i) => {
@@ -65,7 +60,7 @@ export default class Progresso extends Component {
                             return (
                                 <li className="fase-group">
                                     <div className="fase fase-bloqueada fase-final fase-final-bloqueada"
-                                        data-for="fase-tooltip-bloqueado"
+                                        data-for="fase-tooltip"
                                         data-tip="Você ainda não desbloqueou essa fase :/"
                                     ></div>
                                 </li>
@@ -81,7 +76,7 @@ export default class Progresso extends Component {
                                         onEntering={{ backgroundColor: ["#4c3cb4", "#999"], duration: 1000 }}
                                     >
                                         <div className="fase fase-atual fase-final"
-                                        data-for="fase-tooltip-atual"
+                                        data-for="fase-tooltip"
                                         data-tip="Você está aqui"
                                         >
                                         </div>
@@ -93,7 +88,7 @@ export default class Progresso extends Component {
                             return (
                                 <li className="fase-group">
                                     <div className="fase fase-atual fase-final"
-                                        data-for="fase-tooltip-desbloqueado"
+                                        data-for="fase-tooltip"
                                         data-tip={"Parabéns! Você venceu!"}
                                         >
                                     </div>
@@ -105,7 +100,7 @@ export default class Progresso extends Component {
                                     <span className="linha-progresso linha-bloqueada"></span>
                                     <div 
                                     className="fase fase-bloqueada"
-                                    data-for="fase-tooltip-bloqueado"
+                                    data-for="fase-tooltip"
                                     data-tip="Você ainda não desbloqueou essa fase :/"
                                     >
 
@@ -114,14 +109,15 @@ export default class Progresso extends Component {
                             )
                         } else if (item === "desbloqueada") {
                             return (
-                                <li className="fase-group">
-                                    <span className="linha-progresso"></span>
-                                    <div className="fase"
-                                        data-for="fase-tooltip-desbloqueado"
-                                        data-tip={"Fase " + (i+1)}
-                                        >
-                                    </div>
-                                </li>
+                                    <li className="fase-group">
+                                        <span className="linha-progresso"></span>
+                                        <div className="fase"
+                                            onClick={() => this.onTeste(i+1)}
+                                            data-for="fase-tooltip"
+                                            data-tip={"Fase " + (i+1)}
+                                            >
+                                        </div>
+                                    </li>
                             )
                         } else if (item === "atual") {
                             return (
@@ -137,7 +133,7 @@ export default class Progresso extends Component {
                                     >
 
                                         <div className="fase fase-atual"
-                                            data-for="fase-tooltip-atual"
+                                            data-for="fase-tooltip"
                                             data-tip="Você está aqui"
                                         >
                                         </div>
@@ -147,6 +143,28 @@ export default class Progresso extends Component {
                         }
                     })}
                 </ul>
+
+                <Modal
+                    open={this.state.open}
+                    onClose={this.onCloseModal}
+                    center focusTrapped={false}
+                        styles={
+                                
+                                {modal: {
+                                backgroundColor : "#4C3CB4",
+                                borderRadius: "0.2em",
+                                color: "#fff",
+                                width: "80%",
+                                },
+                                overlay: {
+                                    backdropFilter: "blur(15px)",
+                                    backgroundColor : "#4c3cb446",
+                                    borderRadius: "0.2em"
+                                }}}
+                >
+                    <h2>Fase {this.state.faseModal}</h2>
+                    <p>{this.state.teste}</p>
+                </Modal>
             </div>
 
         )
