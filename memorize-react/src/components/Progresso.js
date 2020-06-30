@@ -5,23 +5,40 @@ import Anime from "@mollycule/react-anime";
 import ReactTooltip from "react-tooltip";
 import { Modal } from 'react-responsive-modal';
 import "react-responsive-modal/styles.css";
+import whatever from '../modalFases.js';
 
 
 export default class Progresso extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            teste: 'PUTS gril',
+            texto: '',
             faseModal : "",
         }
     }
 
-    onTeste = (fase) => {
-        this.setState({ teste: 'o jogo game', open : true, faseModal : fase });
+    onOpenModal = (fase) => {
+        let faseBuscada = whatever.modalFases.find(item => item.faseModal === fase);
+        
+        this.setState({
+            open : true,
+            faseModal : fase,
+            texto : faseBuscada.texto,
+        })
     };
 
     onCloseModal = () => {
-        this.setState({ teste: '', open : false, faseModal : "" });
+        this.setState({  open : false});
+
+        setTimeout(() => {
+            this.setState({texto : "", faseModal : ""})
+        }, 250); 
+    }
+
+
+    componentDidMount(){
+        // posso testar um baguio dps
+        console.log(whatever.modalFases);
     }
 
     render() {
@@ -112,7 +129,7 @@ export default class Progresso extends Component {
                                     <li className="fase-group">
                                         <span className="linha-progresso"></span>
                                         <div className="fase"
-                                            onClick={() => this.onTeste(i+1)}
+                                            onClick={() => this.onOpenModal(i+1)}
                                             data-for="fase-tooltip"
                                             data-tip={"Fase " + (i+1)}
                                             >
@@ -149,7 +166,6 @@ export default class Progresso extends Component {
                     onClose={this.onCloseModal}
                     center focusTrapped={false}
                         styles={
-                                
                                 {modal: {
                                 backgroundColor : "#4C3CB4",
                                 borderRadius: "0.2em",
@@ -163,7 +179,7 @@ export default class Progresso extends Component {
                                 }}}
                 >
                     <h2>Fase {this.state.faseModal}</h2>
-                    <p>{this.state.teste}</p>
+                    <p>{this.state.texto}</p>
                 </Modal>
             </div>
 

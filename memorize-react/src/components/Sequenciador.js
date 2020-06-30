@@ -24,6 +24,12 @@ export default class Sequenciador extends React.Component {
 
     // FIX ME - NAO ESTA REPETINDO AS CORES QUANDO PRECISA
     exibirSequencia = (sequencia) => {
+        
+
+        var animacoes = anime.timeline({
+            delay : 400,
+            autoplay : false,
+        })
 
         sequencia.map((cor, i) => {
             let botao;
@@ -45,16 +51,27 @@ export default class Sequenciador extends React.Component {
                     break;
             }
 
-
-            anime({
+            animacoes.add({
                 targets: botao,
-                delay: (i * 1000) + 5000,
-                brightness: 200,
-                scale: 1.3,
-                duration: 350,
+                scale: [1, 1.25, 1],
+                keyFrames : [{backgroundColor : "#ffffff"}],
                 direction: 'alternate',
-                easing: 'easeInOutExpo',
+                easing: 'cubicBezier(.5, .05, .1, .3)'
             })
+
+            setTimeout(() => {
+                animacoes.play();
+            }, 6000);
+
+            // anime({
+            //     targets: botao,
+            //     delay: (i * 1000) + 5000,
+            //     brightness: 200,
+            //     scale: 1.3,
+            //     duration: 350,
+            //     direction: 'alternate',
+            //     easing: 'easeInOutExpo',
+            // })
 
         });
     }

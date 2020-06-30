@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Game.css';
-import './Game425.css'; //MANO NADA FUNCIONA NESSA CACETA DE CSS
+import './Game425.css'; 
 import './Game768.css';
 import './Game1920.css';
 import anime from 'animejs/lib/anime.es.js';
@@ -104,7 +104,7 @@ export default class Game extends Component {
         var statusTeste = {
             fase: 3,
             passarDeFase: true,
-            sequenciaCorreta: [1, 2, 3, 4,3,2,1,4],
+            sequenciaCorreta: [1, 1, 1, 1],
             sequenciaRecebida: [1, 4, 3],
             errou: true,
         }
