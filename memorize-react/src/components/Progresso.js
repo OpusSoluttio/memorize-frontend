@@ -8,7 +8,6 @@ import ReactTooltip from "react-tooltip";
 export default class Progresso extends Component {
     constructor(props) {
         super(props);
-        this.refFaseAtual = React.createRef();
     }
 
     render() {

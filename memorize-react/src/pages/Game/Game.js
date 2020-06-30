@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import SetaHome from '../../assets/img/voltar-home.png'
 import Logo from '../../assets/img/logo-memorize.png';
 import Progresso from '../../components/Progresso';
+import Sequenciador from "../../components/Sequenciador";
 import { Modal } from 'react-responsive-modal';
 import "react-responsive-modal/styles.css";
 import MemorizeJogo from '../../assets/img/memorize-jogo.png';
@@ -26,6 +27,7 @@ export default class Game extends Component {
             fase: null,
             sequenciaCorreta: [],
             sequenciaRecebida: [],
+            sequenciaExibida : [],
             errouAFase: false,
             passarDeFase: false,
             mensagemExibida: '',
@@ -103,8 +105,8 @@ export default class Game extends Component {
         var statusTeste = {
             fase: 1,
             passarDeFase: true,
-            sequenciaCorreta: [1, 1, 1, 1],
-            sequenciaRecebida: [1, 1, 2, 1],
+            sequenciaCorreta: [1, 2, 4, 3],
+            sequenciaRecebida: [1, 4, 2, 3],
             errou: true,
         }
 
@@ -116,31 +118,60 @@ export default class Game extends Component {
         var { sequenciaRecebida, sequenciaCorreta, fase, passarDeFase, errou } = status;
         try {
 
-            this.setState({
-                fase: fase,
-                sequenciaCorreta: sequenciaCorreta,
-                sequenciaRecebida: sequenciaRecebida,
-                passarDeFase: passarDeFase,
-                errouAFase: errou,
+            // this.setState({
+            //     fase: fase,
+            //     sequenciaRecebida : sequenciaRecebida,
+            //     sequenciaCorreta : sequenciaCorreta,
+            // })
+
+            this.setState((prevState) => {
+                if (prevState.sequenciaCorreta.length !== sequenciaCorreta.length) {
+                    console.log("deviatadiferente")
+                    return ({
+                        //SE MUDOU, DEVE EXIBIR A SEQUENCIA
+                        sequenciaExibida: this.transformarEmCores(sequenciaCorreta),
+
+                        sequenciaCorreta: sequenciaCorreta,
+                        fase: fase,
+                        sequenciaRecebida: sequenciaRecebida
+                    })
+                } else if (sequenciaRecebida.length === sequenciaCorreta.length && sequenciaRecebida.length !== prevState.sequenciaRecebida.length) {
+
+                    return ({
+                        //SE MUDOU, DEVE EXIBIR A SEQUENCIA
+                        sequenciaExibida: this.transformarEmCores(sequenciaRecebida),
+                        mensagemExibida : "Essa foi sua sequência",
+                        sequenciaCorreta: sequenciaCorreta,
+                        fase: fase,
+                        sequenciaRecebida: sequenciaRecebida
+                    })
+                } else {
+
+                    return ({ fase: fase, sequenciaRecebida: sequenciaRecebida })
+                }
+            
             })
 
             // se deve fazer alguma coisa
             if (sequenciaRecebida.length === sequenciaCorreta.length) {
-                this.setState(() => ({ mensagemExibida: 'Essa foi a sua sequência' }));
-                this.exibirSequencia(this.transformarEmCores(sequenciaRecebida));
+                this.setState(() => ({ 
+                    sequenciaExibida : this.transformarEmCores(sequenciaRecebida), 
+                    mensagemExibida: 'Essa foi a sua sequência',
+                }))
 
                 // se erraram a sequencia
-                if (errou) {
-                    this.criarFase(fase);
-                    // se deve passar de fase
-                } else if (!errou && passarDeFase && fase < 6) {
-                    this.criarFase(fase + 1);
-                    // se deve finalizar o jogo
-                } else if (!errou && passarDeFase && fase >= 6) {
-                    this.finalizarJogo();
-                }
+                // if (errou) {
+                //     this.criarFase(fase);
+                //     // se deve passar de fase
+                // } else if (!errou && passarDeFase && fase < 6) {
+                //     this.criarFase(fase + 1);
+                //     // se deve finalizar o jogo
+                // } else if (!errou && passarDeFase && fase >= 6) {
+                //     this.finalizarJogo();
+                // }
             } else {
-                this.setState({ mensagemExibida: 'Aguardando sequência...' })
+                // this.exibirSequencia(this.transformarEmCores(sequenciaCorreta));
+                this.setState({ mensagemExibida: 'Aguardando sequência...' });
             }
         } catch (error) {
             this.setState({ erro: true });
@@ -224,10 +255,6 @@ export default class Game extends Component {
         return sequencia;
     }
 
-    exibirSequencia = (sequencia) => {
-        console.log(sequencia);
-    }
-
     finalizarJogo = () => {
         this.setState({ finalizarJogo: true });
     }
@@ -237,14 +264,6 @@ export default class Game extends Component {
         setInterval(() => {
             this.obterStatus();
         }, 3000)
-
-        anime({
-            targets: '.destaque',
-            scale: 1.11,
-            duration: 100,
-            direction: 'alternate',
-            easing: 'easeInOutExpo',
-        });
 
         anime({
             targets: '.botao-principal',
@@ -308,17 +327,20 @@ export default class Game extends Component {
                 </nav>
 
                 <div className='game-content main'>
-                    <Progresso fase={3} />
-                    <div className='botao-principal'>
-                        <div className='botao-cor amarelo destaque'>
+                    <Progresso fase={this.state.fase} />
+
+                    <Sequenciador sequencia={this.state.sequenciaExibida}/>
+                    {/* <div className='botao-principal'>
+                        <div className='botao-cor amarelo' ref={this.botaoAmarelo}>
                         </div>
-                        <div className='botao-cor verde destaque'>
+                        <div className='botao-cor verde' ref={this.botaoVerde}>
                         </div>
-                        <div className='botao-cor vermelho destaque'>
+                        <div className='botao-cor vermelho' ref={this.botaoVermelho}>
                         </div>
-                        <div className='botao-cor azul destaque'>
+                        <div className='botao-cor azul' ref={this.botaoAzul}>
                         </div>
-                    </div>
+                    </div> */}
+                    
                     <p className='status-game'>{this.state.mensagemExibida}</p>
                 </div>
             </div>
