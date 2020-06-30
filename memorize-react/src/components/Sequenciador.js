@@ -24,28 +24,30 @@ export default class Sequenciador extends React.Component {
 
     // FIX ME - NAO ESTA REPETINDO AS CORES QUANDO PRECISA
     exibirSequencia = (sequencia) => {
+
         sequencia.map((cor, i) => {
             let botao;
 
             switch (cor.toUpperCase()) {
                 case "AMARELO":
-                    botao = this.botaoAmarelo;
+                    botao = this.botaoAmarelo.current;
                     break;
                 case "VERMELHO":
-                    botao = this.botaoVermelho;
+                    botao = this.botaoVermelho.current;
                     break;
                 case "AZUL":
-                    botao = this.botaoAzul;
+                    botao = this.botaoAzul.current;
                     break;
                 case "VERDE":
-                    botao = this.botaoVerde;
+                    botao = this.botaoVerde.current;
                     break;
                 default:
                     break;
             }
 
+
             anime({
-                targets: "." + cor.toLowerCase(),
+                targets: botao,
                 delay: (i * 1000) + 5000,
                 brightness: 200,
                 scale: 1.3,
@@ -54,12 +56,11 @@ export default class Sequenciador extends React.Component {
                 easing: 'easeInOutExpo',
             })
 
-            console.log(botao.current)
-
         });
     }
 
     render() {
+
         return (
             <div className='botao-principal'>
                 <div className='botao-cor amarelo' ref={this.botaoAmarelo}>

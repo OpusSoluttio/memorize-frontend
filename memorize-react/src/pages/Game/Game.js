@@ -11,7 +11,6 @@ import Progresso from '../../components/Progresso';
 import Sequenciador from "../../components/Sequenciador";
 import { Modal } from 'react-responsive-modal';
 import "react-responsive-modal/styles.css";
-import MemorizeJogo from '../../assets/img/memorize-jogo.png';
 
 
 const cores = ['AMARELO', 'AZUL', 'VERDE', 'VERMELHO'];
@@ -105,7 +104,7 @@ export default class Game extends Component {
         var statusTeste = {
             fase: 3,
             passarDeFase: true,
-            sequenciaCorreta: [1, 2, 1, 2],
+            sequenciaCorreta: [1, 2, 3, 4,3,2,1,4],
             sequenciaRecebida: [1, 4, 3],
             errou: true,
         }
