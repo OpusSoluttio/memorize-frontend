@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a95f2fd0.chunk.css",
+    "main.js": "/static/js/main.7cc7f652.chunk.js",
+    "main.js.map": "/static/js/main.7cc7f652.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.9c9abebe.js",
+    "runtime-main.js.map": "/static/js/runtime-main.9c9abebe.js.map",
+    "static/css/2.257f4af1.chunk.css": "/static/css/2.257f4af1.chunk.css",
+    "static/js/2.716ed336.chunk.js": "/static/js/2.716ed336.chunk.js",
+    "static/js/2.716ed336.chunk.js.map": "/static/js/2.716ed336.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.df21109a773083adbbd3fe9022a84bdf.js": "/precache-manifest.df21109a773083adbbd3fe9022a84bdf.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.257f4af1.chunk.css.map": "/static/css/2.257f4af1.chunk.css.map",
+    "static/css/main.a95f2fd0.chunk.css.map": "/static/css/main.a95f2fd0.chunk.css.map",
+    "static/js/2.716ed336.chunk.js.LICENSE.txt": "/static/js/2.716ed336.chunk.js.LICENSE.txt",
+    "static/media/Home.css": "/static/media/cerebro.7d973cf5.png",
+    "static/media/Game768.css": "/static/media/ilustracao-game-mobile.1188a2ee.png",
+    "static/media/Game.css": "/static/media/ilustracao-game2.8bfe234e.png",
+    "static/media/logo-memorize.png": "/static/media/logo-memorize.ad2bd6d4.png",
+    "static/media/logo.svg": "/static/media/logo.5d5d9eef.svg",
+    "static/media/logofooter.png": "/static/media/logofooter.4acb969a.png",
+    "static/media/memorize-jogo.png": "/static/media/memorize-jogo.842bc7de.png",
+    "static/media/onibus-colletivo.gif": "/static/media/onibus-colletivo.66d79d46.gif"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9c9abebe.js",
+    "static/css/2.257f4af1.chunk.css",
+    "static/js/2.716ed336.chunk.js",
+    "static/css/main.a95f2fd0.chunk.css",
+    "static/js/main.7cc7f652.chunk.js"
+  ]
+}
