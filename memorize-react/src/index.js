@@ -19,8 +19,8 @@ const Routes = (
   <BrowserRouter>
     <div>
       <Switch>
-        <Route exact path="/game" component={Game}/>
-        <Route exact path="/" component={Home}/>
+        <Route exact path="/memorize-frontend/game" component={Game}/>
+        <Route exact path="/memorize-frontend/" component={Home}/>
       </Switch>
     </div>
   </BrowserRouter>
