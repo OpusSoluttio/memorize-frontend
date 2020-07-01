@@ -57,8 +57,8 @@ export default class Sequenciador extends React.Component {
                 scale: [0.8, 1.25, 1],
                 keyFrames : [{backgroundColor : "#ffffff"}],
                 direction: 'alternate',
-                easing: 'easeInOutExpo'
-            })
+                easing: 'easeInOutExpo',
+            },"-=200")
 
             // a linha do tempo de animacoes vai iniciar apos o tempo determinado
             setTimeout(() => {
