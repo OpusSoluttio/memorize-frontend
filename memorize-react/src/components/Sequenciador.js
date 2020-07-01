@@ -18,19 +18,19 @@ export default class Sequenciador extends React.Component {
             console.log("igual");
         }
 
-        // console.log(prevProps);
-        // console.log(this.props);
+
     }
 
     // FIX ME - NAO ESTA REPETINDO AS CORES QUANDO PRECISA
     exibirSequencia = (sequencia) => {
         
-
+        // cria uma "linha do tempo" de animacoes, que ainda nao e iniciada
         var animacoes = anime.timeline({
-            delay : 400,
+            delay : 350,
             autoplay : false,
         })
 
+        //para cada cor na sequencia, ele vai pegar a "ref" da cor
         sequencia.map((cor, i) => {
             let botao;
 
@@ -51,28 +51,19 @@ export default class Sequenciador extends React.Component {
                     break;
             }
 
+            // com a ref certa, ele vai adicionar uma animacao a linha do tempo de animacoes
             animacoes.add({
                 targets: botao,
-                scale: [1, 1.25, 1],
+                scale: [0.8, 1.25, 1],
                 keyFrames : [{backgroundColor : "#ffffff"}],
                 direction: 'alternate',
-                easing: 'cubicBezier(.5, .05, .1, .3)'
+                easing: 'easeInOutExpo'
             })
 
+            // a linha do tempo de animacoes vai iniciar apos o tempo determinado
             setTimeout(() => {
                 animacoes.play();
-            }, 6000);
-
-            // anime({
-            //     targets: botao,
-            //     delay: (i * 1000) + 5000,
-            //     brightness: 200,
-            //     scale: 1.3,
-            //     duration: 350,
-            //     direction: 'alternate',
-            //     easing: 'easeInOutExpo',
-            // })
-
+            }, 6900);
         });
     }
 

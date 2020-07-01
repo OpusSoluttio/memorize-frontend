@@ -102,11 +102,11 @@ export default class Game extends Component {
         // })
 
         var statusTeste = {
-            fase: 3,
+            fase: 4,
             passarDeFase: true,
-            sequenciaCorreta: [1, 1, 1, 1],
-            sequenciaRecebida: [1, 4, 3],
-            errou: true,
+            sequenciaCorreta: [1, 1, 2, 1],
+            sequenciaRecebida: [1, 4, 3,2],
+            errou: false,
         }
 
         this.lidarComStatus(statusTeste);
@@ -168,6 +168,7 @@ export default class Game extends Component {
                 // } else if (!errou && passarDeFase && fase >= 6) {
                 //     this.finalizarJogo();
                 // }
+
             } else {
                 // this.exibirSequencia(this.transformarEmCores(sequenciaCorreta));
                 this.setState({ mensagemExibida: 'Aguardando sequência...' });
