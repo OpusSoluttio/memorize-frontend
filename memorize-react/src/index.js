@@ -20,7 +20,7 @@ const Routes = (
     <div>
       <Switch>
         <Route exact path="/memorize-frontend/game" component={Game}/>
-        <Route exact path="/memorize-frontend/" component={Home}/>
+        <Route exact path="/" component={Home}/>
       </Switch>
     </div>
   </BrowserRouter>

@@ -290,7 +290,7 @@ export default class Game extends Component {
             <div className='Game'>
 
                 <nav className='game-nav game-content'>
-                    <Link to='/' className='voltar'>
+                    <Link to='/memorize-frontend' className='voltar'>
                         {/* colocar setinha de voltar */}
                         {/* <img alt='' src={}/> */}
                         <img src={SetaHome} />
