@@ -60,7 +60,7 @@ export default function Home() {
                                 <img className='logo' src={LogoMemorize} />
                                 <p className='texto-home-section'>Exercite a memória aprendendo, memorize agora!</p>
                                 <br />
-                                <Link className='botao-jogar-home' to="/memorize-frontend/game">
+                                <Link className='botao-jogar-home' to={"/game"}>
                                     <img src={BtnIniciar} />
                                     <p>INICIAR</p>
                                 </Link>
@@ -84,7 +84,7 @@ export default function Home() {
                         </ul>
                         <img className='memorize-jogo' src={MemorizeJogo} />
                     </div>
-                    <Link to="/memorize-frontend/game" className='botao-jogar-comojogar'>
+                    <Link to={"/game"} className='botao-jogar-comojogar'>
                         <img src={BtnIniciar} />
                         <p>JOGAR AGORA</p>
                     </Link>

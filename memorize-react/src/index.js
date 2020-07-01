@@ -16,11 +16,11 @@ import Game from "../src/pages/Game/Game";
 
 
 const Routes = (
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <div>
       <Switch>
-        <Route exact path="/memorize-frontend/game" component={Game}/>
-        <Route exact path="/memorize-frontend" component={Home}/>
+        <Route exact path="/game" component={Game}/>
+        <Route exact path="/" component={Home}/>
       </Switch>
     </div>
   </BrowserRouter>
