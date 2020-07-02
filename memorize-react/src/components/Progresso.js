@@ -36,9 +36,26 @@ export default class Progresso extends Component {
     }
 
 
-    componentDidMount(){
-        // posso testar um baguio dps
-        console.log(whatever.modalFases);
+    componentDidUpdate(prevProps) {
+        if (prevProps.fase !== this.props.fase) {
+
+            //fase atual menos uma (mostra a ultima desbloqueada)
+            let faseBuscada = whatever.modalFases.find(item => item.faseModal === this.props.fase - 1);
+
+            // if (faseBuscada !== null && faseBuscada !== undefined) {
+            //     this.setState({
+            //         open: true,
+            //         faseModal: this.props.fase - 1,
+            //         texto: faseBuscada.texto,
+            //     })
+            // }
+
+            // this.setState({
+            //     open: true,
+            //     faseModal: this.props.fase - 1,
+            //     texto: faseBuscada.texto,
+            // })
+        }
     }
 
     render() {
@@ -165,18 +182,25 @@ export default class Progresso extends Component {
                     open={this.state.open}
                     onClose={this.onCloseModal}
                     center focusTrapped={false}
-                        styles={
-                                {modal: {
-                                backgroundColor : "#4C3CB4",
+                    styles={
+                        {
+                            modal: {
+                                backgroundColor: "#4C3CB4",
                                 borderRadius: "0.2em",
                                 color: "#fff",
                                 width: "80%",
-                                },
-                                overlay: {
-                                    backdropFilter: "blur(15px)",
-                                    backgroundColor : "#4c3cb446",
-                                    borderRadius: "0.2em"
-                                }}}
+                            },
+                            overlay: {
+                                backdropFilter: "blur(15px)",
+                                backgroundColor: "#4c3cb446",
+                                borderRadius: "0.2em"
+                            },
+                            closeButton : {
+                                backgroundColor : "#ffffff",
+                                tintColor : "#FFFFFF",
+                                backgroundColor : "#FFFFFF"
+                            }
+                        }}
                 >
                     <h2>Fase {this.state.faseModal}</h2>
                     <p>{this.state.texto}</p>

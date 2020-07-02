@@ -63,7 +63,7 @@ export default class Sequenciador extends React.Component {
             // a linha do tempo de animacoes vai iniciar apos o tempo determinado
             setTimeout(() => {
                 animacoes.play();
-            }, 6900);
+            }, 1000);
         });
     }
 

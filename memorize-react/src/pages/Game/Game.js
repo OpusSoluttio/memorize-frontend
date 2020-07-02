@@ -23,6 +23,7 @@ export default class Game extends Component {
 
             open: false,
 
+            idSessao : null,
             fase: null,
             sequenciaCorreta: [],
             sequenciaRecebida: [],
@@ -89,27 +90,28 @@ export default class Game extends Component {
     }
 
     obterStatus = async () => {
-        // let url = 'http://localhost:5000/api/teste';
+        let url = 'http://memorize.southcentralus.cloudapp.azure.com:5000/api/sessao';
 
-        // await fetch(url)
-        // .then(response => response.json())
-        // .then(data => {
-        //     // this.lidarComStatus(data);
-        // })
-        // .catch(error => {
-        //     this.setState({erro : true});
-        //     console.log(error);
-        // })
+        await fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            this.setState({idSessao : data.id});
+            this.lidarComStatus(data);
+        })
+        .catch(error => {
+            this.setState({erro : true});
+            console.log(error);
+        })
 
-        var statusTeste = {
-            fase: 4,
-            passarDeFase: true,
-            sequenciaCorreta: [1, 1, 2, 1],
-            sequenciaRecebida: [1, 4, 3,2],
-            errou: false,
-        }
+        // var statusTeste = {
+        //     fase: 6,
+        //     passarDeFase: true,
+        //     sequenciaCorreta: [1, 1, 2, 1],
+        //     sequenciaRecebida: [1, 4, 3,2],
+        //     errou: false,
+        // }
 
-        this.lidarComStatus(statusTeste);
+        // this.lidarComStatus(statusTeste);
     }
 
     lidarComStatus = (status) => {
@@ -117,22 +119,17 @@ export default class Game extends Component {
         var { sequenciaRecebida, sequenciaCorreta, fase, passarDeFase, errou } = status;
         try {
 
-            // this.setState({
-            //     fase: fase,
-            //     sequenciaRecebida : sequenciaRecebida,
-            //     sequenciaCorreta : sequenciaCorreta,
-            // })
-
             this.setState((prevState) => {
                 if (prevState.sequenciaCorreta.length !== sequenciaCorreta.length) {
                     console.log("deviatadiferente")
                     return ({
-                        //SE MUDOU, DEVE EXIBIR A SEQUENCIA
+                        //SE AINDA NAO CHEGOU TODA A SEQUENCIA DOS SENSORES
+                        mensagemExibida: "Decore essa sequência!",
                         sequenciaExibida: this.transformarEmCores(sequenciaCorreta),
 
                         sequenciaCorreta: sequenciaCorreta,
                         fase: fase,
-                        sequenciaRecebida: sequenciaRecebida
+                        sequenciaRecebida: sequenciaRecebida,
                     })
                 } else if (sequenciaRecebida.length === sequenciaCorreta.length && sequenciaRecebida.length !== prevState.sequenciaRecebida.length) {
 
@@ -159,19 +156,19 @@ export default class Game extends Component {
                 }))
 
                 // se erraram a sequencia
-                // if (errou) {
-                //     this.criarFase(fase);
-                //     // se deve passar de fase
-                // } else if (!errou && passarDeFase && fase < 6) {
-                //     this.criarFase(fase + 1);
-                //     // se deve finalizar o jogo
-                // } else if (!errou && passarDeFase && fase >= 6) {
-                //     this.finalizarJogo();
-                // }
+                if (errou) {
+                    this.criarFase(fase);
+                    // se deve passar de fase
+                } else if (!errou && passarDeFase && fase < 6) {
+                    this.criarFase(fase + 1);
+                    // se deve finalizar o jogo
+                } else if (!errou && passarDeFase && fase >= 6) {
+                    this.finalizarJogo();
+                }
 
             } else {
                 // this.exibirSequencia(this.transformarEmCores(sequenciaCorreta));
-                this.setState({ mensagemExibida: 'Aguardando sequência...' });
+                // this.setState({ mensagemExibida: 'Aguardando sequência...' });
             }
         } catch (error) {
             this.setState({ erro: true });
@@ -209,9 +206,12 @@ export default class Game extends Component {
         }
 
         let sequenciaCorreta = this.criarSequencia(quantidade);
-        this.setState({ mensagemExibida: 'Decore essa sequência!' });
-        this.exibirSequencia(sequenciaCorreta);
-        this.setState({ mensagemExibida: 'Aguardando sequência...' });
+        this.setState({
+            mensagemExibida: 'Decore essa sequência!',
+            sequenciaCorreta: sequenciaCorreta,
+            sequenciaExibida: sequenciaCorreta,
+        });
+        // this.setState({ mensagemExibida: 'Aguardando sequência...' });
 
 
         let requestBody = {
@@ -221,23 +221,25 @@ export default class Game extends Component {
 
 
         // CRIAR SESSAO OU PASSAR DE FASE
-        // let url = 'http://localhost:5000/api/teste';
-        // fetch(url,{
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-type' : 'application/json',
-        //         'Accept' : 'application/json'
-        //     },
-        //      body : JSON.stringify(requestBody)
-        // })
-        // .then(response => response.json())
-        // .then(data => {
+        let url = 'http://memorize.southcentralus.cloudapp.azure.com:5000/api/sessao';
+        fetch(url,{
+            method: 'POST',
+            headers: {
+                'Content-type' : 'application/json',
+                'Accept' : 'application/json'
+            },
+             body : JSON.stringify(requestBody)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.log(error);
+            this.setState({erro : true})
+        })
 
-        // })
-        // .catch(error => {
-        //     console.log(error);
-        //     this.setState({erro : true})
-        // })
+        this.setState({mensagemExibida : "Aguardando sequência dos sensores"})
 
         console.log(JSON.stringify(requestBody));
 
@@ -260,10 +262,11 @@ export default class Game extends Component {
     }
 
     componentDidMount() {
-        this.obterStatus();
+
+        // a cada 5 segundos ele checa o status da sessão ativa
         setInterval(() => {
             this.obterStatus();
-        }, 3000)
+        }, 5000)
 
         anime({
             targets: '.botao-principal',

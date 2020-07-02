@@ -1,7 +1,7 @@
 import React from 'react';
 import Cerebro from '../../assets/img/cerebro.png';
 import LogoMemorize from '../../assets/img/logo-memorize.png';
-import LogoColletivo from '../../assets/img/logo-colletivo.png';
+import LogoColletivo from '../../assets/img/logo-colletivo.svg';
 import OnibusColletivo from '../../assets/img/onibus-colletivo.gif';
 // import LogoFooter from '../../assets/img/logofooter.png';
 import MemorizeJogo from '../../assets/img/memorize-jogo.png';

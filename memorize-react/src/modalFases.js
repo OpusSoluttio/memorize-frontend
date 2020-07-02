@@ -1,8 +1,9 @@
 exports.modalFases = [
 
-    { faseModal: 1, texto: 'essa e a fase 1'},
-    { faseModal: 2, texto: 'essa e a fase 23019i891402404912'},
-    { faseModal: 3, texto: 'mano_eu_nao_sei_o_q_por_aqui'},
-    { faseModal: 4, texto: 'the emag'},
-    { faseModal: 5, texto: 'idrep'},
+    { faseModal: 1, texto: 'Essa é a fase 1'},
+    { faseModal: 2, texto: 'Essa é a fase 2'},
+    { faseModal: 3, texto: 'Essa é a fase 3'},
+    { faseModal: 4, texto: 'Essa é a fase 4'},
+    { faseModal: 5, texto: 'Essa é a fase 5'},
+    { faseModal: 6, texto: 'Parabéns, vocês venceram !!'},
 ]
