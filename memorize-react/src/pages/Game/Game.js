@@ -92,7 +92,11 @@ export default class Game extends Component {
     obterStatus = async () => {
         let url = 'http://memorize.southcentralus.cloudapp.azure.com:5000/api/sessao';
 
-        await fetch(url)
+        await fetch(url,{
+            headers : {
+                "Access-Control-Allow-Headers": "*",
+            }
+        })
         .then(response => response.json())
         .then(data => {
             this.setState({idSessao : data.id});
@@ -226,7 +230,8 @@ export default class Game extends Component {
             method: 'POST',
             headers: {
                 'Content-type' : 'application/json',
-                'Accept' : 'application/json'
+                'Accept' : 'application/json',
+                "Access-Control-Allow-Headers": "*",
             },
              body : JSON.stringify(requestBody)
         })
@@ -242,8 +247,6 @@ export default class Game extends Component {
         this.setState({mensagemExibida : "Aguardando sequência dos sensores"})
 
         console.log(JSON.stringify(requestBody));
-
-
     }
 
     criarSequencia = (quantidade) => {
@@ -333,16 +336,6 @@ export default class Game extends Component {
                     <Progresso fase={this.state.fase} />
 
                     <Sequenciador sequencia={this.state.sequenciaExibida}/>
-                    {/* <div className='botao-principal'>
-                        <div className='botao-cor amarelo' ref={this.botaoAmarelo}>
-                        </div>
-                        <div className='botao-cor verde' ref={this.botaoVerde}>
-                        </div>
-                        <div className='botao-cor vermelho' ref={this.botaoVermelho}>
-                        </div>
-                        <div className='botao-cor azul' ref={this.botaoAzul}>
-                        </div>
-                    </div> */}
                     
                     <p className='status-game'>{this.state.mensagemExibida}</p>
                 </div>
