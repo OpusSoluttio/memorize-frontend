@@ -39,6 +39,12 @@
     overflow: hidden;
 }
 
+.device-rotation{
+    display: none;
+}
+.celular-rotation{
+    display: none;
+}
 
 ::-webkit-scrollbar {
     width: 12px;
@@ -216,7 +222,7 @@
     width: 30%;
     display: flex;
     align-items: center;
-    color: #FFF1F1;
+    color: #FFFDFD;
     justify-content: center;
     border-radius: 100px 100px;
     /* height: 8%; */

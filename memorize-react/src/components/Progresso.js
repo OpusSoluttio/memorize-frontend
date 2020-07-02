@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import Cadeado from "../assets/icons/lock-icon.png";
-import Trofeu from "../assets/icons/trophy-icon.png";
 import Anime from "@mollycule/react-anime";
 import ReactTooltip from "react-tooltip";
 import { Modal } from 'react-responsive-modal';
 import "react-responsive-modal/styles.css";
-import whatever from '../modalFases.js';
+import fases from '../modalFases.js';
 
 
 export default class Progresso extends Component {
@@ -18,11 +16,11 @@ export default class Progresso extends Component {
     }
 
     onOpenModal = (fase) => {
-        let faseBuscada = whatever.modalFases.find(item => item.faseModal === fase);
+        let faseBuscada = fases.modalFases.find(item => item.faseModal === fase);
         
         this.setState({
             open : true,
-            faseModal : fase,
+            faseModal : "Desbloqueada",
             texto : faseBuscada.texto,
         })
     };
@@ -37,24 +35,18 @@ export default class Progresso extends Component {
 
 
     componentDidUpdate(prevProps) {
-        if (prevProps.fase !== this.props.fase) {
+        if (prevProps.fase !== this.props.fase && prevProps.fase !== null && prevProps.fase !== undefined)  {
 
             //fase atual menos uma (mostra a ultima desbloqueada)
-            let faseBuscada = whatever.modalFases.find(item => item.faseModal === this.props.fase - 1);
+            let faseBuscada = fases.modalFases.find(item => item.faseModal === this.props.fase - 1);
 
-            // if (faseBuscada !== null && faseBuscada !== undefined) {
-            //     this.setState({
-            //         open: true,
-            //         faseModal: this.props.fase - 1,
-            //         texto: faseBuscada.texto,
-            //     })
-            // }
-
-            // this.setState({
-            //     open: true,
-            //     faseModal: this.props.fase - 1,
-            //     texto: faseBuscada.texto,
-            // })
+            if (faseBuscada !== null && faseBuscada !== undefined) {
+                this.setState({
+                    open: true,
+                    faseModal: this.props.fase - 1,
+                    texto: faseBuscada.texto,
+                })
+            }
         }
     }
 
@@ -92,7 +84,7 @@ export default class Progresso extends Component {
                         /// verifica que tipo de fase criar de acordo com o progresso
                         if (i === 5 && item === "bloqueada") {
                             return (
-                                <li className="fase-group">
+                                <li className="fase-group" key={i+1}>
                                     <div className="fase fase-bloqueada fase-final fase-final-bloqueada"
                                         data-for="fase-tooltip"
                                         data-tip="Você ainda não desbloqueou essa fase :/"
@@ -101,7 +93,7 @@ export default class Progresso extends Component {
                             )
                         } else if (i === 5 && item === "atual") {
                             return (
-                                <li className="fase-group">
+                                <li className="fase-group" key={i+1}>
                                     <Anime
                                         in appear
                                         loop={true}
@@ -120,7 +112,7 @@ export default class Progresso extends Component {
 
                         } else if (i >= 5 && item === "desbloqueada") {
                             return (
-                                <li className="fase-group">
+                                <li className="fase-group" key={i+1}>
                                     <div className="fase fase-atual fase-final"
                                         data-for="fase-tooltip"
                                         data-tip={"Parabéns! Você venceu!"}
@@ -130,7 +122,7 @@ export default class Progresso extends Component {
                             )
                         } else if (item === "bloqueada") {
                             return (
-                                <li className="fase-group">
+                                <li className="fase-group" key={i+1}>
                                     <span className="linha-progresso linha-bloqueada"></span>
                                     <div 
                                     className="fase fase-bloqueada"
@@ -143,7 +135,7 @@ export default class Progresso extends Component {
                             )
                         } else if (item === "desbloqueada") {
                             return (
-                                    <li className="fase-group">
+                                    <li className="fase-group" key={i+1}>
                                         <span className="linha-progresso"></span>
                                         <div className="fase"
                                             onClick={() => this.onOpenModal(i+1)}
@@ -155,7 +147,7 @@ export default class Progresso extends Component {
                             )
                         } else if (item === "atual") {
                             return (
-                                <li className="fase-group">
+                                <li className="fase-group" key={i+1}>
                                     <span className="linha-progresso linha-atual"></span>
 
                                     <Anime
@@ -195,11 +187,6 @@ export default class Progresso extends Component {
                                 backgroundColor: "#4c3cb446",
                                 borderRadius: "0.2em"
                             },
-                            closeButton : {
-                                backgroundColor : "#ffffff",
-                                tintColor : "#FFFFFF",
-                                backgroundColor : "#FFFFFF"
-                            }
                         }}
                 >
                     <h2>Fase {this.state.faseModal}</h2>

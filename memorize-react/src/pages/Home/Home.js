@@ -1,10 +1,10 @@
 import React from 'react';
-import Cerebro from '../../assets/img/cerebro.png';
 import LogoMemorize from '../../assets/img/logo-memorize.png';
 import LogoColletivo from '../../assets/img/logo-colletivo.svg';
 import OnibusColletivo from '../../assets/img/onibus-colletivo.gif';
 // import LogoFooter from '../../assets/img/logofooter.png';
 import MemorizeJogo from '../../assets/img/memorize-jogo.png';
+import RodaATela from '../../assets/img/roda-o-celular.png'
 
 import SetaColletivo from '../../assets/icons/arrow-icon.png'
 import BtnIniciar from '../../assets/img/btn-iniciar.png';
@@ -21,21 +21,16 @@ import Anime from "@mollycule/react-anime";
 
 export default function Home() {
 
-    // anime({
-    //     targets: '.logo',
-    //     scale: 1.2,
-    //     duration: 1000,
-    //     loop: 10,
-    //     direction: 'alternate',
-    //     easing: 'easeInOutExpo',
-    //   });
-
-
-
     return (
         <div className='Home'>
-
             <section className='header'>
+
+
+                <div className="device-rotation">
+                    <h2 className="device-rotation">Vire a tela para acessar a página ;)</h2>
+                </div>
+
+
                 <header className='main-header container'>
                     <nav className='main-nav'>
                         <SmoothLink to="comojogar" smooth={true} className="nav-link">Como Jogar</SmoothLink>
@@ -57,11 +52,11 @@ export default function Home() {
                         <div className='home-principal content'>
                             <div className='home-section'>
 
-                                <img className='logo' src={LogoMemorize} />
+                                <img className='logo' src={LogoMemorize}  alt="Logo do Memo Rize"/>
                                 <p className='texto-home-section'>Exercite a memória aprendendo, memorize agora!</p>
                                 <br />
                                 <Link className='botao-jogar-home' to={"/game"}>
-                                    <img src={BtnIniciar} />
+                                    <img src={BtnIniciar} alt=""/>
                                     <p>INICIAR</p>
                                 </Link>
                             </div>
@@ -82,10 +77,10 @@ export default function Home() {
                             <li>2. Em seguida utilize os sensores para reproduzir a sequência de cores anteriormente exibida e mostre seu potencial;</li>
                             <li>3. Agora vá para a próxima fase e enfrente os novos desafios e novas sequências, evolua e desbloqueie os novos níveis até o liberar o maior prêmio, o conhecimento!</li>
                         </ul>
-                        <img className='memorize-jogo' src={MemorizeJogo} />
+                        <img className='memorize-jogo' src={MemorizeJogo}  alt="Jogo Memo Rize"/>
                     </div>
                     <Link to={"/game"} className='botao-jogar-comojogar'>
-                        <img src={BtnIniciar} />
+                        <img src={BtnIniciar}  alt=""/>
                         <p>JOGAR AGORA</p>
                     </Link>
                 </div>
@@ -115,15 +110,15 @@ export default function Home() {
                         <p>Este projeto é oferecido por</p>
                     </div>
                     <div className='colletivo-banner'>
-                        <img src={LogoColletivo} className='logoColletivo' />
+                        <img src={LogoColletivo} className='logoColletivo'  alt="Logo do Colletivo Design"/>
                     </div>
                     <div className='colletivo-informacao'>
-                        <img src={OnibusColletivo} className='onibusColletivo' />
+                        <img src={OnibusColletivo} className='onibusColletivo'  alt=""/>
                         <p>Conhecido por desenvolver e transformar design de forma estratégica para grandes empresas à startups, o Colletivo Design trabalha com branding, design gráfico e digital, ilustração, embalagem, sinalização, instalações digitais para publicidade, filmes, música e entretenimento em quase 15 anos de história.</p>
                     </div>
                     <a href="https://colletivo.com.br/" target="_blank" className='btn-colletivo'>
                         <p>Ir para o site</p>
-                        <img src={SetaColletivo} alt="setaGiratoria" />
+                        <img src={SetaColletivo} alt="setaGiratoria"  alt=""/>
                     </a>
                 </div>
             </section>

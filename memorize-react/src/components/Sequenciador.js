@@ -17,8 +17,6 @@ export default class Sequenciador extends React.Component {
         } else {
             console.log("igual");
         }
-
-
     }
 
     // FIX ME - NAO ESTA REPETINDO AS CORES QUANDO PRECISA
@@ -26,7 +24,7 @@ export default class Sequenciador extends React.Component {
         
         // cria uma "linha do tempo" de animacoes, que ainda nao e iniciada
         var animacoes = anime.timeline({
-            delay : 350,
+            delay : 300,
             autoplay : false,
         })
 
@@ -54,10 +52,9 @@ export default class Sequenciador extends React.Component {
             // com a ref certa, ele vai adicionar uma animacao a linha do tempo de animacoes
             animacoes.add({
                 targets: botao,
-                scale: [0.8, 1.25, 1],
-                keyFrames : [{backgroundColor : "#ffffff"}],
-                direction: 'alternate',
-                easing: 'easeInOutExpo',
+                scale: [0.5, 1.3, 1],
+                // direction: 'alternate',
+                easing: 'linear',
             },"-=200")
 
             // a linha do tempo de animacoes vai iniciar apos o tempo determinado

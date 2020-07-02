@@ -1,4 +1,4 @@
-@media only screen and (max-width:425px){
+@media only screen and (max-width:425px) and (orientation: portrait){
     
     .content{
         width: 95%;
@@ -27,6 +27,7 @@
     .home-principal{
         height: 110%;
         margin-top: 10%;
+        background-position: left bottom;
     }
     .logo{
         margin:1.5em;
@@ -191,4 +192,28 @@
         margin-top: 1empx;
     }
 
+}
+
+
+@media (max-width: 800px) and (orientation: landscape){
+    .container{
+        display: none;
+    }
+    .footer-content{
+        display: none;
+    }
+    .wavy-footer{
+        display: none;
+    }
+    .device-rotation{
+        display: block;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        overflow-y: hidden;
+        justify-content: center;
+        padding: 10%;
+        font-size: 100%;
+        text-align: center;
+    }
 }

@@ -99,7 +99,6 @@ export default class Game extends Component {
         })
         .then(response => response.json())
         .then(data => {
-            this.setState({idSessao : data.id});
             this.lidarComStatus(data);
         })
         .catch(error => {
@@ -108,10 +107,10 @@ export default class Game extends Component {
         })
 
         // var statusTeste = {
-        //     fase: 6,
-        //     passarDeFase: true,
-        //     sequenciaCorreta: [1, 1, 2, 1],
-        //     sequenciaRecebida: [1, 4, 3,2],
+        //     fase: 2,
+        //     passarDeFase: false,
+        //     sequenciaCorreta: [2,2,4,3,1,3],
+        //     sequenciaRecebida: [4, 3, 2],
         //     errou: false,
         // }
 
@@ -120,8 +119,10 @@ export default class Game extends Component {
 
     lidarComStatus = (status) => {
         console.log(status)
-        var { sequenciaRecebida, sequenciaCorreta, fase, passarDeFase, errou } = status;
+        var { sequenciaRecebida, sequenciaCorreta, fase, passarDeFase, errou, id } = status;
         try {
+
+            this.setState({idSessao : id});
 
             this.setState((prevState) => {
                 if (prevState.sequenciaCorreta.length !== sequenciaCorreta.length) {
@@ -159,8 +160,10 @@ export default class Game extends Component {
                     mensagemExibida: 'Essa foi a sua sequência',
                 }))
 
+                console.log(this.state);
                 // se erraram a sequencia
                 if (errou) {
+                    alert("errou");
                     this.criarFase(fase);
                     // se deve passar de fase
                 } else if (!errou && passarDeFase && fase < 6) {
@@ -168,6 +171,8 @@ export default class Game extends Component {
                     // se deve finalizar o jogo
                 } else if (!errou && passarDeFase && fase >= 6) {
                     this.finalizarJogo();
+                }else{
+                    alert("else")
                 }
 
             } else {
@@ -210,6 +215,7 @@ export default class Game extends Component {
         }
 
         let sequenciaCorreta = this.criarSequencia(quantidade);
+
         this.setState({
             mensagemExibida: 'Decore essa sequência!',
             sequenciaCorreta: sequenciaCorreta,
@@ -219,15 +225,16 @@ export default class Game extends Component {
 
 
         let requestBody = {
-            fase: fase,
-            sequenciaCorreta: this.transformarEmNumeros(sequenciaCorreta),
+            NovaFase: fase,
+            NovaSequencia: this.transformarEmNumeros(sequenciaCorreta),
+            id : this.state.idSessao,
         }
 
 
         // CRIAR SESSAO OU PASSAR DE FASE
-        let url = 'http://memorize.southcentralus.cloudapp.azure.com:5000/api/sessao';
+        let url = 'http://memorize.southcentralus.cloudapp.azure.com:5000/api/Sessao/passarfase';
         fetch(url,{
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-type' : 'application/json',
                 'Accept' : 'application/json',
@@ -243,8 +250,6 @@ export default class Game extends Component {
             console.log(error);
             this.setState({erro : true})
         })
-
-        this.setState({mensagemExibida : "Aguardando sequência dos sensores"})
 
         console.log(JSON.stringify(requestBody));
     }
@@ -297,9 +302,7 @@ export default class Game extends Component {
 
                 <nav className='game-nav game-content'>
                     <Link to={"/"} className='voltar'>
-                        {/* colocar setinha de voltar */}
-                        {/* <img alt='' src={}/> */}
-                        <img src={SetaHome} />
+                        <img src={SetaHome} alt=""/>
                         <p>Voltar</p>
                     </Link>
                     <img alt='' src={Logo} className='nav-logo' />
