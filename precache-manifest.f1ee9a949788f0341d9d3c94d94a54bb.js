@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "796e846879e3a770e12bcfb2d3579c63",
+    "revision": "a8a672f2d86177fee3c55bf5bee64a1c",
     "url": "/memorize-frontend/index.html"
   },
   {
-    "revision": "9ba72b990707746899fc",
+    "revision": "2fb7af14ad7bf420480b",
     "url": "/memorize-frontend/static/css/2.257f4af1.chunk.css"
   },
   {
-    "revision": "ef1ee220f501dcbf4e5d",
-    "url": "/memorize-frontend/static/css/main.fb5fc2f3.chunk.css"
+    "revision": "a2c7d0af9770e40eecb3",
+    "url": "/memorize-frontend/static/css/main.808715fe.chunk.css"
   },
   {
-    "revision": "9ba72b990707746899fc",
-    "url": "/memorize-frontend/static/js/2.716ed336.chunk.js"
+    "revision": "2fb7af14ad7bf420480b",
+    "url": "/memorize-frontend/static/js/2.306a9005.chunk.js"
   },
   {
     "revision": "3453b8997016469371284a28c0e873e2",
-    "url": "/memorize-frontend/static/js/2.716ed336.chunk.js.LICENSE.txt"
+    "url": "/memorize-frontend/static/js/2.306a9005.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ef1ee220f501dcbf4e5d",
-    "url": "/memorize-frontend/static/js/main.113f612d.chunk.js"
+    "revision": "a2c7d0af9770e40eecb3",
+    "url": "/memorize-frontend/static/js/main.93994312.chunk.js"
   },
   {
     "revision": "c08acfe384cefe926a43",
@@ -60,12 +60,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/memorize-frontend/static/media/ilustracao-game2.8bfe234e.png"
   },
   {
+    "revision": "e9c44eaf9833815a9bbd9cd92a5e35c4",
+    "url": "/memorize-frontend/static/media/logo-colletivo.e9c44eaf.svg"
+  },
+  {
     "revision": "ad2bd6d40240bb5360e52ae1510693d4",
     "url": "/memorize-frontend/static/media/logo-memorize.ad2bd6d4.png"
   },
   {
-    "revision": "5d5d9eefa31e5e13a6610d9fa7a283bb",
-    "url": "/memorize-frontend/static/media/logo.5d5d9eef.svg"
+    "revision": "ee7cd8ed2dcec943251eb2763684fc6f",
+    "url": "/memorize-frontend/static/media/logo.ee7cd8ed.svg"
   },
   {
     "revision": "4acb969a952fa2e41c5ba42ecc6a4871",

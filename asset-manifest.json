@@ -1,24 +1,25 @@
 {
   "files": {
-    "main.css": "/memorize-frontend/static/css/main.fb5fc2f3.chunk.css",
-    "main.js": "/memorize-frontend/static/js/main.113f612d.chunk.js",
-    "main.js.map": "/memorize-frontend/static/js/main.113f612d.chunk.js.map",
+    "main.css": "/memorize-frontend/static/css/main.808715fe.chunk.css",
+    "main.js": "/memorize-frontend/static/js/main.93994312.chunk.js",
+    "main.js.map": "/memorize-frontend/static/js/main.93994312.chunk.js.map",
     "runtime-main.js": "/memorize-frontend/static/js/runtime-main.e7e9eef7.js",
     "runtime-main.js.map": "/memorize-frontend/static/js/runtime-main.e7e9eef7.js.map",
     "static/css/2.257f4af1.chunk.css": "/memorize-frontend/static/css/2.257f4af1.chunk.css",
-    "static/js/2.716ed336.chunk.js": "/memorize-frontend/static/js/2.716ed336.chunk.js",
-    "static/js/2.716ed336.chunk.js.map": "/memorize-frontend/static/js/2.716ed336.chunk.js.map",
+    "static/js/2.306a9005.chunk.js": "/memorize-frontend/static/js/2.306a9005.chunk.js",
+    "static/js/2.306a9005.chunk.js.map": "/memorize-frontend/static/js/2.306a9005.chunk.js.map",
     "index.html": "/memorize-frontend/index.html",
-    "precache-manifest.9222441fb8be7e5dc374a1239a9f5ae1.js": "/memorize-frontend/precache-manifest.9222441fb8be7e5dc374a1239a9f5ae1.js",
+    "precache-manifest.f1ee9a949788f0341d9d3c94d94a54bb.js": "/memorize-frontend/precache-manifest.f1ee9a949788f0341d9d3c94d94a54bb.js",
     "service-worker.js": "/memorize-frontend/service-worker.js",
     "static/css/2.257f4af1.chunk.css.map": "/memorize-frontend/static/css/2.257f4af1.chunk.css.map",
-    "static/css/main.fb5fc2f3.chunk.css.map": "/memorize-frontend/static/css/main.fb5fc2f3.chunk.css.map",
-    "static/js/2.716ed336.chunk.js.LICENSE.txt": "/memorize-frontend/static/js/2.716ed336.chunk.js.LICENSE.txt",
+    "static/css/main.808715fe.chunk.css.map": "/memorize-frontend/static/css/main.808715fe.chunk.css.map",
+    "static/js/2.306a9005.chunk.js.LICENSE.txt": "/memorize-frontend/static/js/2.306a9005.chunk.js.LICENSE.txt",
     "static/media/Home.css": "/memorize-frontend/static/media/cerebro.7d973cf5.png",
     "static/media/Game768.css": "/memorize-frontend/static/media/ilustracao-game-mobile.1188a2ee.png",
     "static/media/Game.css": "/memorize-frontend/static/media/ilustracao-game2.8bfe234e.png",
+    "static/media/logo-colletivo.svg": "/memorize-frontend/static/media/logo-colletivo.e9c44eaf.svg",
     "static/media/logo-memorize.png": "/memorize-frontend/static/media/logo-memorize.ad2bd6d4.png",
-    "static/media/logo.svg": "/memorize-frontend/static/media/logo.5d5d9eef.svg",
+    "static/media/logo.svg": "/memorize-frontend/static/media/logo.ee7cd8ed.svg",
     "static/media/logofooter.png": "/memorize-frontend/static/media/logofooter.4acb969a.png",
     "static/media/memorize-jogo.png": "/memorize-frontend/static/media/memorize-jogo.842bc7de.png",
     "static/media/onibus-colletivo.gif": "/memorize-frontend/static/media/onibus-colletivo.66d79d46.gif"
@@ -26,8 +27,8 @@
   "entrypoints": [
     "static/js/runtime-main.e7e9eef7.js",
     "static/css/2.257f4af1.chunk.css",
-    "static/js/2.716ed336.chunk.js",
-    "static/css/main.fb5fc2f3.chunk.css",
-    "static/js/main.113f612d.chunk.js"
+    "static/js/2.306a9005.chunk.js",
+    "static/css/main.808715fe.chunk.css",
+    "static/js/main.93994312.chunk.js"
   ]
 }
