@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a8a672f2d86177fee3c55bf5bee64a1c",
+    "revision": "47ad2919c16abb8c2732602ebfbf4528",
     "url": "/memorize-frontend/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/memorize-frontend/static/css/2.257f4af1.chunk.css"
   },
   {
-    "revision": "a2c7d0af9770e40eecb3",
-    "url": "/memorize-frontend/static/css/main.808715fe.chunk.css"
+    "revision": "ea711f6b5ecf6fb0ed37",
+    "url": "/memorize-frontend/static/css/main.fb5fc2f3.chunk.css"
   },
   {
     "revision": "2fb7af14ad7bf420480b",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/memorize-frontend/static/js/2.306a9005.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "a2c7d0af9770e40eecb3",
-    "url": "/memorize-frontend/static/js/main.93994312.chunk.js"
+    "revision": "ea711f6b5ecf6fb0ed37",
+    "url": "/memorize-frontend/static/js/main.15d8d4aa.chunk.js"
   },
   {
     "revision": "c08acfe384cefe926a43",
@@ -60,16 +60,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/memorize-frontend/static/media/ilustracao-game2.8bfe234e.png"
   },
   {
-    "revision": "e9c44eaf9833815a9bbd9cd92a5e35c4",
-    "url": "/memorize-frontend/static/media/logo-colletivo.e9c44eaf.svg"
+    "revision": "bc77c13b6adb8b788549811774c9b125",
+    "url": "/memorize-frontend/static/media/logo-colletivo.bc77c13b.svg"
   },
   {
     "revision": "ad2bd6d40240bb5360e52ae1510693d4",
     "url": "/memorize-frontend/static/media/logo-memorize.ad2bd6d4.png"
   },
   {
-    "revision": "ee7cd8ed2dcec943251eb2763684fc6f",
-    "url": "/memorize-frontend/static/media/logo.ee7cd8ed.svg"
+    "revision": "5d5d9eefa31e5e13a6610d9fa7a283bb",
+    "url": "/memorize-frontend/static/media/logo.5d5d9eef.svg"
   },
   {
     "revision": "4acb969a952fa2e41c5ba42ecc6a4871",
