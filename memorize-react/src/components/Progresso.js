@@ -34,21 +34,21 @@ export default class Progresso extends Component {
     }
 
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.fase !== this.props.fase && prevProps.fase !== null && prevProps.fase !== undefined)  {
+    // componentDidUpdate(prevProps) {
+    //     if (prevProps.fase !== this.props.fase && prevProps.fase !== null && prevProps.fase !== undefined)  {
 
-            //fase atual menos uma (mostra a ultima desbloqueada)
-            let faseBuscada = fases.modalFases.find(item => item.faseModal === this.props.fase - 1);
+    //         //fase atual menos uma (mostra a ultima desbloqueada)
+    //         let faseBuscada = fases.modalFases.find(item => item.faseModal === this.props.fase - 1);
 
-            if (faseBuscada !== null && faseBuscada !== undefined) {
-                this.setState({
-                    open: true,
-                    faseModal: this.props.fase - 1,
-                    texto: faseBuscada.texto,
-                })
-            }
-        }
-    }
+    //         if (faseBuscada !== null && faseBuscada !== undefined) {
+    //             this.setState({
+    //                 open: true,
+    //                 faseModal: this.props.fase - 1,
+    //                 texto: faseBuscada.texto,
+    //             })
+    //         }
+    //     }
+    // }
 
     render() {
         const array = [];
@@ -113,7 +113,8 @@ export default class Progresso extends Component {
                         } else if (i >= 5 && item === "desbloqueada") {
                             return (
                                 <li className="fase-group" key={i+1}>
-                                    <div className="fase fase-atual fase-final"
+                                    <div className="fase fase-final"
+                                        onClick={() => this.onOpenModal(6)}
                                         data-for="fase-tooltip"
                                         data-tip={"Parabéns! Você venceu!"}
                                         >

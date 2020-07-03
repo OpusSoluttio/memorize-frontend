@@ -93,7 +93,7 @@ export default function Home() {
                             <h2>O que é?</h2>
                             <p>Memorize é um jogo divertido e interativo para toda a família, é um game desenvolvido pela Opus Soluttio em parceria com a Colletivo Design. Veja, memorize a sequência de cores, utilize os sensores para reproduzi-la, apresente a sequência correta e passe para uma outra fase com maiores desafios!</p>
                         </div>
-                        <div class="center-line"></div>
+                        <div className="center-line"></div>
                         <div className="titulo-e-texto inverte">
                             <h2>Quem somos?</h2>
                             <p>Somos um grupo de estudantes da escola SENAI de informática, apaixonados por tecnologia de redes de computadores e desenvolvimento de sistemas, esse é o projeto de conclusão de nosso curso, somos criativos, persistentes, e sobretudo, somos uma equipe, somos Opus Soluttio.</p>

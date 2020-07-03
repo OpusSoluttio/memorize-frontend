@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Game.css';
-import './Game425.css'; 
+import './Game425.css';
 import './Game768.css';
 import './Game1920.css';
 import anime from 'animejs/lib/anime.es.js';
@@ -11,7 +11,7 @@ import Progresso from '../../components/Progresso';
 import Sequenciador from "../../components/Sequenciador";
 import { Modal } from 'react-responsive-modal';
 import "react-responsive-modal/styles.css";
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import ImagemErro from '../../assets/img/erro.png'
 
 
@@ -22,18 +22,18 @@ export default class Game extends Component {
         super(props);
         this.state = {
             erro: false,
-            codigoErro : null,
+            codigoErro: null,
 
             open: false,
 
-            idSessao : null,
+            idSessao: null,
             fase: null,
             sequenciaCorreta: [],
             sequenciaRecebida: [],
-            sequenciaExibida : [],
+            sequenciaExibida: [],
             errouAFase: false,
             passarDeFase: false,
-            mensagemExibida: '',
+            mensagemExibida: 'Vamos lá! Se prepare!',
 
             finalizarJogo: false,
         }
@@ -57,7 +57,7 @@ export default class Game extends Component {
                     arrayDeCores[i] = 'VERMELHO';
                     break;
                 default:
-                    this.setState({ erro: true });
+                    console.log("default do transformar em cores")
                     break;
             }
 
@@ -84,7 +84,7 @@ export default class Game extends Component {
                     arrayDeNumeros[i] = 4;
                     break;
                 default:
-                    this.setState({ erro: true });
+                    console.log("default do transformar em numeros")
                     break;
             }
         }
@@ -95,19 +95,19 @@ export default class Game extends Component {
     obterStatus = async () => {
         let url = 'http://40.84.215.60:5000/api/sessao';
 
-        await fetch(url,{
-            headers : {
+        await fetch(url, {
+            headers: {
                 "Access-Control-Allow-Headers": "*",
             }
         })
-        .then(response => response.json())
-        .then(data => {
-            this.lidarComStatus(data);
-        })
-        .catch(error => {
-            this.setState({erro : true, codigoErro : error.status});
-            console.log(error);
-        })
+            .then(response => response.json())
+            .then(data => {
+                this.lidarComStatus(data);
+            })
+            .catch(error => {
+                this.setState({ erro: true, codigoErro: error.status });
+                console.log(error);
+            })
 
         // var statusTeste = {
         //     fase: 2,
@@ -125,41 +125,54 @@ export default class Game extends Component {
         var { sequenciaRecebida, sequenciaCorreta, fase, passarDeFase, errou, id } = status;
         try {
 
-            this.setState({idSessao : id});
+            this.setState({ idSessao: id });
 
             this.setState((prevState) => {
                 if (prevState.sequenciaCorreta.length !== sequenciaCorreta.length) {
                     console.log("deviatadiferente")
                     return ({
-                        //SE AINDA NAO CHEGOU TODA A SEQUENCIA DOS SENSORES
+                        //SE AINDA NAO CHEGOU TODA A SEQUENCIA DOS SENSORES (essa condição deve acontecer geralmente na primeira vez q o site faz a requisição)
                         mensagemExibida: "Decore essa sequência!",
                         sequenciaExibida: this.transformarEmCores(sequenciaCorreta),
 
                         sequenciaCorreta: sequenciaCorreta,
                         fase: fase,
                         sequenciaRecebida: sequenciaRecebida,
+
                     })
                 } else if (sequenciaRecebida.length === sequenciaCorreta.length && sequenciaRecebida.length !== prevState.sequenciaRecebida.length) {
 
                     return ({
                         //SE MUDOU, DEVE EXIBIR A SEQUENCIA
                         sequenciaExibida: this.transformarEmCores(sequenciaRecebida),
-                        mensagemExibida : "Essa foi sua sequência",
+                        mensagemExibida: "Essa foi sua sequência",
                         sequenciaCorreta: sequenciaCorreta,
                         fase: fase,
-                        sequenciaRecebida: sequenciaRecebida
+                        sequenciaRecebida: sequenciaRecebida,
+
+                        errouAFase: errou,
+
                     })
                 } else {
+                        return ({
 
-                    return ({ fase: fase, sequenciaRecebida: sequenciaRecebida })
+                            //SE JA EXIBIU A SEQUENCIA QUE TEM QUE DECORAR E AINDA NAO RECEBEU A SEQUENCIA COMPLETA DOS SENSORES
+                            mensagemExibida: "Sua vez! Aguardando sequência...",
+                            sequenciaCorreta: sequenciaCorreta,
+                            fase: fase,
+                            sequenciaRecebida: sequenciaRecebida,
+
+                            passarDeFase: passarDeFase,
+
+                        })
                 }
-            
+
             })
 
             // se deve fazer alguma coisa
             if (sequenciaRecebida.length === sequenciaCorreta.length) {
-                this.setState(() => ({ 
-                    sequenciaExibida : this.transformarEmCores(sequenciaRecebida), 
+                this.setState(() => ({
+                    sequenciaExibida: this.transformarEmCores(sequenciaRecebida),
                     mensagemExibida: 'Essa foi a sua sequência',
                 }))
 
@@ -174,7 +187,7 @@ export default class Game extends Component {
                     // se deve finalizar o jogo
                 } else if (!errou && passarDeFase && fase >= 6) {
                     this.finalizarJogo();
-                }else{
+                } else {
                     alert("else")
                 }
 
@@ -183,10 +196,12 @@ export default class Game extends Component {
                 // this.setState({ mensagemExibida: 'Aguardando sequência...' });
             }
         } catch (error) {
+            alert("try catch principal")
             this.setState({ erro: true });
             console.log(error);
         }
     }
+
 
 
     criarFase = async (fase) => {
@@ -230,29 +245,29 @@ export default class Game extends Component {
         let requestBody = {
             NovaFase: fase,
             NovaSequencia: this.transformarEmNumeros(sequenciaCorreta),
-            id : this.state.idSessao,
+            id: this.state.idSessao,
         }
 
 
         // CRIAR SESSAO OU PASSAR DE FASE
         let url = 'http://40.84.215.60:5000/api/sessao/passarfase';
-        fetch(url,{
+        fetch(url, {
             method: 'PUT',
             headers: {
-                'Content-type' : 'application/json',
-                'Accept' : 'application/json',
+                'Content-type': 'application/json',
+                'Accept': 'application/json',
                 "Access-Control-Allow-Headers": "*",
             },
-             body : JSON.stringify(requestBody)
+            body: JSON.stringify(requestBody)
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => {
-            console.log(error);
-            this.setState({erro : true})
-        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.log(error);
+                this.setState({ erro: true })
+            })
 
         console.log(JSON.stringify(requestBody));
     }
@@ -269,7 +284,8 @@ export default class Game extends Component {
     }
 
     finalizarJogo = () => {
-        this.setState({ finalizarJogo: true });
+        this.setState({ finalizarJogo: true, fase: 7 });
+        
     }
 
     componentDidMount() {
@@ -281,7 +297,7 @@ export default class Game extends Component {
 
         anime({
             targets: '.botao-principal',
-            rotate: 360*3 + 45,
+            rotate: 360 * 3 + 45,
             duration: 7000,
             delay: 400,
             loop: false,
@@ -293,9 +309,9 @@ export default class Game extends Component {
     onOpenModal = () => {
         this.setState({ open: true });
     };
-    
+
     onCloseModal = () => {
-        this.setState({ open: false, erro : false, });
+        this.setState({ open: false, erro: false, });
     };
 
     render() {
@@ -305,32 +321,34 @@ export default class Game extends Component {
 
                 <nav className='game-nav game-content'>
                     <Link to={"/"} className='voltar'>
-                        <img src={SetaHome} alt=""/>
+                        <img src={SetaHome} alt="" />
                         <p>Voltar</p>
                     </Link>
                     <img alt='' src={Logo} className='nav-logo' />
                     <div>
                         <p className='interrogacao' onClick={this.onOpenModal}>?</p>
                         <Modal open={open} onClose={this.onCloseModal} center focusTrapped={false}
-                        styles={{modal: {
-                                backgroundColor : "#4C3CB4",
-                                borderRadius: "0.2em",
-                                color: "#fff"
+                            styles={{
+                                modal: {
+                                    backgroundColor: "#4C3CB4",
+                                    borderRadius: "0.2em",
+                                    color: "#fff"
                                 },
                                 overlay: {
                                     backdropFilter: "blur(15px)",
-                                    backgroundColor : "#4c3cb446",
+                                    backgroundColor: "#4c3cb446",
                                     borderRadius: "0.2em"
-                                }}}>
+                                }
+                            }}>
                             <div className='comojogar-ajuda-content'>
                                 <h2>Como Jogar</h2>
-                                <br/>
-                                <br/>
+                                <br />
+                                <br />
                                 <ul>
                                     <li>1. Veja e memorize a sequência de cores que será exibida na tela;</li>
-                                    <br/>
+                                    <br />
                                     <li>2. Em seguida utilize os sensores para reproduzir a sequência de cores anteriormente exibida e mostre seu potencial;</li>
-                                    <br/>
+                                    <br />
                                     <li>3. Agora vá para a próxima fase e enfrente os novos desafios e novas sequências, evolua e desbloqueie os novos níveis até o liberar o maior prêmio, o conhecimento!</li>
                                 </ul>
                             </div>
@@ -341,35 +359,58 @@ export default class Game extends Component {
                 <div className='game-content main'>
                     <Progresso fase={this.state.fase} />
 
-                    <Sequenciador sequencia={this.state.sequenciaExibida}/>
-                    
+                    <Sequenciador sequencia={this.state.sequenciaExibida} />
+
                     <p className='status-game'>{this.state.mensagemExibida}</p>
                 </div>
 
                 <Modal
                     open={this.state.erro}
-                    onClose={this.onCloseModal} 
-                    center 
+                    onClose={this.onCloseModal}
+                    center
                     focusTrapped={false}
                     styles={{
-                        modal : {
-                            border : "3px solid #ff3333",
-                            borderRadius : "5px",
+                        modal: {
+                            border: "3px solid #ff3333",
+                            borderRadius: "5px",
                             textAlign: "center",
                             backgroundColor: "#ffe9e9"
                         },
-                        overlay : {
-                            backgroundColor : "#EF476F50",
+                        overlay: {
+                            backgroundColor: "#EF476F50",
                             backdropFilter: "blur(15px)",
                         }
                     }}
                 >
                     <h3 className="titulo-erro">Eita!</h3>
                     <p>Aconteceu um erro inesperado! Por favor, tente novamente mais tarde!</p>
-                    {this.state.codigoErro === null || this.state.codigoErro === '' || this.state.codigoErro === undefined ? null : 
+                    {this.state.codigoErro === null || this.state.codigoErro === '' || this.state.codigoErro === undefined ? null :
                         <p>Código do erro: {this.state.codigoErro}</p>
                     }
-                    <img className="imagem-erro" src={ImagemErro} alt=""/>
+                    <img className="imagem-erro" src={ImagemErro} alt="" />
+                </Modal>
+
+                <Modal
+                    open={this.state.errouAFase}
+                    onClose={this.onCloseModal}
+                    center
+                    focusTrapped={false}
+                    styles={{
+                        modal: {
+                            border: "3px solid #ff3333",
+                            borderRadius: "5px",
+                            textAlign: "center",
+                            backgroundColor: "#ffe9e9"
+                        },
+                        overlay: {
+                            backgroundColor: "#EF476F50",
+                            backdropFilter: "blur(15px)",
+                        }
+                    }}
+                >
+                    <h3 className="titulo-erro">Eita!</h3>
+                    <p>tu erro ein mano prestenção ai</p>
+                    <img className="imagem-erro" src={ImagemErro} alt="" />
                 </Modal>
             </div>
         )

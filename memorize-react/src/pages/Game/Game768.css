@@ -21,13 +21,13 @@
         display: none;
         
     }
-    .status-game{
+    /* .status-game{
         color: #4C3CB4;
         overflow-y: hidden;
         font-size: 1.5em;
         width: 100%;
         margin-top: -1%;
-    }
+    } */
     .main{
         margin-top: 1em;
         flex-flow: column nowrap;
@@ -62,8 +62,10 @@
         color: #4C3CB4;
         overflow-y: hidden;
         font-size: 2em;
-        width: 100%;
+        width: unset;
+        max-width: 100%;
         margin-top: -1%;
         text-align: center;
+        word-wrap: break-word;
     }
 }

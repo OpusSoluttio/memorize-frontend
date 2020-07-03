@@ -94,6 +94,7 @@
         font-size: 1.25em !important;
         width: 100%;
         margin-top: -1%;
+        word-wrap: break-word;
     }
 
     
