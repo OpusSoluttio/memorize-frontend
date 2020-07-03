@@ -20,7 +20,7 @@ export default class Progresso extends Component {
         
         this.setState({
             open : true,
-            faseModal : "Desbloqueada",
+            faseModal : faseBuscada.faseModal,
             texto : faseBuscada.texto,
         })
     };
