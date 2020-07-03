@@ -277,9 +277,20 @@
 }
 
 .destaque{
-    transform: scale(5%);
+    transform: scale(5%); 
     /* filter: brightness(150%); */
     transition: 0.2s;
 
     box-shadow: 1px 4px 10px darkcyan;
+}
+
+.imagem-erro{
+    margin: auto;
+    max-height: 25vh;
+    margin-top: 1.5em;
+}
+
+.titulo-erro{
+    color: #ff3333;
+    font-size: 2em;
 }

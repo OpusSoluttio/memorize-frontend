@@ -11,6 +11,11 @@
     }
 
     /* HEADER */
+    .main-header{
+        height: 100vh;
+    }
+
+
     .main-nav{
         width: 100%;
         border-bottom-left-radius: 25px;
@@ -25,7 +30,8 @@
         font-size: 1em;
     }
     .home-principal{
-        height: 110%;
+        height: 100%;
+        width: 100% !important;
         margin-top: 10%;
         background-position: left bottom;
     }
@@ -38,7 +44,7 @@
         margin-bottom: 4em;
     }
     .botao-jogar-home{
-        padding: 0.25em;
+        padding: 0.25em 0;
         margin-top: -5%;
     }
     .botao-jogar-home p{

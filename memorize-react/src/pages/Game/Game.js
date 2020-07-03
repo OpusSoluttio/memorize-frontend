@@ -5,12 +5,14 @@ import './Game768.css';
 import './Game1920.css';
 import anime from 'animejs/lib/anime.es.js';
 import { Link } from 'react-router-dom';
-import SetaHome from '../../assets/img/voltar-home.png'
+import SetaHome from '../../assets/img/voltar-home.png';
 import Logo from '../../assets/img/logo-memorize.png';
 import Progresso from '../../components/Progresso';
 import Sequenciador from "../../components/Sequenciador";
 import { Modal } from 'react-responsive-modal';
 import "react-responsive-modal/styles.css";
+import {Redirect} from "react-router-dom";
+import ImagemErro from '../../assets/img/erro.png'
 
 
 const cores = ['AMARELO', 'AZUL', 'VERDE', 'VERMELHO'];
@@ -20,6 +22,7 @@ export default class Game extends Component {
         super(props);
         this.state = {
             erro: false,
+            codigoErro : null,
 
             open: false,
 
@@ -90,7 +93,7 @@ export default class Game extends Component {
     }
 
     obterStatus = async () => {
-        let url = 'http://memorize.southcentralus.cloudapp.azure.com:5000/api/sessao';
+        let url = 'http://40.84.215.60:5000/api/sessao';
 
         await fetch(url,{
             headers : {
@@ -102,7 +105,7 @@ export default class Game extends Component {
             this.lidarComStatus(data);
         })
         .catch(error => {
-            this.setState({erro : true});
+            this.setState({erro : true, codigoErro : error.status});
             console.log(error);
         })
 
@@ -232,7 +235,7 @@ export default class Game extends Component {
 
 
         // CRIAR SESSAO OU PASSAR DE FASE
-        let url = 'http://memorize.southcentralus.cloudapp.azure.com:5000/api/Sessao/passarfase';
+        let url = 'http://40.84.215.60:5000/api/sessao/passarfase';
         fetch(url,{
             method: 'PUT',
             headers: {
@@ -292,7 +295,7 @@ export default class Game extends Component {
     };
     
     onCloseModal = () => {
-        this.setState({ open: false });
+        this.setState({ open: false, erro : false, });
     };
 
     render() {
@@ -342,6 +345,32 @@ export default class Game extends Component {
                     
                     <p className='status-game'>{this.state.mensagemExibida}</p>
                 </div>
+
+                <Modal
+                    open={this.state.erro}
+                    onClose={this.onCloseModal} 
+                    center 
+                    focusTrapped={false}
+                    styles={{
+                        modal : {
+                            border : "3px solid #ff3333",
+                            borderRadius : "5px",
+                            textAlign: "center",
+                            backgroundColor: "#ffe9e9"
+                        },
+                        overlay : {
+                            backgroundColor : "#EF476F50",
+                            backdropFilter: "blur(15px)",
+                        }
+                    }}
+                >
+                    <h3 className="titulo-erro">Eita!</h3>
+                    <p>Aconteceu um erro inesperado! Por favor, tente novamente mais tarde!</p>
+                    {this.state.codigoErro === null || this.state.codigoErro === '' || this.state.codigoErro === undefined ? null : 
+                        <p>Código do erro: {this.state.codigoErro}</p>
+                    }
+                    <img className="imagem-erro" src={ImagemErro} alt=""/>
+                </Modal>
             </div>
         )
     }
