@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/memorize-frontend/static/css/main.e25598a2.chunk.css",
-    "main.js": "/memorize-frontend/static/js/main.9be2b842.chunk.js",
-    "main.js.map": "/memorize-frontend/static/js/main.9be2b842.chunk.js.map",
+    "main.css": "/memorize-frontend/static/css/main.6e26332b.chunk.css",
+    "main.js": "/memorize-frontend/static/js/main.e31bd1e1.chunk.js",
+    "main.js.map": "/memorize-frontend/static/js/main.e31bd1e1.chunk.js.map",
     "runtime-main.js": "/memorize-frontend/static/js/runtime-main.e7e9eef7.js",
     "runtime-main.js.map": "/memorize-frontend/static/js/runtime-main.e7e9eef7.js.map",
     "static/css/2.257f4af1.chunk.css": "/memorize-frontend/static/css/2.257f4af1.chunk.css",
-    "static/js/2.40f33bdb.chunk.js": "/memorize-frontend/static/js/2.40f33bdb.chunk.js",
-    "static/js/2.40f33bdb.chunk.js.map": "/memorize-frontend/static/js/2.40f33bdb.chunk.js.map",
+    "static/js/2.19fc39ab.chunk.js": "/memorize-frontend/static/js/2.19fc39ab.chunk.js",
+    "static/js/2.19fc39ab.chunk.js.map": "/memorize-frontend/static/js/2.19fc39ab.chunk.js.map",
     "index.html": "/memorize-frontend/index.html",
-    "precache-manifest.8659edf9eb5b99623d4ded9bf0d8858a.js": "/memorize-frontend/precache-manifest.8659edf9eb5b99623d4ded9bf0d8858a.js",
+    "precache-manifest.96de61697b3fc1d0f1582bec1c9cfe20.js": "/memorize-frontend/precache-manifest.96de61697b3fc1d0f1582bec1c9cfe20.js",
     "service-worker.js": "/memorize-frontend/service-worker.js",
     "static/css/2.257f4af1.chunk.css.map": "/memorize-frontend/static/css/2.257f4af1.chunk.css.map",
-    "static/css/main.e25598a2.chunk.css.map": "/memorize-frontend/static/css/main.e25598a2.chunk.css.map",
-    "static/js/2.40f33bdb.chunk.js.LICENSE.txt": "/memorize-frontend/static/js/2.40f33bdb.chunk.js.LICENSE.txt",
+    "static/css/main.6e26332b.chunk.css.map": "/memorize-frontend/static/css/main.6e26332b.chunk.css.map",
+    "static/js/2.19fc39ab.chunk.js.LICENSE.txt": "/memorize-frontend/static/js/2.19fc39ab.chunk.js.LICENSE.txt",
     "static/media/Home.css": "/memorize-frontend/static/media/cerebro.7d973cf5.png",
     "static/media/erro.png": "/memorize-frontend/static/media/erro.07f6a80b.png",
     "static/media/Game768.css": "/memorize-frontend/static/media/ilustracao-game-mobile.1188a2ee.png",
@@ -27,8 +27,8 @@
   "entrypoints": [
     "static/js/runtime-main.e7e9eef7.js",
     "static/css/2.257f4af1.chunk.css",
-    "static/js/2.40f33bdb.chunk.js",
-    "static/css/main.e25598a2.chunk.css",
-    "static/js/main.9be2b842.chunk.js"
+    "static/js/2.19fc39ab.chunk.js",
+    "static/css/main.6e26332b.chunk.css",
+    "static/js/main.e31bd1e1.chunk.js"
   ]
 }
