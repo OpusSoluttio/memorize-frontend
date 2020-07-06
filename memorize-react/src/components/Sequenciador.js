@@ -55,7 +55,7 @@ export default class Sequenciador extends React.Component {
                 scale: [0.5, 1.3, 1],
                 // direction: 'alternate',
                 easing: 'linear',
-            },"-=200")
+            })
 
             // a linha do tempo de animacoes vai iniciar apos o tempo determinado
             setTimeout(() => {

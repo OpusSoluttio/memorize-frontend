@@ -93,7 +93,7 @@ export default class Game extends Component {
     }
 
     obterStatus = async () => {
-        let url = 'http://40.84.215.60:5000/api/sessao';
+        let url = 'http://memorize.southcentralus.cloudapp.azure.com:5000//api/sessao';
 
         await fetch(url, {
             headers: {
@@ -180,7 +180,6 @@ export default class Game extends Component {
                 // se erraram a sequencia
                 if (errou) {
                     alert("errou");
-                    this.criarFase(fase);
                     // se deve passar de fase
                 } else if (!errou && passarDeFase && fase < 6) {
                     this.criarFase(fase + 1);
@@ -200,6 +199,11 @@ export default class Game extends Component {
             this.setState({ erro: true });
             console.log(error);
         }
+    }
+
+    fecharModalDeErro = () => {
+        this.criarFase(this.state.fase);
+        this.setState({erro: false})
     }
 
 
@@ -250,7 +254,7 @@ export default class Game extends Component {
 
 
         // CRIAR SESSAO OU PASSAR DE FASE
-        let url = 'http://40.84.215.60:5000/api/sessao/passarfase';
+        let url = 'http://memorize.southcentralus.cloudapp.azure.com:5000//api/sessao/passarfase';
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -311,7 +315,7 @@ export default class Game extends Component {
     };
 
     onCloseModal = () => {
-        this.setState({ open: false, erro: false, });
+        this.setState({ open: false, });
     };
 
     render() {
@@ -392,7 +396,7 @@ export default class Game extends Component {
 
                 <Modal
                     open={this.state.errouAFase}
-                    onClose={this.onCloseModal}
+                    onClose={this.fecharModalDeErro}
                     center
                     focusTrapped={false}
                     styles={{
