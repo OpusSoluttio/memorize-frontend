@@ -93,7 +93,7 @@ export default class Game extends Component {
     }
 
     obterStatus = async () => {
-        let url = 'http://memorize.southcentralus.cloudapp.azure.com:5000//api/sessao';
+        let url = 'http://memorize.southcentralus.cloudapp.azure.com:5000/api/sessao';
 
         await fetch(url, {
             headers: {
@@ -254,7 +254,7 @@ export default class Game extends Component {
 
 
         // CRIAR SESSAO OU PASSAR DE FASE
-        let url = 'http://memorize.southcentralus.cloudapp.azure.com:5000//api/sessao/passarfase';
+        let url = 'http://memorize.southcentralus.cloudapp.azure.com:5000/api/sessao/passarfase';
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -315,7 +315,7 @@ export default class Game extends Component {
     };
 
     onCloseModal = () => {
-        this.setState({ open: false, });
+        this.setState({ open: false, erro: false });
     };
 
     render() {
