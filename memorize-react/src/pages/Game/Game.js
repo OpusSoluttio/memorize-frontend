@@ -25,6 +25,7 @@ export default class Game extends Component {
             codigoErro: null,
 
             open: false,
+            redirect: false,
 
             idSessao: null,
             fase: null,
@@ -40,21 +41,22 @@ export default class Game extends Component {
     }
 
     transformarEmCores = (arrayDeCores) => {
+        let novaArray = [];
         for (let i = 0; i < arrayDeCores.length; i++) {
             const numero = arrayDeCores[i];
 
             switch (numero) {
                 case 1:
-                    arrayDeCores[i] = 'AMARELO';
+                    novaArray.push('AMARELO');
                     break;
                 case 2:
-                    arrayDeCores[i] = 'AZUL';
+                    novaArray.push('AZUL');
                     break;
                 case 3:
-                    arrayDeCores[i] = 'VERDE';
+                    novaArray.push('VERDE');
                     break;
                 case 4:
-                    arrayDeCores[i] = 'VERMELHO';
+                    novaArray.push('VERMELHO');
                     break;
                 default:
                     console.log("default do transformar em cores")
@@ -63,37 +65,38 @@ export default class Game extends Component {
 
         }
 
-        return arrayDeCores;
+        return novaArray;
     }
 
     transformarEmNumeros = (arrayDeNumeros) => {
+        let arrayNova = [];
         for (let i = 0; i < arrayDeNumeros.length; i++) {
             const cor = arrayDeNumeros[i];
 
             switch (cor.toUpperCase()) {
                 case 'AMARELO':
-                    arrayDeNumeros[i] = 1;
+                    arrayNova.push(1);
                     break;
                 case 'AZUL':
-                    arrayDeNumeros[i] = 2;
+                    arrayNova.push(2);
                     break;
                 case 'VERDE':
-                    arrayDeNumeros[i] = 3;
+                    arrayNova.push(3);
                     break;
                 case 'VERMELHO':
-                    arrayDeNumeros[i] = 4;
+                    arrayNova.push(4);
                     break;
                 default:
-                    console.log("default do transformar em numeros")
+                    console.log("default do transformar em numeros");
                     break;
             }
         }
 
-        return arrayDeNumeros;
+        return arrayNova;
     }
 
     obterStatus = async () => {
-        let url = 'http://memorize.southcentralus.cloudapp.azure.com:5000/api/sessao';
+        let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao';
 
         await fetch(url, {
             headers: {
@@ -128,7 +131,7 @@ export default class Game extends Component {
             this.setState({ idSessao: id });
 
             this.setState((prevState) => {
-                if (prevState.sequenciaCorreta.length !== sequenciaCorreta.length) {
+                if (prevState.sequenciaCorreta.length !== sequenciaCorreta.length || prevState.errouAFase && !this.state.errouAFase) {
                     console.log("deviatadiferente")
                     return ({
                         //SE AINDA NAO CHEGOU TODA A SEQUENCIA DOS SENSORES (essa condição deve acontecer geralmente na primeira vez q o site faz a requisição)
@@ -171,15 +174,15 @@ export default class Game extends Component {
 
             // se deve fazer alguma coisa
             if (sequenciaRecebida.length === sequenciaCorreta.length) {
-                this.setState(() => ({
-                    sequenciaExibida: this.transformarEmCores(sequenciaRecebida),
-                    mensagemExibida: 'Essa foi a sua sequência',
-                }))
+                // this.setState(() => ({
+                //     sequenciaExibida: this.transformarEmCores(sequenciaRecebida),
+                //     mensagemExibida: 'Essa foi a sua sequência',
+                // }))
 
                 console.log(this.state);
                 // se erraram a sequencia
                 if (errou) {
-                    alert("errou");
+                    console.log("errou");
                     // se deve passar de fase
                 } else if (!errou && passarDeFase && fase < 6) {
                     this.criarFase(fase + 1);
@@ -187,7 +190,7 @@ export default class Game extends Component {
                 } else if (!errou && passarDeFase && fase >= 6) {
                     this.finalizarJogo();
                 } else {
-                    alert("else")
+                    console.log("else")
                 }
 
             } else {
@@ -202,8 +205,9 @@ export default class Game extends Component {
     }
 
     fecharModalDeErro = () => {
+        this.setState({errouAFase: false});
         this.criarFase(this.state.fase);
-        this.setState({erro: false})
+        this.obterStatus();
     }
 
 
@@ -236,13 +240,19 @@ export default class Game extends Component {
                 break;
         }
 
+        this.obterStatus();
+        // se deve criar a mesma fase,
+        if (this.state.errouAFase && this.state.fase === fase){
+            console.log("errou: deve criar a mesma fase");
+        }
+
         let sequenciaCorreta = this.criarSequencia(quantidade);
 
-        this.setState({
-            mensagemExibida: 'Decore essa sequência!',
-            sequenciaCorreta: sequenciaCorreta,
-            sequenciaExibida: sequenciaCorreta,
-        });
+        // this.setState({
+        //     mensagemExibida: 'Decore essa sequência!',
+        //     sequenciaCorreta: sequenciaCorreta,
+        //     sequenciaExibida: this.transformarEmCores(sequenciaCorreta),
+        // });
         // this.setState({ mensagemExibida: 'Aguardando sequência...' });
 
 
@@ -254,7 +264,7 @@ export default class Game extends Component {
 
 
         // CRIAR SESSAO OU PASSAR DE FASE
-        let url = 'http://memorize.southcentralus.cloudapp.azure.com:5000/api/sessao/passarfase';
+        let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao/passarfase';
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -315,108 +325,118 @@ export default class Game extends Component {
     };
 
     onCloseModal = () => {
-        this.setState({ open: false, erro: false });
+        this.setState({ open: false, erro: false});
+
+    };
+    onCloseModalErroReq = () => {
+        this.setState({ open: false, erro: false, redirect: true});
+
     };
 
     render() {
         const { open } = this.state;
-        return (
-            <div className='Game'>
+        if(this.state.redirect) {
+            return <Redirect to="/"/>
+          }
+          else {
+            return (
+                <div className='Game'>
 
-                <nav className='game-nav game-content'>
-                    <Link to={"/"} className='voltar'>
-                        <img src={SetaHome} alt="" />
-                        <p>Voltar</p>
-                    </Link>
-                    <img alt='' src={Logo} className='nav-logo' />
-                    <div>
-                        <p className='interrogacao' onClick={this.onOpenModal}>?</p>
-                        <Modal open={open} onClose={this.onCloseModal} center focusTrapped={false}
-                            styles={{
-                                modal: {
-                                    backgroundColor: "#4C3CB4",
-                                    borderRadius: "0.2em",
-                                    color: "#fff"
-                                },
-                                overlay: {
-                                    backdropFilter: "blur(15px)",
-                                    backgroundColor: "#4c3cb446",
-                                    borderRadius: "0.2em"
-                                }
-                            }}>
-                            <div className='comojogar-ajuda-content'>
-                                <h2>Como Jogar</h2>
-                                <br />
-                                <br />
-                                <ul>
-                                    <li>1. Veja e memorize a sequência de cores que será exibida na tela;</li>
+                    <nav className='game-nav game-content'>
+                        <Link to={"/"} className='voltar'>
+                            <img src={SetaHome} alt="" />
+                            <p>Voltar</p>
+                        </Link>
+                        <img alt='' src={Logo} className='nav-logo' />
+                        <div>
+                            <p className='interrogacao' onClick={this.onOpenModal}>?</p>
+                            <Modal open={open} onClose={this.onCloseModal} center focusTrapped={false}
+                                styles={{
+                                    modal: {
+                                        backgroundColor: "#4C3CB4",
+                                        borderRadius: "0.2em",
+                                        color: "#fff"
+                                    },
+                                    overlay: {
+                                        backdropFilter: "blur(15px)",
+                                        backgroundColor: "#4c3cb446",
+                                        borderRadius: "0.2em"
+                                    }
+                                }}>
+                                <div className='comojogar-ajuda-content'>
+                                    <h2>Como Jogar</h2>
                                     <br />
-                                    <li>2. Em seguida utilize os sensores para reproduzir a sequência de cores anteriormente exibida e mostre seu potencial;</li>
                                     <br />
-                                    <li>3. Agora vá para a próxima fase e enfrente os novos desafios e novas sequências, evolua e desbloqueie os novos níveis até o liberar o maior prêmio, o conhecimento!</li>
-                                </ul>
-                            </div>
-                        </Modal>
+                                    <ul>
+                                        <li>1. Veja e memorize a sequência de cores que será exibida na tela;</li>
+                                        <br />
+                                        <li>2. Em seguida utilize os sensores para reproduzir a sequência de cores anteriormente exibida e mostre seu potencial;</li>
+                                        <br />
+                                        <li>3. Agora vá para a próxima fase e enfrente os novos desafios e novas sequências, evolua e desbloqueie os novos níveis até o liberar o maior prêmio, o conhecimento!</li>
+                                    </ul>
+                                </div>
+                            </Modal>
+                        </div>
+                    </nav>
+
+                    <div className='game-content main'>
+                        <Progresso fase={this.state.fase} />
+
+                        <Sequenciador sequencia={this.state.sequenciaExibida} />
+
+                        <p className='status-game'>{this.state.mensagemExibida}</p>
                     </div>
-                </nav>
 
-                <div className='game-content main'>
-                    <Progresso fase={this.state.fase} />
+                    <Modal
+                        open={this.state.erro}
+                        onClose={this.onCloseModalErroReq}
+                        center
+                        focusTrapped={false}
+                        styles={{
+                            modal: {
+                                border: "3px solid #ff3333",
+                                borderRadius: "5px",
+                                textAlign: "center",
+                                backgroundColor: "#ffe9e9"
+                            },
+                            overlay: {
+                                backgroundColor: "#EF476F50",
+                                backdropFilter: "blur(15px)",
+                            }
+                        }}
+                    >
+                        <h3 className="titulo-erro">Eita!</h3>
+                        <p>Aconteceu um erro inesperado! Por favor, tente novamente mais tarde!</p>
+                        {this.state.codigoErro === null || this.state.codigoErro === '' || this.state.codigoErro === undefined ? null :
+                            <p>Código do erro: {this.state.codigoErro}</p>
+                        }
+                        <img className="imagem-erro" src={ImagemErro} alt="" />
+                    </Modal>
 
-                    <Sequenciador sequencia={this.state.sequenciaExibida} />
-
-                    <p className='status-game'>{this.state.mensagemExibida}</p>
+                    <Modal
+                        open={this.state.errouAFase}
+                        onClose={this.fecharModalDeErro}
+                        center
+                        focusTrapped={false}
+                        styles={{
+                            modal: {
+                                border: "3px solid #ff3333",
+                                borderRadius: "5px",
+                                textAlign: "center",
+                                backgroundColor: "#ffe9e9"
+                            },
+                            overlay: {
+                                backgroundColor: "#EF476F50",
+                                backdropFilter: "blur(15px)",
+                            }
+                        }}
+                    >
+                        <h3 className="titulo-erro">Eita!</h3>
+                        <p>tu erro ein mano prestenção ai</p>
+                        <img className="imagem-erro" src={ImagemErro} alt="" />
+                    </Modal>
                 </div>
-
-                <Modal
-                    open={this.state.erro}
-                    onClose={this.onCloseModal}
-                    center
-                    focusTrapped={false}
-                    styles={{
-                        modal: {
-                            border: "3px solid #ff3333",
-                            borderRadius: "5px",
-                            textAlign: "center",
-                            backgroundColor: "#ffe9e9"
-                        },
-                        overlay: {
-                            backgroundColor: "#EF476F50",
-                            backdropFilter: "blur(15px)",
-                        }
-                    }}
-                >
-                    <h3 className="titulo-erro">Eita!</h3>
-                    <p>Aconteceu um erro inesperado! Por favor, tente novamente mais tarde!</p>
-                    {this.state.codigoErro === null || this.state.codigoErro === '' || this.state.codigoErro === undefined ? null :
-                        <p>Código do erro: {this.state.codigoErro}</p>
-                    }
-                    <img className="imagem-erro" src={ImagemErro} alt="" />
-                </Modal>
-
-                <Modal
-                    open={this.state.errouAFase}
-                    onClose={this.fecharModalDeErro}
-                    center
-                    focusTrapped={false}
-                    styles={{
-                        modal: {
-                            border: "3px solid #ff3333",
-                            borderRadius: "5px",
-                            textAlign: "center",
-                            backgroundColor: "#ffe9e9"
-                        },
-                        overlay: {
-                            backgroundColor: "#EF476F50",
-                            backdropFilter: "blur(15px)",
-                        }
-                    }}
-                >
-                    <h3 className="titulo-erro">Eita!</h3>
-                    <p>tu erro ein mano prestenção ai</p>
-                    <img className="imagem-erro" src={ImagemErro} alt="" />
-                </Modal>
-            </div>
-        )
+            )
+        }
     }
 }

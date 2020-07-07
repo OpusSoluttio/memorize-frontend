@@ -11,6 +11,7 @@ export default class Progresso extends Component {
         super(props);
         this.state = {
             texto: '',
+            titulo: '',
             faseModal : "",
         }
     }
@@ -22,6 +23,7 @@ export default class Progresso extends Component {
             open : true,
             faseModal : faseBuscada.faseModal,
             texto : faseBuscada.texto,
+            titulo : faseBuscada.titulo,
         })
     };
 
@@ -31,6 +33,13 @@ export default class Progresso extends Component {
         setTimeout(() => {
             this.setState({texto : "", faseModal : ""})
         }, 250); 
+    }
+
+    obterTituloDaFase = (fase) => {
+        let faseBuscada = fases.modalFases.find(item => item.faseModal === fase);
+        if (faseBuscada !== null){
+            return faseBuscada.titulo;
+        }
     }
 
 
@@ -141,7 +150,7 @@ export default class Progresso extends Component {
                                         <div className="fase"
                                             onClick={() => this.onOpenModal(i+1)}
                                             data-for="fase-tooltip"
-                                            data-tip={"Fase " + (i+1)}
+                                            data-tip={"Capítulo " + (i+1)}
                                             >
                                         </div>
                                     </li>
@@ -190,7 +199,7 @@ export default class Progresso extends Component {
                             },
                         }}
                 >
-                    <h2>Fase {this.state.faseModal}</h2>
+                    <h2>{this.state.titulo}</h2>
                     <p>{this.state.texto}</p>
                 </Modal>
             </div>

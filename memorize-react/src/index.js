@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import {BrowserRouter, Switch, Route} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Home from "../src/pages/Home/Home";
 import Game from "../src/pages/Game/Game";
 
@@ -15,14 +15,14 @@ import Game from "../src/pages/Game/Game";
 
 
 const Routes = (
-  <BrowserRouter basename={process.env.PUBLIC_URL}>
+  <Router basename={process.env.PUBLIC_URL}>
     <div>
       <Switch>
         <Route exact path="/game" component={Game}/>
         <Route exact path="/" component={Home}/>
       </Switch>
     </div>
-  </BrowserRouter>
+  </Router>
 )
 
 ReactDOM.render(Routes , document.getElementById('root'));
