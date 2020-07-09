@@ -25,7 +25,6 @@ export default class Game extends Component {
             codigoErro: null,
 
             open: false,
-            redirect: false,
 
             idSessao: null,
             fase: null,
@@ -98,67 +97,99 @@ export default class Game extends Component {
     obterStatus = async () => {
         let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao';
 
-        await fetch(url, {
-            headers: {
-                "Access-Control-Allow-Headers": "*",
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                this.lidarComStatus(data);
-            })
-            .catch(error => {
-                this.setState({ erro: true, codigoErro: error.status });
-                console.log(error);
-            })
+        // await fetch(url, {
+        //     headers: {
+        //         "Access-Control-Allow-Headers": "*",
+        //     }
+        // })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         this.lidarComStatus(data);
+        //     })
+        //     .catch(error => {
+        //         this.setState({ erro: true, codigoErro: error.status });
+        //         console.log(error);
+        //     })
 
-        // var statusTeste = {
-        //     fase: 2,
-        //     passarDeFase: false,
-        //     sequenciaCorreta: [2,2,4,3,1,3],
-        //     sequenciaRecebida: [4, 3, 2],
-        //     errou: false,
-        // }
+        var statusTeste = {
+            fase: 7,
+            passarDeFase: false,
+            sequenciaCorreta: [2],
+            sequenciaRecebida: [1],
+            errou: true,
+        }
 
-        // this.lidarComStatus(statusTeste);
+        this.lidarComStatus(statusTeste);
     }
 
     lidarComStatus = (status) => {
         console.log(status)
-        var { sequenciaRecebida, sequenciaCorreta, fase, passarDeFase, errou, id } = status;
-        try {
 
-            this.setState({ idSessao: id });
+        if (status.sucesso !== undefined && status.sucesso !== null && !status.sucesso) {
+            // se nao tiver uma sessao ainda
+            this.criarSessao();
 
-            this.setState((prevState) => {
-                if (prevState.sequenciaCorreta.length !== sequenciaCorreta.length || prevState.errouAFase && !this.state.errouAFase) {
-                    console.log("deviatadiferente")
-                    return ({
-                        //SE AINDA NAO CHEGOU TODA A SEQUENCIA DOS SENSORES (essa condição deve acontecer geralmente na primeira vez q o site faz a requisição)
-                        mensagemExibida: "Decore essa sequência!",
-                        sequenciaExibida: this.transformarEmCores(sequenciaCorreta),
+        } else {
+            // se ja tiver uma sessao acontecendo
+            try {
+                var { sequenciaRecebida, sequenciaCorreta, fase, passarDeFase, errou, id } = status;
 
-                        sequenciaCorreta: sequenciaCorreta,
-                        fase: fase,
-                        sequenciaRecebida: sequenciaRecebida,
+                this.setState({ idSessao: id });
 
-                    })
-                } else if (sequenciaRecebida.length === sequenciaCorreta.length && sequenciaRecebida.length !== prevState.sequenciaRecebida.length) {
+                this.setState((prevState) => {
 
-                    return ({
-                        //SE MUDOU, DEVE EXIBIR A SEQUENCIA
-                        sequenciaExibida: this.transformarEmCores(sequenciaRecebida),
-                        mensagemExibida: "Essa foi sua sequência",
-                        sequenciaCorreta: sequenciaCorreta,
-                        fase: fase,
-                        sequenciaRecebida: sequenciaRecebida,
+                    if (sequenciaRecebida.length === sequenciaCorreta.length) {
+                        console.log("DEVERIA MOSTRAR A SEQUENCIA RECEBIDA")
+                        // se recebeu a sequencia completa, exibe ela:
+                        this.setState({
+                            sequenciaExibida: this.transformarEmCores(sequenciaRecebida),
+                            mensagemExibida: "Essa foi sua sequência",
+                            sequenciaCorreta: sequenciaCorreta,
+                            fase: fase,
+                            sequenciaRecebida: sequenciaRecebida,
+                        })
 
-                        errouAFase: errou,
 
-                    })
-                } else {
+                        if (errou) {
+                            console.log("errou");
+
+                            if (prevState.sequenciaRecebida.length > 0){
+                                setTimeout(() => {
+                                    this.setState({ errouAFase: errou })
+                                }, (2500 + sequenciaRecebida.length * 300));
+                            } else{
+                                let tempoDeEspera = 3000 + (sequenciaRecebida.length * 300);
+                                console.log(tempoDeEspera)
+                                setTimeout(() => {
+                                    this.setState({ errouAFase: errou })
+                                }, tempoDeEspera);
+                            }
+                            // se deve passar de fase
+                        } else if (!errou && passarDeFase && fase < 6) {
+                            this.criarFase(fase + 1);
+                            // se deve finalizar o jogo
+                        } else if (!errou && passarDeFase && fase >= 6) {
+                            this.finalizarJogo();
+                        } else {
+                            console.log("else")
+                        }
+
+                    } else if (prevState.sequenciaCorreta.length !== sequenciaCorreta.length || prevState.errouAFase && !errou) {
+                        console.log("deviatadiferente")
                         return ({
+                            //SE MUDOU A SEQUENCIA A SER RECEBIDA(quando a sequencia é criada, seja porque passaram de fase ou porque erraram a fase e vão refazê-la)
+                            mensagemExibida: "Decore essa sequência!",
+                            sequenciaExibida: this.transformarEmCores(sequenciaCorreta),
 
+                            sequenciaCorreta: sequenciaCorreta,
+                            fase: fase,
+                            sequenciaRecebida: sequenciaRecebida,
+
+                        })
+                    } else {
+                        console.log("else");
+                        console.log(this.state)
+                        return ({
                             //SE JA EXIBIU A SEQUENCIA QUE TEM QUE DECORAR E AINDA NAO RECEBEU A SEQUENCIA COMPLETA DOS SENSORES
                             mensagemExibida: "Sua vez! Aguardando sequência...",
                             sequenciaCorreta: sequenciaCorreta,
@@ -168,44 +199,78 @@ export default class Game extends Component {
                             passarDeFase: passarDeFase,
 
                         })
-                }
+                    }
 
-            })
+                })
 
-            // se deve fazer alguma coisa
-            if (sequenciaRecebida.length === sequenciaCorreta.length) {
-                // this.setState(() => ({
-                //     sequenciaExibida: this.transformarEmCores(sequenciaRecebida),
-                //     mensagemExibida: 'Essa foi a sua sequência',
-                // }))
+                // se deve fazer alguma coisa
+                if (sequenciaRecebida.length === sequenciaCorreta.length) {
+                    // this.setState(() => ({
+                    //     sequenciaExibida: this.transformarEmCores(sequenciaRecebida),
+                    //     mensagemExibida: 'Essa foi a sua sequência',
+                    // }))
 
-                console.log(this.state);
-                // se erraram a sequencia
-                if (errou) {
-                    console.log("errou");
-                    // se deve passar de fase
-                } else if (!errou && passarDeFase && fase < 6) {
-                    this.criarFase(fase + 1);
-                    // se deve finalizar o jogo
-                } else if (!errou && passarDeFase && fase >= 6) {
-                    this.finalizarJogo();
+                    console.log(this.state);
+                    // se erraram a sequencia
+                    // if (errou) {
+                    //     console.log("errou");
+                    //     // se deve passar de fase
+                    // } else if (!errou && passarDeFase && fase < 6) {
+                    //     this.criarFase(fase + 1);
+                    //     // se deve finalizar o jogo
+                    // } else if (!errou && passarDeFase && fase >= 6) {
+                    //     this.finalizarJogo();
+                    // } else {
+                    //     console.log("else")
+                    // }
+
                 } else {
-                    console.log("else")
+                    // this.exibirSequencia(this.transformarEmCores(sequenciaCorreta));
+                    // this.setState({ mensagemExibida: 'Aguardando sequência...' });
                 }
-
-            } else {
-                // this.exibirSequencia(this.transformarEmCores(sequenciaCorreta));
-                // this.setState({ mensagemExibida: 'Aguardando sequência...' });
+            } catch (error) {
+                alert("try catch principal")
+                this.setState({ erro: true });
+                console.log(error);
             }
-        } catch (error) {
-            alert("try catch principal")
-            this.setState({ erro: true });
-            console.log(error);
         }
+
+    }
+
+    criarSessao = async () => {
+
+        //como vai criar a primeira fase, a quantidade de cores na sequencia sempre vai ser 3
+        let sequenciaCorreta = this.criarSequencia(3);
+
+        //body mandado na requisicao
+        let requestBody = {
+            Fase: 1,
+            SequenciaCorreta: this.transformarEmNumeros(sequenciaCorreta),
+        }
+
+        //url da requisicao
+        let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao/';
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'Accept': 'application/json',
+                "Access-Control-Allow-Headers": "*",
+            },
+            body: JSON.stringify(requestBody)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.log(error);
+                this.setState({ erro: true })
+            })
     }
 
     fecharModalDeErro = () => {
-        this.setState({errouAFase: false});
+        this.setState({ errouAFase: false });
         this.criarFase(this.state.fase);
         this.obterStatus();
     }
@@ -232,7 +297,7 @@ export default class Game extends Component {
                 quantidade = 7;
                 break;
             case 6:
-                quantidade = 9;
+                quantidade = 8;
                 break;
 
             default:
@@ -242,7 +307,7 @@ export default class Game extends Component {
 
         this.obterStatus();
         // se deve criar a mesma fase,
-        if (this.state.errouAFase && this.state.fase === fase){
+        if (this.state.errouAFase && this.state.fase === fase) {
             console.log("errou: deve criar a mesma fase");
         }
 
@@ -299,7 +364,7 @@ export default class Game extends Component {
 
     finalizarJogo = () => {
         this.setState({ finalizarJogo: true, fase: 7 });
-        
+
     }
 
     componentDidMount() {
@@ -325,118 +390,117 @@ export default class Game extends Component {
     };
 
     onCloseModal = () => {
-        this.setState({ open: false, erro: false});
+        this.setState({ open: false, erro: false });
 
     };
     onCloseModalErroReq = () => {
-        this.setState({ open: false, erro: false, redirect: true});
-
+        // this.setState({ open: false, erro: false, redirect: true});
+        this.props.history.push("/");
     };
 
     render() {
         const { open } = this.state;
-        if(this.state.redirect) {
-            return <Redirect to="/"/>
-          }
-          else {
-            return (
-                <div className='Game'>
 
-                    <nav className='game-nav game-content'>
-                        <Link to={"/"} className='voltar'>
-                            <img src={SetaHome} alt="" />
-                            <p>Voltar</p>
-                        </Link>
-                        <img alt='' src={Logo} className='nav-logo' />
-                        <div>
-                            <p className='interrogacao' onClick={this.onOpenModal}>?</p>
-                            <Modal open={open} onClose={this.onCloseModal} center focusTrapped={false}
-                                styles={{
-                                    modal: {
-                                        backgroundColor: "#4C3CB4",
-                                        borderRadius: "0.2em",
-                                        color: "#fff"
-                                    },
-                                    overlay: {
-                                        backdropFilter: "blur(15px)",
-                                        backgroundColor: "#4c3cb446",
-                                        borderRadius: "0.2em"
-                                    }
-                                }}>
-                                <div className='comojogar-ajuda-content'>
-                                    <h2>Como Jogar</h2>
+        return (
+            <div className='Game'>
+
+                <nav className='game-nav game-content'>
+                    <Link to={"/"} className='voltar'>
+                        <img src={SetaHome} alt="" />
+                        <p>Voltar</p>
+                    </Link>
+                    <img alt='' src={Logo} className='nav-logo' />
+                    <div>
+                        <p className='interrogacao' onClick={this.onOpenModal}>?</p>
+                        <Modal open={open} onClose={this.onCloseModal} center focusTrapped={false}
+                            styles={{
+                                modal: {
+                                    backgroundColor: "#4C3CB4",
+                                    borderRadius: "0.2em",
+                                    color: "#fff"
+                                },
+                                overlay: {
+                                    backdropFilter: "blur(15px)",
+                                    backgroundColor: "#4c3cb446",
+                                    borderRadius: "0.2em"
+                                }
+                            }}>
+                            <div className='comojogar-ajuda-content'>
+                                <h2>Como Jogar</h2>
+                                <br />
+                                <br />
+                                <ul>
+                                    <li>1. Veja e memorize a sequência de cores que será exibida na tela;</li>
                                     <br />
+                                    <li>2. Em seguida utilize os sensores para reproduzir a sequência de cores anteriormente exibida e mostre seu potencial;</li>
                                     <br />
-                                    <ul>
-                                        <li>1. Veja e memorize a sequência de cores que será exibida na tela;</li>
-                                        <br />
-                                        <li>2. Em seguida utilize os sensores para reproduzir a sequência de cores anteriormente exibida e mostre seu potencial;</li>
-                                        <br />
-                                        <li>3. Agora vá para a próxima fase e enfrente os novos desafios e novas sequências, evolua e desbloqueie os novos níveis até o liberar o maior prêmio, o conhecimento!</li>
-                                    </ul>
-                                </div>
-                            </Modal>
-                        </div>
-                    </nav>
-
-                    <div className='game-content main'>
-                        <Progresso fase={this.state.fase} />
-
-                        <Sequenciador sequencia={this.state.sequenciaExibida} />
-
-                        <p className='status-game'>{this.state.mensagemExibida}</p>
+                                    <li>3. Agora vá para a próxima fase e enfrente os novos desafios e novas sequências, evolua e desbloqueie os novos níveis até o liberar o maior prêmio, o conhecimento!</li>
+                                </ul>
+                            </div>
+                        </Modal>
                     </div>
+                </nav>
 
-                    <Modal
-                        open={this.state.erro}
-                        onClose={this.onCloseModalErroReq}
-                        center
-                        focusTrapped={false}
-                        styles={{
-                            modal: {
-                                border: "3px solid #ff3333",
-                                borderRadius: "5px",
-                                textAlign: "center",
-                                backgroundColor: "#ffe9e9"
-                            },
-                            overlay: {
-                                backgroundColor: "#EF476F50",
-                                backdropFilter: "blur(15px)",
-                            }
-                        }}
-                    >
-                        <h3 className="titulo-erro">Eita!</h3>
-                        <p>Aconteceu um erro inesperado! Por favor, tente novamente mais tarde!</p>
-                        {this.state.codigoErro === null || this.state.codigoErro === '' || this.state.codigoErro === undefined ? null :
-                            <p>Código do erro: {this.state.codigoErro}</p>
-                        }
-                        <img className="imagem-erro" src={ImagemErro} alt="" />
-                    </Modal>
+                <div className='game-content main'>
+                    <Progresso fase={this.state.fase} />
 
-                    <Modal
-                        open={this.state.errouAFase}
-                        onClose={this.fecharModalDeErro}
-                        center
-                        focusTrapped={false}
-                        styles={{
-                            modal: {
-                                border: "3px solid #ff3333",
-                                borderRadius: "5px",
-                                textAlign: "center",
-                                backgroundColor: "#ffe9e9"
-                            },
-                            overlay: {
-                                backgroundColor: "#EF476F50",
-                                backdropFilter: "blur(15px)",
-                            }
-                        }}
-                    >
-                        <h3 className="titulo-erro">Eita!</h3>
-                        <p>tu erro ein mano prestenção ai</p>
-                        <img className="imagem-erro" src={ImagemErro} alt="" />
-                    </Modal>
+                    <Sequenciador sequencia={this.state.sequenciaExibida} />
+
+                    <p className='status-game'>{this.state.mensagemExibida}</p>
                 </div>
-            )
-        }
+
+                {/* modal de erro geral */}
+                <Modal
+                    open={this.state.erro}
+                    onClose={this.onCloseModalErroReq}
+                    center
+                    focusTrapped={false}
+                    styles={{
+                        modal: {
+                            border: "3px solid #ff3333",
+                            borderRadius: "5px",
+                            textAlign: "center",
+                            backgroundColor: "#ffe9e9"
+                        },
+                        overlay: {
+                            backgroundColor: "#EF476F50",
+                            backdropFilter: "blur(15px)",
+                        }
+                    }}
+                >
+                    <h3 className="titulo-erro">Eita!</h3>
+                    <p>Aconteceu um erro inesperado! Por favor, tente novamente mais tarde!</p>
+                    {this.state.codigoErro === null || this.state.codigoErro === '' || this.state.codigoErro === undefined ? null :
+                        <p>Código do erro: {this.state.codigoErro}</p>
+                    }
+                    <img className="imagem-erro" src={ImagemErro} alt="" />
+                </Modal>
+
+                {/* modal de erro na sequencia */}
+                <Modal
+                    open={this.state.errouAFase}
+                    onClose={this.fecharModalDeErro}
+                    center
+                    focusTrapped={false}
+                    styles={{
+                        modal: {
+                            border: "3px solid #ff3333",
+                            borderRadius: "5px",
+                            textAlign: "center",
+                            backgroundColor: "#ffe9e9"
+                        },
+                        overlay: {
+                            backgroundColor: "#EF476F50",
+                            backdropFilter: "blur(15px)",
+                        }
+                    }}
+                >
+                    <h3 className="titulo-erro">Eita!</h3>
+                    <p>Você errou a sequência! Tente novamente :P.</p>
+                    <img className="imagem-erro" src={ImagemErro} alt="" />
+                </Modal>
+            </div>
+        )
+
     }
 }

@@ -258,6 +258,7 @@
 
 }
 
+
 .amarelo{
     background-color: #FFD166;
 }
@@ -293,4 +294,8 @@
 .titulo-erro{
     color: #ff3333;
     font-size: 2em;
+}
+
+.frase-fase{
+    background-color: pink;
 }

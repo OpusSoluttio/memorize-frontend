@@ -53,6 +53,11 @@ export default class Sequenciador extends React.Component {
             animacoes.add({
                 targets: botao,
                 scale: [0.5, 1.3, 1],
+                filter: [
+                    "none",
+                    "brightness(150%)",
+                    "brightness(100%)",
+                ],
                 // direction: 'alternate',
                 easing: 'linear',
             })
@@ -60,7 +65,7 @@ export default class Sequenciador extends React.Component {
             // a linha do tempo de animacoes vai iniciar apos o tempo determinado
             setTimeout(() => {
                 animacoes.play();
-            }, 1000);
+            }, 2000);
         });
     }
 

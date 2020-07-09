@@ -11,8 +11,10 @@ export default class Progresso extends Component {
         super(props);
         this.state = {
             texto: '',
+            frase: '',
             titulo: '',
             faseModal : "",
+            urlimg: "",
         }
     }
 
@@ -23,7 +25,9 @@ export default class Progresso extends Component {
             open : true,
             faseModal : faseBuscada.faseModal,
             texto : faseBuscada.texto,
+            frase : faseBuscada.frase,
             titulo : faseBuscada.titulo,
+            urlimg: faseBuscada.urlimg,
         })
     };
 
@@ -200,7 +204,9 @@ export default class Progresso extends Component {
                         }}
                 >
                     <h2>{this.state.titulo}</h2>
+                    <p className="frase-fase">{this.state.frase}</p>
                     <p>{this.state.texto}</p>
+                    <img src={this.state.urlimg} alt="imagem referente ao texto da fase"/>
                 </Modal>
             </div>
 
