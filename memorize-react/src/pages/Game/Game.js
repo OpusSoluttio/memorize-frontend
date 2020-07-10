@@ -114,8 +114,8 @@ export default class Game extends Component {
         var statusTeste = {
             fase: 7,
             passarDeFase: false,
-            sequenciaCorreta: [2],
-            sequenciaRecebida: [1],
+            sequenciaCorreta: [2,2,2,2,2],
+            sequenciaRecebida: [1,1,2,2,3],
             errou: true,
         }
 
@@ -152,18 +152,21 @@ export default class Game extends Component {
 
                         if (errou) {
                             console.log("errou");
+                            let tempoDeEspera;
 
-                            if (prevState.sequenciaRecebida.length > 0){
-                                setTimeout(() => {
-                                    this.setState({ errouAFase: errou })
-                                }, (2500 + sequenciaRecebida.length * 300));
-                            } else{
-                                let tempoDeEspera = 3000 + (sequenciaRecebida.length * 300);
-                                console.log(tempoDeEspera)
-                                setTimeout(() => {
-                                    this.setState({ errouAFase: errou })
-                                }, tempoDeEspera);
+                            if (prevState.sequenciaRecebida.length > 0 && !prevState.errouAFase){
+                                console.log("timeout menor");
+                                tempoDeEspera = 2500 + (sequenciaRecebida.length * 400);
+                                
+                                } else{
+                                console.log("timeout mais maior");
+                                tempoDeEspera = 5000 + (sequenciaRecebida.length * 400);
                             }
+                            console.log(tempoDeEspera);
+
+                            setTimeout(() => {
+                                return ({ errouAFase: errou });
+                            }, (2500 + sequenciaRecebida.length * 300));
                             // se deve passar de fase
                         } else if (!errou && passarDeFase && fase < 6) {
                             this.criarFase(fase + 1);
