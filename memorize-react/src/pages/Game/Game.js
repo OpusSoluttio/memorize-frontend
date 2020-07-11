@@ -35,6 +35,8 @@ export default class Game extends Component {
             passarDeFase: false,
             mensagemExibida: 'Vamos lá! Se prepare!',
 
+            modalAberto: null,
+
             finalizarJogo: false,
         }
     }
@@ -112,10 +114,10 @@ export default class Game extends Component {
         //     })
 
         var statusTeste = {
-            fase: 7,
+            fase: 3,
             passarDeFase: false,
-            sequenciaCorreta: [2,2,2,2,2],
-            sequenciaRecebida: [1,1,2,2,3],
+            sequenciaCorreta: [2, 3, 4, 1, 2],
+            sequenciaRecebida: [4, 4, 4, 4],
             errou: true,
         }
 
@@ -141,44 +143,19 @@ export default class Game extends Component {
                     if (sequenciaRecebida.length === sequenciaCorreta.length) {
                         console.log("DEVERIA MOSTRAR A SEQUENCIA RECEBIDA")
                         // se recebeu a sequencia completa, exibe ela:
-                        this.setState({
+                        return ({
                             sequenciaExibida: this.transformarEmCores(sequenciaRecebida),
                             mensagemExibida: "Essa foi sua sequência",
                             sequenciaCorreta: sequenciaCorreta,
                             fase: fase,
                             sequenciaRecebida: sequenciaRecebida,
+                            errouAFase: errou,
+                            passarDeFase: passarDeFase,
                         })
 
 
-                        if (errou) {
-                            console.log("errou");
-                            let tempoDeEspera;
-
-                            if (prevState.sequenciaRecebida.length > 0 && !prevState.errouAFase){
-                                console.log("timeout menor");
-                                tempoDeEspera = 2500 + (sequenciaRecebida.length * 400);
-                                
-                                } else{
-                                console.log("timeout mais maior");
-                                tempoDeEspera = 5000 + (sequenciaRecebida.length * 400);
-                            }
-                            console.log(tempoDeEspera);
-
-                            setTimeout(() => {
-                                return ({ errouAFase: errou });
-                            }, (2500 + sequenciaRecebida.length * 300));
-                            // se deve passar de fase
-                        } else if (!errou && passarDeFase && fase < 6) {
-                            this.criarFase(fase + 1);
-                            // se deve finalizar o jogo
-                        } else if (!errou && passarDeFase && fase >= 6) {
-                            this.finalizarJogo();
-                        } else {
-                            console.log("else")
-                        }
-
                     } else if (prevState.sequenciaCorreta.length !== sequenciaCorreta.length || prevState.errouAFase && !errou) {
-                        console.log("deviatadiferente")
+                        console.log("deviatadiferente");
                         return ({
                             //SE MUDOU A SEQUENCIA A SER RECEBIDA(quando a sequencia é criada, seja porque passaram de fase ou porque erraram a fase e vão refazê-la)
                             mensagemExibida: "Decore essa sequência!",
@@ -190,55 +167,50 @@ export default class Game extends Component {
 
                         })
                     } else {
+                        //SE JA EXIBIU A SEQUENCIA QUE TEM QUE DECORAR E AINDA NAO RECEBEU A SEQUENCIA COMPLETA DOS SENSORES (esse é o caso mais comum)
                         console.log("else");
                         console.log(this.state)
+
                         return ({
-                            //SE JA EXIBIU A SEQUENCIA QUE TEM QUE DECORAR E AINDA NAO RECEBEU A SEQUENCIA COMPLETA DOS SENSORES
                             mensagemExibida: "Sua vez! Aguardando sequência...",
                             sequenciaCorreta: sequenciaCorreta,
                             fase: fase,
                             sequenciaRecebida: sequenciaRecebida,
-
-                            passarDeFase: passarDeFase,
-
                         })
                     }
 
-                })
-
-                // se deve fazer alguma coisa
-                if (sequenciaRecebida.length === sequenciaCorreta.length) {
-                    // this.setState(() => ({
-                    //     sequenciaExibida: this.transformarEmCores(sequenciaRecebida),
-                    //     mensagemExibida: 'Essa foi a sua sequência',
-                    // }))
-
-                    console.log(this.state);
-                    // se erraram a sequencia
-                    // if (errou) {
-                    //     console.log("errou");
-                    //     // se deve passar de fase
-                    // } else if (!errou && passarDeFase && fase < 6) {
-                    //     this.criarFase(fase + 1);
-                    //     // se deve finalizar o jogo
-                    // } else if (!errou && passarDeFase && fase >= 6) {
-                    //     this.finalizarJogo();
-                    // } else {
-                    //     console.log("else")
-                    // }
-
-                } else {
-                    // this.exibirSequencia(this.transformarEmCores(sequenciaCorreta));
-                    // this.setState({ mensagemExibida: 'Aguardando sequência...' });
-                }
+                    //verificarModals acontece no callback do setstate
+                }, this.verificarModals)
             } catch (error) {
                 alert("try catch principal")
                 this.setState({ erro: true });
                 console.log(error);
             }
         }
-
     }
+
+    verificarModals = () => {
+        const { passarDeFase, errouAFase, sequenciaRecebida } = this.state;
+
+        // EXPLICANDO O TEMPO DE ESPERA:
+        // O 2500 É O DELAY QUE TEM PARA COMEÇAR A ANIMAÇAO DA SEQUENCIA (VEJA EM components/Sequenciador.js) mais meio segundo pra dar um tempinho
+        // 1200 é o tempo de cada animação completa mais o delay (VEJA EM components/Sequenciador.js)
+        // depois do tempo determinado no timeout, ele vai setar o estado como errou de fase, que abrirá o modal de erro
+        let tempoDeEspera = 2500 + sequenciaRecebida.length * 1200;
+
+
+        if (passarDeFase && !errouAFase) {
+            setTimeout(() => {
+                this.setState({ modalAberto: "acertou" })
+            }, tempoDeEspera);
+        } else if (errouAFase && !passarDeFase) {
+            setTimeout(() => {
+                this.setState({ modalAberto: "errou" })
+            }, tempoDeEspera);
+        }
+    }
+
+
 
     criarSessao = async () => {
 
@@ -275,6 +247,12 @@ export default class Game extends Component {
     fecharModalDeErro = () => {
         this.setState({ errouAFase: false });
         this.criarFase(this.state.fase);
+        this.obterStatus();
+    }
+
+    fecharModalDeAcerto = () => {
+        this.setState({ passarDeFase: false });
+        this.criarFase(this.state.fase + 1);
         this.obterStatus();
     }
 
@@ -481,7 +459,7 @@ export default class Game extends Component {
 
                 {/* modal de erro na sequencia */}
                 <Modal
-                    open={this.state.errouAFase}
+                    open={this.state.modalAberto === "errou"}
                     onClose={this.fecharModalDeErro}
                     center
                     focusTrapped={false}
@@ -501,6 +479,28 @@ export default class Game extends Component {
                     <h3 className="titulo-erro">Eita!</h3>
                     <p>Você errou a sequência! Tente novamente :P.</p>
                     <img className="imagem-erro" src={ImagemErro} alt="" />
+                </Modal>
+
+                <Modal
+                    open={this.state.modalAberto === "acertou"}
+                    onClose={this.fecharModalDeAcerto}
+                    center
+                    focusTrapped={false}
+                    styles={{
+                        modal: {
+                            border: "3px solid #ff3333",
+                            borderRadius: "5px",
+                            textAlign: "center",
+                            backgroundColor: "#ffe9e9"
+                        },
+                        overlay: {
+                            backgroundColor: "#EF476F50",
+                            backdropFilter: "blur(15px)",
+                        }
+                    }}
+                >
+                    <h3 className="titulo-erro">Parabéns!</h3>
+                    <p>Você acertou a sequência! n fez mais doque sua obrigação</p>
                 </Modal>
             </div>
         )

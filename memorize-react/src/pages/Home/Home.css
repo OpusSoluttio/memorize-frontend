@@ -16,7 +16,7 @@
     src: url("../../assets/font/Baloo2-ExtraBold.ttf");
 }
 *{
-    font-family: "Baloo 2 ExtraBold", sans-serif;
+    font-family: "Baloo 2 ExtraBold", cursive, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
