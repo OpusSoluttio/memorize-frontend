@@ -296,6 +296,62 @@
     font-size: 2em;
 }
 
+.titulo-acerto{
+    color: #06D6A0;
+    font-size: 2em;
+}
+
 .frase-fase{
     background-color: pink;
+}
+
+.avancar-fase{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0.5em 0%;
+    background-color: #06D6A0;
+    color: #444;
+    font-size: 1.25em;
+    margin-top: 1em;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    -webkit-transition: 0.2s ease-in-out;
+    border-radius: 5px;
+}
+
+.avancar-fase:hover, .recomecar-fase:hover {
+    filter: brightness(125%);
+    font-family: "Baloo 2 Medium";
+}
+
+.avancar-fase img{
+    transform: rotate(180deg);
+    filter: brightness(50%);
+    height: 0.75em;
+    margin-left: 0.5em;
+}
+
+.recomecar-fase{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0.5em 0%;
+    background-color: #EF476F;
+    color: #fff;
+    font-size: 1.25em;
+    margin-top: 1em;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    -webkit-transition: 0.2s ease-in-out;
+    border-radius: 5px;
+}
+
+.recomecar-fase img{
+    transform: rotate(180deg);
+    filter: brightness(200%);
+    height: 0.75em;
+    margin-left: 0.5em;
 }

@@ -24,7 +24,6 @@ export default class Sequenciador extends React.Component {
         
         // cria uma "linha do tempo" de animacoes, que ainda nao e iniciada
         var animacoes = anime.timeline({
-            // duration : 300,
             delay: 300,
             autoplay : false,
         })
@@ -59,8 +58,6 @@ export default class Sequenciador extends React.Component {
                     "brightness(150%)",
                     "brightness(100%)",
                 ],
-                // duration : 300,
-                // delay: 100,
                 easing: 'linear',
             })
 

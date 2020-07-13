@@ -13,35 +13,35 @@ export default class Progresso extends Component {
             texto: '',
             frase: '',
             titulo: '',
-            faseModal : "",
-            urlimg: "",
+            faseModal: "",
+            urlImg: "",
         }
     }
 
     onOpenModal = (fase) => {
         let faseBuscada = fases.modalFases.find(item => item.faseModal === fase);
-        
+
         this.setState({
-            open : true,
-            faseModal : faseBuscada.faseModal,
-            texto : faseBuscada.texto,
-            frase : faseBuscada.frase,
-            titulo : faseBuscada.titulo,
-            urlimg: faseBuscada.urlimg,
+            open: true,
+            faseModal: faseBuscada.faseModal,
+            texto: faseBuscada.texto,
+            frase: faseBuscada.frase,
+            titulo: faseBuscada.titulo,
+            urlimg: faseBuscada.urlImg,
         })
     };
 
     onCloseModal = () => {
-        this.setState({  open : false});
+        this.setState({ open: false });
 
         setTimeout(() => {
-            this.setState({texto : "", faseModal : ""})
-        }, 250); 
+            this.setState({ texto: "", faseModal: "" })
+        }, 250);
     }
 
     obterTituloDaFase = (fase) => {
         let faseBuscada = fases.modalFases.find(item => item.faseModal === fase);
-        if (faseBuscada !== null){
+        if (faseBuscada !== null) {
             return faseBuscada.titulo;
         }
     }
@@ -78,16 +78,20 @@ export default class Progresso extends Component {
             }
         }
 
+        const { texto, frase, titulo, faseModal, urlImg, open } = this.state;
+
+
         return (
             <div className="Progresso">
-                <ReactTooltip 
-                id="fase-tooltip"
-                place="right"
-                type="dark"
-                effect="solid"
-                multiline={true}
-                delayShow={0.5}
-                delayHide={0.5} />
+
+                <ReactTooltip
+                    id="fase-tooltip"
+                    place="right"
+                    type="dark"
+                    effect="solid"
+                    multiline={true}
+                    delayShow={0.5}
+                    delayHide={0.5} />
 
 
                 <ul className="fases">
@@ -97,7 +101,7 @@ export default class Progresso extends Component {
                         /// verifica que tipo de fase criar de acordo com o progresso
                         if (i === 5 && item === "bloqueada") {
                             return (
-                                <li className="fase-group" key={i+1}>
+                                <li className="fase-group" key={i + 1}>
                                     <div className="fase fase-bloqueada fase-final fase-final-bloqueada"
                                         data-for="fase-tooltip"
                                         data-tip="Você ainda não desbloqueou essa fase :/"
@@ -106,17 +110,16 @@ export default class Progresso extends Component {
                             )
                         } else if (i === 5 && item === "atual") {
                             return (
-                                <li className="fase-group" key={i+1}>
+                                <li className="fase-group" key={i + 1}>
                                     <Anime
                                         in appear
                                         loop={true}
                                         easing="linear"
-                                        // delay={500}
                                         onEntering={{ backgroundColor: ["#4c3cb4", "#999"], duration: 1000 }}
                                     >
                                         <div className="fase fase-atual fase-final"
-                                        data-for="fase-tooltip"
-                                        data-tip="Você está aqui"
+                                            data-for="fase-tooltip"
+                                            data-tip="Você está aqui"
                                         >
                                         </div>
                                     </Anime>
@@ -125,43 +128,42 @@ export default class Progresso extends Component {
 
                         } else if (i >= 5 && item === "desbloqueada") {
                             return (
-                                <li className="fase-group" key={i+1}>
+                                <li className="fase-group" key={i + 1}>
                                     <div className="fase fase-final"
                                         onClick={() => this.onOpenModal(6)}
                                         data-for="fase-tooltip"
                                         data-tip={"Parabéns! Você venceu!"}
-                                        >
+                                    >
                                     </div>
                                 </li>
                             )
                         } else if (item === "bloqueada") {
                             return (
-                                <li className="fase-group" key={i+1}>
+                                <li className="fase-group" key={i + 1}>
                                     <span className="linha-progresso linha-bloqueada"></span>
-                                    <div 
-                                    className="fase fase-bloqueada"
-                                    data-for="fase-tooltip"
-                                    data-tip="Você ainda não desbloqueou essa fase :/"
+                                    <div
+                                        className="fase fase-bloqueada"
+                                        data-for="fase-tooltip"
+                                        data-tip="Você ainda não desbloqueou essa fase :/"
                                     >
-
                                     </div>
                                 </li>
                             )
                         } else if (item === "desbloqueada") {
                             return (
-                                    <li className="fase-group" key={i+1}>
-                                        <span className="linha-progresso"></span>
-                                        <div className="fase"
-                                            onClick={() => this.onOpenModal(i+1)}
-                                            data-for="fase-tooltip"
-                                            data-tip={"Capítulo " + (i+1)}
-                                            >
-                                        </div>
-                                    </li>
+                                <li className="fase-group" key={i + 1}>
+                                    <span className="linha-progresso"></span>
+                                    <div className="fase"
+                                        onClick={() => this.onOpenModal(i + 1)}
+                                        data-for="fase-tooltip"
+                                        data-tip={"Capítulo " + (i + 1)}
+                                    >
+                                    </div>
+                                </li>
                             )
                         } else if (item === "atual") {
                             return (
-                                <li className="fase-group" key={i+1}>
+                                <li className="fase-group" key={i + 1}>
                                     <span className="linha-progresso linha-atual"></span>
 
                                     <Anime
@@ -185,7 +187,7 @@ export default class Progresso extends Component {
                 </ul>
 
                 <Modal
-                    open={this.state.open}
+                    open={open}
                     onClose={this.onCloseModal}
                     center focusTrapped={false}
                     styles={
@@ -203,10 +205,12 @@ export default class Progresso extends Component {
                             },
                         }}
                 >
-                    <h2>{this.state.titulo}</h2>
-                    <p className="frase-fase">{this.state.frase}</p>
-                    <p>{this.state.texto}</p>
-                    <img src={this.state.urlimg} alt="imagem referente ao texto da fase"/>
+
+                    <h2>{titulo}</h2>
+                    <p className="frase-fase">{frase}</p>
+                    <p>{texto}</p>
+                    <img src={urlImg} alt="imagem referente ao texto da fase" />
+
                 </Modal>
             </div>
 

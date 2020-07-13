@@ -12,7 +12,8 @@ import Sequenciador from "../../components/Sequenciador";
 import { Modal } from 'react-responsive-modal';
 import "react-responsive-modal/styles.css";
 import { Redirect } from "react-router-dom";
-import ImagemErro from '../../assets/img/erro.png'
+import ImagemErro from '../../assets/img/erro.png';
+import MusicaSucesso from "../../assets/sounds/sucesso.mp3";
 
 
 const cores = ['AMARELO', 'AZUL', 'VERDE', 'VERMELHO'];
@@ -63,9 +64,7 @@ export default class Game extends Component {
                     console.log("default do transformar em cores")
                     break;
             }
-
         }
-
         return novaArray;
     }
 
@@ -116,8 +115,8 @@ export default class Game extends Component {
         var statusTeste = {
             fase: 3,
             passarDeFase: false,
-            sequenciaCorreta: [2, 3, 4, 1, 2],
-            sequenciaRecebida: [4, 4, 4, 4],
+            sequenciaCorreta: [2, 3, 4],
+            sequenciaRecebida: [2, 3, 4],
             errou: true,
         }
 
@@ -137,7 +136,6 @@ export default class Game extends Component {
                 var { sequenciaRecebida, sequenciaCorreta, fase, passarDeFase, errou, id } = status;
 
                 this.setState({ idSessao: id });
-
                 this.setState((prevState) => {
 
                     if (sequenciaRecebida.length === sequenciaCorreta.length) {
@@ -181,6 +179,7 @@ export default class Game extends Component {
 
                     //verificarModals acontece no callback do setstate
                 }, this.verificarModals)
+
             } catch (error) {
                 alert("try catch principal")
                 this.setState({ erro: true });
@@ -193,10 +192,10 @@ export default class Game extends Component {
         const { passarDeFase, errouAFase, sequenciaRecebida } = this.state;
 
         // EXPLICANDO O TEMPO DE ESPERA:
-        // O 2500 É O DELAY QUE TEM PARA COMEÇAR A ANIMAÇAO DA SEQUENCIA (VEJA EM components/Sequenciador.js) mais meio segundo pra dar um tempinho
+        // O 3000 É O DELAY QUE TEM PARA COMEÇAR A ANIMAÇAO DA SEQUENCIA (VEJA EM components/Sequenciador.js) mais um segundo pra dar um tempinho
         // 1200 é o tempo de cada animação completa mais o delay (VEJA EM components/Sequenciador.js)
         // depois do tempo determinado no timeout, ele vai setar o estado como errou de fase, que abrirá o modal de erro
-        let tempoDeEspera = 2500 + sequenciaRecebida.length * 1200;
+        let tempoDeEspera = 3000 + sequenciaRecebida.length * 1200;
 
 
         if (passarDeFase && !errouAFase) {
@@ -225,7 +224,7 @@ export default class Game extends Component {
 
         //url da requisicao
         let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao/';
-        fetch(url, {
+        await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -245,13 +244,13 @@ export default class Game extends Component {
     }
 
     fecharModalDeErro = () => {
-        this.setState({ errouAFase: false });
+        this.setState({ errouAFase: false, modalAberto: null });
         this.criarFase(this.state.fase);
         this.obterStatus();
     }
 
     fecharModalDeAcerto = () => {
-        this.setState({ passarDeFase: false });
+        this.setState({ passarDeFase: false, modalAberto: null });
         this.criarFase(this.state.fase + 1);
         this.obterStatus();
     }
@@ -286,11 +285,11 @@ export default class Game extends Component {
                 break;
         }
 
-        this.obterStatus();
-        // se deve criar a mesma fase,
-        if (this.state.errouAFase && this.state.fase === fase) {
-            console.log("errou: deve criar a mesma fase");
-        }
+        // this.obterStatus();
+        // // se deve criar a mesma fase,
+        // if (this.state.errouAFase && this.state.fase === fase) {
+        //     console.log("errou: deve criar a mesma fase");
+        // }
 
         let sequenciaCorreta = this.criarSequencia(quantidade);
 
@@ -311,7 +310,7 @@ export default class Game extends Component {
 
         // CRIAR SESSAO OU PASSAR DE FASE
         let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao/passarfase';
-        fetch(url, {
+        await fetch(url, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json',
@@ -345,7 +344,6 @@ export default class Game extends Component {
 
     finalizarJogo = () => {
         this.setState({ finalizarJogo: true, fase: 7 });
-
     }
 
     componentDidMount() {
@@ -374,13 +372,14 @@ export default class Game extends Component {
         this.setState({ open: false, erro: false });
 
     };
+
+
     onCloseModalErroReq = () => {
-        // this.setState({ open: false, erro: false, redirect: true});
-        this.props.history.push("/");
+        this.props.history.go();
     };
 
     render() {
-        const { open } = this.state;
+        const { open, erro, modalAberto, mensagemExibida } = this.state;
 
         return (
             <div className='Game'>
@@ -393,32 +392,6 @@ export default class Game extends Component {
                     <img alt='' src={Logo} className='nav-logo' />
                     <div>
                         <p className='interrogacao' onClick={this.onOpenModal}>?</p>
-                        <Modal open={open} onClose={this.onCloseModal} center focusTrapped={false}
-                            styles={{
-                                modal: {
-                                    backgroundColor: "#4C3CB4",
-                                    borderRadius: "0.2em",
-                                    color: "#fff"
-                                },
-                                overlay: {
-                                    backdropFilter: "blur(15px)",
-                                    backgroundColor: "#4c3cb446",
-                                    borderRadius: "0.2em"
-                                }
-                            }}>
-                            <div className='comojogar-ajuda-content'>
-                                <h2>Como Jogar</h2>
-                                <br />
-                                <br />
-                                <ul>
-                                    <li>1. Veja e memorize a sequência de cores que será exibida na tela;</li>
-                                    <br />
-                                    <li>2. Em seguida utilize os sensores para reproduzir a sequência de cores anteriormente exibida e mostre seu potencial;</li>
-                                    <br />
-                                    <li>3. Agora vá para a próxima fase e enfrente os novos desafios e novas sequências, evolua e desbloqueie os novos níveis até o liberar o maior prêmio, o conhecimento!</li>
-                                </ul>
-                            </div>
-                        </Modal>
                     </div>
                 </nav>
 
@@ -427,12 +400,12 @@ export default class Game extends Component {
 
                     <Sequenciador sequencia={this.state.sequenciaExibida} />
 
-                    <p className='status-game'>{this.state.mensagemExibida}</p>
+                    <p className='status-game'>{mensagemExibida}</p>
                 </div>
 
                 {/* modal de erro geral */}
                 <Modal
-                    open={this.state.erro}
+                    open={erro}
                     onClose={this.onCloseModalErroReq}
                     center
                     focusTrapped={false}
@@ -441,7 +414,8 @@ export default class Game extends Component {
                             border: "3px solid #ff3333",
                             borderRadius: "5px",
                             textAlign: "center",
-                            backgroundColor: "#ffe9e9"
+                            backgroundColor: "#EF476F",
+                            color: "#fff",
                         },
                         overlay: {
                             backgroundColor: "#EF476F50",
@@ -449,17 +423,18 @@ export default class Game extends Component {
                         }
                     }}
                 >
-                    <h3 className="titulo-erro">Eita!</h3>
+                    <h2>Eita!</h2>
                     <p>Aconteceu um erro inesperado! Por favor, tente novamente mais tarde!</p>
                     {this.state.codigoErro === null || this.state.codigoErro === '' || this.state.codigoErro === undefined ? null :
                         <p>Código do erro: {this.state.codigoErro}</p>
                     }
-                    <img className="imagem-erro" src={ImagemErro} alt="" />
+                    {/* <img className="imagem-erro" src={ImagemErro} alt="" /> */}
                 </Modal>
 
                 {/* modal de erro na sequencia */}
                 <Modal
-                    open={this.state.modalAberto === "errou"}
+                    open={modalAberto === "errou"}
+                    showCloseIcon={false}
                     onClose={this.fecharModalDeErro}
                     center
                     focusTrapped={false}
@@ -468,7 +443,7 @@ export default class Game extends Component {
                             border: "3px solid #ff3333",
                             borderRadius: "5px",
                             textAlign: "center",
-                            backgroundColor: "#ffe9e9"
+                            backgroundColor: "#ffe9e9dd"
                         },
                         overlay: {
                             backgroundColor: "#EF476F50",
@@ -477,33 +452,77 @@ export default class Game extends Component {
                     }}
                 >
                     <h3 className="titulo-erro">Eita!</h3>
-                    <p>Você errou a sequência! Tente novamente :P.</p>
+                    <p>Você errou a sequência! Tente novamente :P</p>
                     <img className="imagem-erro" src={ImagemErro} alt="" />
+
+                    <span className="recomecar-fase" onClick={() => this.setState({ modalAberto: "" })}>
+                        <p>Tentar novamente</p>
+                        <img src={SetaHome} className="recomecar-fase-seta" />
+                    </span>
                 </Modal>
 
+                {/* modal de acerto */}
                 <Modal
-                    open={this.state.modalAberto === "acertou"}
+                    open={modalAberto === "acertou"}
+                    showCloseIcon={false}
                     onClose={this.fecharModalDeAcerto}
                     center
                     focusTrapped={false}
                     styles={{
                         modal: {
-                            border: "3px solid #ff3333",
+                            border: "3px solid #06D6A0",
                             borderRadius: "5px",
                             textAlign: "center",
-                            backgroundColor: "#ffe9e9"
+                            backgroundColor: "#ffe9e9dd"
                         },
                         overlay: {
-                            backgroundColor: "#EF476F50",
+                            backgroundColor: "#06D6A050",
                             backdropFilter: "blur(15px)",
                         }
                     }}
                 >
-                    <h3 className="titulo-erro">Parabéns!</h3>
-                    <p>Você acertou a sequência! n fez mais doque sua obrigação</p>
+                    <h3 className="titulo-acerto">Parabéns!</h3>
+                    <p>Você acertou a sequência e desbloqueou um novo capítulo!</p>
+                    <p>Veja o capítulo desbloqueado no progresso das fases (bolinhas roxas).</p>
+
+                    <span className="avancar-fase" onClick={() => this.setState({ modalAberto: "" })}>
+                        <p>Ir para próxima fase</p>
+                        <img src={SetaHome} className="avancar-fase-seta" />
+                    </span>
+
+                    <audio autoplay>
+                        <source src={MusicaSucesso} type="audio/mpeg" />
+                    </audio>
+                </Modal>
+
+                {/* Modal de duvida */}
+                <Modal open={open} onClose={this.onCloseModal} center focusTrapped={false}
+                    styles={{
+                        modal: {
+                            backgroundColor: "#4C3CB4",
+                            borderRadius: "0.2em",
+                            color: "#fff"
+                        },
+                        overlay: {
+                            backdropFilter: "blur(15px)",
+                            backgroundColor: "#4c3cb446",
+                            borderRadius: "0.2em"
+                        }
+                    }}>
+                    <div className='comojogar-ajuda-content'>
+                        <h2>Como Jogar</h2>
+                        <br />
+                        <br />
+                        <ul>
+                            <li>1. Veja e memorize a sequência de cores que será exibida na tela;</li>
+                            <br />
+                            <li>2. Em seguida utilize os sensores para reproduzir a sequência de cores anteriormente exibida e mostre seu potencial;</li>
+                            <br />
+                            <li>3. Agora vá para a próxima fase e enfrente os novos desafios e novas sequências, evolua e desbloqueie os novos níveis até o liberar o maior prêmio, o conhecimento!</li>
+                        </ul>
+                    </div>
                 </Modal>
             </div>
         )
-
     }
 }

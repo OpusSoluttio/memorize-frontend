@@ -91,7 +91,7 @@ export default function Home() {
 
                         <div className="titulo-e-texto">
                             <h2>O que é?</h2>
-                            <p>Memorize é um jogo divertido e interativo para toda a família, é um game desenvolvido pela Opus Soluttio em parceria com a Colletivo Design. Veja, memorize a sequência de cores, utilize os sensores para reproduzi-la, apresente a sequência correta e passe para uma outra fase com maiores desafios!</p>
+                            <p>Memorize é um jogo divertido e interativo, um game desenvolvido pela Opus Soluttio em parceria com o Estúdio Colletivo. Veja, memorize a sequência de cores, utilize os sensores para reproduzi-la, apresente a sequência correta e passe para uma outra fase com maiores desafios!</p>
                         </div>
                         <div className="center-line"></div>
                         <div className="titulo-e-texto inverte">
