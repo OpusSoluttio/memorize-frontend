@@ -302,7 +302,9 @@
 }
 
 .frase-fase{
-    background-color: pink;
+    background-color: #07AAFF;
+    text-align: center;
+    color: #06D6A0;
 }
 
 .avancar-fase{
@@ -355,3 +357,5 @@
     height: 0.75em;
     margin-left: 0.5em;
 }
+
+

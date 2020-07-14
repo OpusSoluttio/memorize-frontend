@@ -29,7 +29,7 @@ export default class Sequenciador extends React.Component {
         })
 
         //para cada cor na sequencia, ele vai pegar a "ref" da cor
-        sequencia.map((cor, i) => {
+        sequencia.forEach((cor) => {
             let botao;
 
             switch (cor.toUpperCase()) {
@@ -55,7 +55,7 @@ export default class Sequenciador extends React.Component {
                 scale: [0.5, 1.3, 1],
                 filter: [
                     "none",
-                    "brightness(150%)",
+                    "brightness(175%)",
                     "brightness(100%)",
                 ],
                 easing: 'linear',

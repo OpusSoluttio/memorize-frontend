@@ -3,7 +3,6 @@ import LogoMemorize from '../../assets/img/logo-memorize.png';
 import LogoColletivo from '../../assets/img/logo-colletivo.svg';
 import OnibusColletivo from '../../assets/img/onibus-colletivo.gif';
 import MemorizeJogo from '../../assets/img/memorize-jogo.png';
-import RodaATela from '../../assets/img/roda-o-celular.png'
 import SetaColletivo from '../../assets/icons/arrow-icon.png'
 import BtnIniciar from '../../assets/img/btn-iniciar.png';
 import { Link } from 'react-router-dom';
@@ -114,7 +113,7 @@ export default function Home() {
                         <img src={OnibusColletivo} className='onibusColletivo'  alt=""/>
                         <p>Conhecido por desenvolver e transformar design de forma estratégica para grandes empresas à startups, o Colletivo Design trabalha com branding, design gráfico e digital, ilustração, embalagem, sinalização, instalações digitais para publicidade, filmes, música e entretenimento em quase 15 anos de história.</p>
                     </div>
-                    <a href="https://colletivo.com.br/" target="_blank" className='btn-colletivo'>
+                    <a href="https://colletivo.com.br/" target="_blank" className='btn-colletivo' rel="noopener noreferrer">
                         <p>Ir para o site</p>
                         <img src={SetaColletivo} alt="setaGiratoria" />
                     </a>

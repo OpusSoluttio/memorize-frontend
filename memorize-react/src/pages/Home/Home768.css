@@ -4,7 +4,8 @@
         color: #0383C4;
     }
     .home-principal{
-        background-size: 60% auto;
+        background-size: 55% auto;
+        width: 100% !important;
     }
     .home-section{
         top: 10%;

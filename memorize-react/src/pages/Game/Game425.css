@@ -2,7 +2,6 @@
     
     .interrogacao{
         position: absolute;
-        bottom: 10%;
         font-size: 75px !important;
     }
     .game-nav{
@@ -56,13 +55,11 @@
         width: 100%;
     }
     
-
-
     .main{
         margin-top: 1em;
         flex-flow: column nowrap;
         align-items: center;
-        height: 60%;
+        height: 85%;
     }
 
     .fases{
@@ -93,8 +90,14 @@
         overflow-y: hidden;
         font-size: 1.25em !important;
         width: 100%;
-        margin-top: -1%;
+        height: unset;
+        min-height: 5em;
+        /* margin-top: 0.25em; */
         word-wrap: break-word;
+    }
+
+    #fase-tooltip{
+        display: none !important;
     }
 
     

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './Game.css';
-import './Game425.css';
-import './Game768.css';
 import './Game1920.css';
+import './Game768.css';
+import './Game425.css';
 import anime from 'animejs/lib/anime.es.js';
 import { Link } from 'react-router-dom';
 import SetaHome from '../../assets/img/voltar-home.png';
@@ -11,7 +11,6 @@ import Progresso from '../../components/Progresso';
 import Sequenciador from "../../components/Sequenciador";
 import { Modal } from 'react-responsive-modal';
 import "react-responsive-modal/styles.css";
-import { Redirect } from "react-router-dom";
 import ImagemErro from '../../assets/img/erro.png';
 import MusicaSucesso from "../../assets/sounds/sucesso.mp3";
 
@@ -96,7 +95,7 @@ export default class Game extends Component {
     }
 
     obterStatus = async () => {
-        let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao';
+        // let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao';
 
         // await fetch(url, {
         //     headers: {
@@ -116,8 +115,8 @@ export default class Game extends Component {
             fase: 3,
             passarDeFase: false,
             sequenciaCorreta: [2, 3, 4],
-            sequenciaRecebida: [2, 3, 4],
-            errou: true,
+            sequenciaRecebida: [2, 3,],
+            errou: false,
         }
 
         this.lidarComStatus(statusTeste);
@@ -170,7 +169,7 @@ export default class Game extends Component {
                         console.log(this.state)
 
                         return ({
-                            mensagemExibida: "Sua vez! Aguardando sequência...",
+                            mensagemExibida: "Sua vez! Aguardando sequência completa dos botões...",
                             sequenciaCorreta: sequenciaCorreta,
                             fase: fase,
                             sequenciaRecebida: sequenciaRecebida,
@@ -457,7 +456,7 @@ export default class Game extends Component {
 
                     <span className="recomecar-fase" onClick={() => this.setState({ modalAberto: "" })}>
                         <p>Tentar novamente</p>
-                        <img src={SetaHome} className="recomecar-fase-seta" />
+                        <img src={SetaHome} className="recomecar-fase-seta" alt="" />
                     </span>
                 </Modal>
 
@@ -487,7 +486,7 @@ export default class Game extends Component {
 
                     <span className="avancar-fase" onClick={() => this.setState({ modalAberto: "" })}>
                         <p>Ir para próxima fase</p>
-                        <img src={SetaHome} className="avancar-fase-seta" />
+                        <img src={SetaHome} className="avancar-fase-seta" alt=""/>
                     </span>
 
                     <audio autoplay>

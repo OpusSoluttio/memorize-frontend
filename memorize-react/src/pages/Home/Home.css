@@ -121,26 +121,32 @@
     background-image: url(../../assets/img/cerebro.png);
     background-repeat: no-repeat;
     background-position: left bottom;
+    background-size: 40%;
+
 }
 .home-section{
     display: flex;
     flex-direction: column;
     align-items: center;
     position: absolute;
-    top: 20%;
+    /* top: 20%; */
     right: 5%;
     width: 35%;
     z-index: 1;
 }
+
+.logo{
+    width: 100%;
+}
 .texto-home-section{
     color: #0383C4;
     text-align: center;
-    font-size: 	1.125em;
+    font-size: 	1.25em;
     width: 80%;
 }
 .botao-jogar-home{
     background-color: #4C3CB4;
-    width: 60%;
+    width: 75%;
     display: flex;
     align-items: center;
     color: #FFF1F1;
@@ -439,3 +445,17 @@
     margin: 0.5em auto 1em auto ;
 }
 /* FINAL RODAPE */
+
+@media only screen  and (max-width: 1100px){
+    .home-principal{
+        background-size: 40%;
+    }
+
+    .home-section{
+        width: 40%;
+    }
+
+    .logo{
+        width: 100%;
+    }
+}

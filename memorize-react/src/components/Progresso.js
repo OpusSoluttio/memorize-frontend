@@ -47,6 +47,7 @@ export default class Progresso extends Component {
     }
 
 
+       
     // componentDidUpdate(prevProps) {
     //     if (prevProps.fase !== this.props.fase && prevProps.fase !== null && prevProps.fase !== undefined)  {
 
@@ -78,7 +79,7 @@ export default class Progresso extends Component {
             }
         }
 
-        const { texto, frase, titulo, faseModal, urlImg, open } = this.state;
+        const { texto, frase, titulo, urlImg, open } = this.state;
 
 
         return (
@@ -170,6 +171,7 @@ export default class Progresso extends Component {
                                         in appear
                                         loop={true}
                                         easing="linear"
+                                        duration={1000}
                                         // delay={500}
                                         onEntering={{ backgroundColor: ["#4c3cb4", "#999"], duration: 1000 }}
                                     >
@@ -183,6 +185,7 @@ export default class Progresso extends Component {
                                 </li>
                             )
                         }
+                        return null;
                     })}
                 </ul>
 
@@ -209,7 +212,7 @@ export default class Progresso extends Component {
                     <h2>{titulo}</h2>
                     <p className="frase-fase">{frase}</p>
                     <p>{texto}</p>
-                    <img src={urlImg} alt="imagem referente ao texto da fase" />
+                    
 
                 </Modal>
             </div>
