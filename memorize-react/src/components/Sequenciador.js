@@ -11,16 +11,11 @@ export default class Sequenciador extends React.Component {
     }
 
     componentDidUpdate(prevProps){
-        if (this.props.sequencia.length !== prevProps.sequencia.length){
+        if (this.props.sequencia.length !== prevProps.sequencia.length && this.props.sequencia.length > 0){
             this.exibirSequencia(this.props.sequencia);
         }
     }
 
-    // sim entao
-    // acho que tem que dar um jeito de zerar a sequencia e depois coloca ela
-    // pera
-
-    // FIX ME - NAO ESTA REPETINDO AS CORES QUANDO PRECISA
     exibirSequencia = (sequencia) => {
         
         // cria uma "linha do tempo" de animacoes, que ainda nao e iniciada
@@ -49,23 +44,6 @@ export default class Sequenciador extends React.Component {
                 default:
                     break;
             }
-
-            // switch (cor) {
-            //     case 1:
-            //         botao = this.botaoAmarelo.current;
-            //         break;
-            //     case 2:
-            //         botao = this.botaoAzul.current;
-            //         break;
-            //     case 3:
-            //         botao = this.botaoVerde.current;
-            //         break;
-            //     case 4:
-            //         botao = this.botaoVermelho.current;
-            //         break;
-            //     default:
-            //         break;
-            // }
 
             // com a ref certa, ele vai adicionar uma animacao a linha do tempo de animacoes
             animacoes.add({

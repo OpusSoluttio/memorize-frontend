@@ -121,7 +121,7 @@ export default class Game extends Component {
     }
 
     lidarComStatus = (status) => {
-        console.log(this.state);
+        console.log(status);
         if (status.sucesso !== undefined && status.sucesso !== null && !status.sucesso) {
             // se nao tiver uma sessao ainda
             this.criarSessao();
@@ -130,15 +130,15 @@ export default class Game extends Component {
             // se ja tiver uma sessao acontecendo
             try {
                 var { sequenciaRecebida, sequenciaCorreta, fase, passarDeFase, errou, id } = status;
+                var  { modalAberto } = this.state;
 
-                this.setState({ idSessao: id });
-                this.setState({ sequenciaExibida: [] })
+                this.setState({ idSessao: id, sequenciaExibida : []});
                 this.setState((prevState) => {
 
-                    if (sequenciaRecebida.length === sequenciaCorreta.length) {
+                    if (sequenciaRecebida.length === sequenciaCorreta.length && modalAberto === null && prevState.modalAberto === null && !prevState.errouAFase  && !prevState.passarDeFase) {
                         // se recebeu a sequencia completa, exibe ela:
 
-                        if (prevState.errouAFase !== errou || prevState.passarDeFase !== passarDeFase) {
+                        if (errou || passarDeFase){
                             return ({
                                 sequenciaExibida: this.transformarEmCores(sequenciaRecebida),
                                 mensagemExibida: "Essa foi sua sequência",
@@ -148,10 +148,10 @@ export default class Game extends Component {
                                 errouAFase: errou,
                                 passarDeFase: passarDeFase,
                             })
-                        } else {
-                            return null;
                         }
-                    } else if (prevState.sequenciaCorreta.length !== sequenciaCorreta.length) {
+
+    
+                    } else if (prevState.sequenciaCorreta.length !== sequenciaCorreta.length  && modalAberto === null) {
                         return ({
                             //SE MUDOU A SEQUENCIA A SER RECEBIDA(quando a sequencia é criada, seja porque passaram de fase ou porque erraram a fase e vão refazê-la)
                             mensagemExibida: "Decore essa sequência!",
@@ -161,26 +161,8 @@ export default class Game extends Component {
                             sequenciaRecebida: sequenciaRecebida,
 
                         })
-                    } else if (prevState.errouAFase && !errou) {
-                        return ({
-                            mensagemExibida: "Decore essa sequência!",
-                            sequenciaExibida: this.transformarEmCores(sequenciaCorreta),
-                            sequenciaCorreta: sequenciaCorreta,
-                            fase: fase,
-                            sequenciaRecebida: sequenciaRecebida,
-                            errouAFase : false,
-                            passarDeFase : false,
-                        })
-                    } else if (prevState.passarDeFase && !passarDeFase){
-                        return ({
-                            mensagemExibida: "Decore essa sequência!",
-                            sequenciaExibida: this.transformarEmCores(sequenciaCorreta),
-                            sequenciaCorreta: sequenciaCorreta,
-                            fase: fase,
-                            sequenciaRecebida: sequenciaRecebida,
-                            errouAFase : false,
-                            passarDeFase : false,
-                        })
+                    } else if (prevState.modalAberto !== null && !errou && !passarDeFase && sequenciaRecebida < sequenciaCorreta) {
+                        alert("a")
                     } else {
                         //SE JA EXIBIU A SEQUENCIA QUE TEM QUE DECORAR E AINDA NAO RECEBEU A SEQUENCIA COMPLETA DOS SENSORES (esse é o caso mais comum)
 
@@ -189,6 +171,9 @@ export default class Game extends Component {
                             sequenciaCorreta: sequenciaCorreta,
                             fase: fase,
                             sequenciaRecebida: sequenciaRecebida,
+                            errouAFase : false,
+                            passarDeFase : false,
+                            sequenciaExibida : [],
                         })
                     }
 
@@ -212,18 +197,19 @@ export default class Game extends Component {
         let tempoDeEspera = 3000 + sequenciaRecebida.length * 1200;
 
 
+        
         if (passarDeFase && !errouAFase) {
             setTimeout(() => {
-                this.setState({ modalAberto: "acertou" });
-
+                this.setState({ modalAberto: "acertou"});
             }, tempoDeEspera);
         } else if (errouAFase && !passarDeFase) {
+            console.log("-*-*-**--*-*-*-")            
             setTimeout(() => {
-                this.setState({ modalAberto: "errou" })
+                this.setState({ modalAberto: "errou"})
             }, tempoDeEspera);
         }
 
-        this.setState({ errouAFase: false, passarDeFase: false })
+        // this.setState({ errouAFase: false, passarDeFase: false })
     }
 
 
@@ -251,9 +237,9 @@ export default class Game extends Component {
             body: JSON.stringify(requestBody)
         })
             .then(response => response.json())
-            // .then(data => {
-            //     console.log(data);
-            // })
+            .then(data => {
+                console.log(data);
+            })
             .catch(error => {
                 console.log(error);
                 this.setState({ erro: true })
@@ -261,14 +247,13 @@ export default class Game extends Component {
     }
 
     fecharModalDeErro = () => {
-        this.setState({ errouAFase: false, modalAberto: "" });
         this.criarFase(this.state.fase);
-        this.obterStatus();
+        this.setState({ errouAFase: false, modalAberto: null });
     }
 
     fecharModalDeAcerto = () => {
-        this.setState({ passarDeFase: false, modalAberto: "" });
         this.criarFase(this.state.fase + 1);
+        this.setState({ passarDeFase: false, modalAberto: null });
         this.obterStatus();
     }
 
@@ -378,22 +363,12 @@ export default class Game extends Component {
 
     }
 
-    // compone    // cate(prevProps, prevState){
-
-    //     if (this.state.sequenciaRecebida.length === this.state.sequenciaCorreta.length && prevState.sequenciaRecebida.length < this.state.sequenciaRecebida){
-    //         this.setState(() => ({sequenciaExibida : this.state.sequenciaRecebida}))
-    //     }
-
-    // }
-
-
     onOpenModal = () => {
         this.setState({ open: true });
     };
 
     onCloseModal = () => {
         this.setState({ open: false, erro: false });
-
     };
 
 
