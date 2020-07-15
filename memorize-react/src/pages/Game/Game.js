@@ -13,7 +13,7 @@ import { Modal } from 'react-responsive-modal';
 import "react-responsive-modal/styles.css";
 import ImagemErro from '../../assets/img/erro.png';
 import MusicaSucesso from "../../assets/sounds/sucesso.mp3";
-
+import CerebroAcerto from "../../assets/img/acerto.png";
 
 const cores = ['AMARELO', 'AZUL', 'VERDE', 'VERMELHO'];
 
@@ -38,7 +38,7 @@ export default class Game extends Component {
             modalAberto: null,
 
             finalizarJogo: false,
-        }
+        };
     }
 
     transformarEmCores = (arrayDeCores) => {
@@ -60,7 +60,6 @@ export default class Game extends Component {
                     novaArray.push('VERMELHO');
                     break;
                 default:
-                    console.log("default do transformar em cores")
                     break;
             }
         }
@@ -86,7 +85,6 @@ export default class Game extends Component {
                     arrayNova.push(4);
                     break;
                 default:
-                    console.log("default do transformar em numeros");
                     break;
             }
         }
@@ -95,36 +93,35 @@ export default class Game extends Component {
     }
 
     obterStatus = async () => {
-        // let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao';
+        let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao';
 
-        // await fetch(url, {
-        //     headers: {
-        //         "Access-Control-Allow-Headers": "*",
-        //     }
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         this.lidarComStatus(data);
-        //     })
-        //     .catch(error => {
-        //         this.setState({ erro: true, codigoErro: error.status });
-        //         console.log(error);
-        //     })
+        await fetch(url, {
+            headers: {
+                "Access-Control-Allow-Headers": "*",
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                this.lidarComStatus(data);
+            })
+            .catch(error => {
+                this.setState({ erro: true, codigoErro: error.status });
+                console.log(error);
+            })
 
-        var statusTeste = {
-            fase: 3,
-            passarDeFase: false,
-            sequenciaCorreta: [2, 3, 4],
-            sequenciaRecebida: [2, 3,],
-            errou: false,
-        }
+        // var statusTeste = {
+        //     fase: 3,
+        //     passarDeFase: true,
+        //     sequenciaCorreta: [2, 3],
+        //     sequenciaRecebida: [2, 1],
+        //     errou: false,
+        // }
 
-        this.lidarComStatus(statusTeste);
+        // this.lidarComStatus(statusTeste);
     }
 
     lidarComStatus = (status) => {
-        console.log(status)
-
+        console.log(this.state);
         if (status.sucesso !== undefined && status.sucesso !== null && !status.sucesso) {
             // se nao tiver uma sessao ainda
             this.criarSessao();
@@ -135,38 +132,57 @@ export default class Game extends Component {
                 var { sequenciaRecebida, sequenciaCorreta, fase, passarDeFase, errou, id } = status;
 
                 this.setState({ idSessao: id });
+                this.setState({ sequenciaExibida: [] })
                 this.setState((prevState) => {
 
                     if (sequenciaRecebida.length === sequenciaCorreta.length) {
-                        console.log("DEVERIA MOSTRAR A SEQUENCIA RECEBIDA")
                         // se recebeu a sequencia completa, exibe ela:
-                        return ({
-                            sequenciaExibida: this.transformarEmCores(sequenciaRecebida),
-                            mensagemExibida: "Essa foi sua sequência",
-                            sequenciaCorreta: sequenciaCorreta,
-                            fase: fase,
-                            sequenciaRecebida: sequenciaRecebida,
-                            errouAFase: errou,
-                            passarDeFase: passarDeFase,
-                        })
 
-
-                    } else if (prevState.sequenciaCorreta.length !== sequenciaCorreta.length || prevState.errouAFase && !errou) {
-                        console.log("deviatadiferente");
+                        if (prevState.errouAFase !== errou || prevState.passarDeFase !== passarDeFase) {
+                            return ({
+                                sequenciaExibida: this.transformarEmCores(sequenciaRecebida),
+                                mensagemExibida: "Essa foi sua sequência",
+                                sequenciaCorreta: sequenciaCorreta,
+                                fase: fase,
+                                sequenciaRecebida: sequenciaRecebida,
+                                errouAFase: errou,
+                                passarDeFase: passarDeFase,
+                            })
+                        } else {
+                            return null;
+                        }
+                    } else if (prevState.sequenciaCorreta.length !== sequenciaCorreta.length) {
                         return ({
                             //SE MUDOU A SEQUENCIA A SER RECEBIDA(quando a sequencia é criada, seja porque passaram de fase ou porque erraram a fase e vão refazê-la)
                             mensagemExibida: "Decore essa sequência!",
                             sequenciaExibida: this.transformarEmCores(sequenciaCorreta),
-
                             sequenciaCorreta: sequenciaCorreta,
                             fase: fase,
                             sequenciaRecebida: sequenciaRecebida,
 
                         })
+                    } else if (prevState.errouAFase && !errou) {
+                        return ({
+                            mensagemExibida: "Decore essa sequência!",
+                            sequenciaExibida: this.transformarEmCores(sequenciaCorreta),
+                            sequenciaCorreta: sequenciaCorreta,
+                            fase: fase,
+                            sequenciaRecebida: sequenciaRecebida,
+                            errouAFase : false,
+                            passarDeFase : false,
+                        })
+                    } else if (prevState.passarDeFase && !passarDeFase){
+                        return ({
+                            mensagemExibida: "Decore essa sequência!",
+                            sequenciaExibida: this.transformarEmCores(sequenciaCorreta),
+                            sequenciaCorreta: sequenciaCorreta,
+                            fase: fase,
+                            sequenciaRecebida: sequenciaRecebida,
+                            errouAFase : false,
+                            passarDeFase : false,
+                        })
                     } else {
                         //SE JA EXIBIU A SEQUENCIA QUE TEM QUE DECORAR E AINDA NAO RECEBEU A SEQUENCIA COMPLETA DOS SENSORES (esse é o caso mais comum)
-                        console.log("else");
-                        console.log(this.state)
 
                         return ({
                             mensagemExibida: "Sua vez! Aguardando sequência completa dos botões...",
@@ -180,7 +196,6 @@ export default class Game extends Component {
                 }, this.verificarModals)
 
             } catch (error) {
-                alert("try catch principal")
                 this.setState({ erro: true });
                 console.log(error);
             }
@@ -199,13 +214,16 @@ export default class Game extends Component {
 
         if (passarDeFase && !errouAFase) {
             setTimeout(() => {
-                this.setState({ modalAberto: "acertou" })
+                this.setState({ modalAberto: "acertou" });
+
             }, tempoDeEspera);
         } else if (errouAFase && !passarDeFase) {
             setTimeout(() => {
                 this.setState({ modalAberto: "errou" })
             }, tempoDeEspera);
         }
+
+        this.setState({ errouAFase: false, passarDeFase: false })
     }
 
 
@@ -233,9 +251,9 @@ export default class Game extends Component {
             body: JSON.stringify(requestBody)
         })
             .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            })
+            // .then(data => {
+            //     console.log(data);
+            // })
             .catch(error => {
                 console.log(error);
                 this.setState({ erro: true })
@@ -243,13 +261,13 @@ export default class Game extends Component {
     }
 
     fecharModalDeErro = () => {
-        this.setState({ errouAFase: false, modalAberto: null });
+        this.setState({ errouAFase: false, modalAberto: "" });
         this.criarFase(this.state.fase);
         this.obterStatus();
     }
 
     fecharModalDeAcerto = () => {
-        this.setState({ passarDeFase: false, modalAberto: null });
+        this.setState({ passarDeFase: false, modalAberto: "" });
         this.criarFase(this.state.fase + 1);
         this.obterStatus();
     }
@@ -319,12 +337,9 @@ export default class Game extends Component {
             body: JSON.stringify(requestBody)
         })
             .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            })
+            .then(data => console.log(data))
             .catch(error => {
-                console.log(error);
-                this.setState({ erro: true })
+                this.setState({ erro: true, codigoErro: error.message });
             })
 
         console.log(JSON.stringify(requestBody));
@@ -363,6 +378,15 @@ export default class Game extends Component {
 
     }
 
+    // compone    // cate(prevProps, prevState){
+
+    //     if (this.state.sequenciaRecebida.length === this.state.sequenciaCorreta.length && prevState.sequenciaRecebida.length < this.state.sequenciaRecebida){
+    //         this.setState(() => ({sequenciaExibida : this.state.sequenciaRecebida}))
+    //     }
+
+    // }
+
+
     onOpenModal = () => {
         this.setState({ open: true });
     };
@@ -378,11 +402,10 @@ export default class Game extends Component {
     };
 
     render() {
-        const { open, erro, modalAberto, mensagemExibida } = this.state;
+        const { open, erro, modalAberto, mensagemExibida, sequenciaExibida, fase } = this.state;
 
         return (
-            <div className='Game'>
-
+            <div className="Game">
                 <nav className='game-nav game-content'>
                     <Link to={"/"} className='voltar'>
                         <img src={SetaHome} alt="" />
@@ -395,9 +418,9 @@ export default class Game extends Component {
                 </nav>
 
                 <div className='game-content main'>
-                    <Progresso fase={this.state.fase} />
+                    <Progresso fase={fase} />
 
-                    <Sequenciador sequencia={this.state.sequenciaExibida} />
+                    <Sequenciador sequencia={sequenciaExibida} />
 
                     <p className='status-game'>{mensagemExibida}</p>
                 </div>
@@ -425,7 +448,7 @@ export default class Game extends Component {
                     <h2>Eita!</h2>
                     <p>Aconteceu um erro inesperado! Por favor, tente novamente mais tarde!</p>
                     {this.state.codigoErro === null || this.state.codigoErro === '' || this.state.codigoErro === undefined ? null :
-                        <p>Código do erro: {this.state.codigoErro}</p>
+                        <p className="modal-smaller-error-text">(Descrição do erro: {this.state.codigoErro})</p>
                     }
                     {/* <img className="imagem-erro" src={ImagemErro} alt="" /> */}
                 </Modal>
@@ -454,7 +477,7 @@ export default class Game extends Component {
                     <p>Você errou a sequência! Tente novamente :P</p>
                     <img className="imagem-erro" src={ImagemErro} alt="" />
 
-                    <span className="recomecar-fase" onClick={() => this.setState({ modalAberto: "" })}>
+                    <span className="recomecar-fase" onClick={this.fecharModalDeErro}>
                         <p>Tentar novamente</p>
                         <img src={SetaHome} className="recomecar-fase-seta" alt="" />
                     </span>
@@ -480,18 +503,21 @@ export default class Game extends Component {
                         }
                     }}
                 >
-                    <h3 className="titulo-acerto">Parabéns!</h3>
-                    <p>Você acertou a sequência e desbloqueou um novo capítulo!</p>
-                    <p>Veja o capítulo desbloqueado no progresso das fases (bolinhas roxas).</p>
+                    <h3 className="titulo-acerto">Parabéns!!!</h3>
 
-                    <span className="avancar-fase" onClick={() => this.setState({ modalAberto: "" })}>
+                    <p>Você acertou a sequência e desbloqueou um novo capítulo!</p>
+                    <p className="modal-smaller-text">Veja o capítulo desbloqueado no progresso das fases (bolinhas roxas).</p>
+                    <img alt="" src={CerebroAcerto} className="imagem-acerto" />
+
+                    <span className="avancar-fase" onClick={this.fecharModalDeAcerto}>
                         <p>Ir para próxima fase</p>
-                        <img src={SetaHome} className="avancar-fase-seta" alt=""/>
+                        <img src={SetaHome} className="avancar-fase-seta" alt="" />
                     </span>
 
-                    <audio autoplay>
-                        <source src={MusicaSucesso} type="audio/mpeg" />
-                    </audio>
+                    {/* <audio ref={this.refSomSucesso} className="audio-element">
+                      <source src={MusicaSucesso} type="audio/mp3" />
+                        seu navegador não suporta HTML5
+                    </audio> */}
                 </Modal>
 
                 {/* Modal de duvida */}

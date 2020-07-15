@@ -27,7 +27,7 @@ export default class Progresso extends Component {
             texto: faseBuscada.texto,
             frase: faseBuscada.frase,
             titulo: faseBuscada.titulo,
-            urlimg: faseBuscada.urlImg,
+            urlImg: faseBuscada.urlimg,
         })
     };
 
@@ -212,7 +212,7 @@ export default class Progresso extends Component {
                     <h2>{titulo}</h2>
                     <p className="frase-fase">{frase}</p>
                     <p>{texto}</p>
-                    
+                    <img src={urlImg} alt="" />
 
                 </Modal>
             </div>

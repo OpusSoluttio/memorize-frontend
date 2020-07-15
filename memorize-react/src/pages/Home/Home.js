@@ -104,7 +104,7 @@ export default function Home() {
             <section className='colletivo container' id='colletivo'>
                 <div className='colletivo-content content'>
                     <div className='colletivo-titulo'>
-                        <p>Este projeto é oferecido por</p>
+                        <p>Uma parceria com</p>
                     </div>
                     <div className='colletivo-banner'>
                         <img src={LogoColletivo} className='logoColletivo'  alt="Logo do Colletivo Design"/>

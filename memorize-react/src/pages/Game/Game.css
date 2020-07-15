@@ -302,7 +302,6 @@
 }
 
 .frase-fase{
-    background-color: #07AAFF;
     text-align: center;
     color: #06D6A0;
 }
@@ -356,6 +355,20 @@
     filter: brightness(200%);
     height: 0.75em;
     margin-left: 0.5em;
+}
+
+.modal-smaller-text{
+    font-size: 1em;
+    color: #676;
+}
+
+.modal-smaller-error-text{
+    font-size: 1em;
+    color: #ccc;
+}
+
+.imagem-acerto{
+    margin-top: 1.5em;
 }
 
 
