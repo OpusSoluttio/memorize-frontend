@@ -9,9 +9,7 @@ import { Link } from 'react-router-dom';
 import { Link as SmoothLink } from "react-scroll";
 // import anime from 'animejs/lib/anime.es.js';
 import './Home.css';
-import './Home1920.css';
-import './Home768.css';
-import './Home425.css';
+
 import PageProgress from 'react-page-progress';
 import Footer from "../../components/Footer";
 import Anime from "@mollycule/react-anime";
@@ -22,11 +20,9 @@ export default function Home() {
         <div className='Home'>
             <section className='header'>
 
-
                 <div className="device-rotation">
                     <h2 className="device-rotation">Vire a tela para acessar a página ;)</h2>
                 </div>
-
 
                 <header className='main-header container'>
                     <nav className='main-nav'>

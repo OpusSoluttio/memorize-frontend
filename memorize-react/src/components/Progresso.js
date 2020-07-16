@@ -47,22 +47,28 @@ export default class Progresso extends Component {
     }
 
 
-       
-    // componentDidUpdate(prevProps) {
-    //     if (prevProps.fase !== this.props.fase && prevProps.fase !== null && prevProps.fase !== undefined)  {
 
-    //         //fase atual menos uma (mostra a ultima desbloqueada)
-    //         let faseBuscada = fases.modalFases.find(item => item.faseModal === this.props.fase - 1);
+    componentDidUpdate(prevProps) {
 
-    //         if (faseBuscada !== null && faseBuscada !== undefined) {
-    //             this.setState({
-    //                 open: true,
-    //                 faseModal: this.props.fase - 1,
-    //                 texto: faseBuscada.texto,
-    //             })
-    //         }
-    //     }
-    // }
+        if (prevProps.fase < 7 && this.props.fase >= 7)  {
+            console.log("exibir modal de vitoria")
+            //fase atual menos uma (mostra a ultima desbloqueada)
+            let faseBuscada = fases.modalFases.find(item => item.faseModal === 6);
+
+            if (faseBuscada !== null && faseBuscada !== undefined) {
+                this.setState({
+                    open: true,
+                    faseModal: faseBuscada.faseModal,
+                    texto: faseBuscada.texto,
+                    frase: faseBuscada.frase,
+                    titulo: faseBuscada.titulo,
+                    urlImg: faseBuscada.urlimg,
+                })
+            }
+        }
+    }
+
+
 
     render() {
         const array = [];
@@ -80,6 +86,7 @@ export default class Progresso extends Component {
         }
 
         const { texto, frase, titulo, urlImg, open } = this.state;
+        const {fase} = this.props;
 
 
         return (
@@ -164,25 +171,17 @@ export default class Progresso extends Component {
                             )
                         } else if (item === "atual") {
                             return (
-                                <li className="fase-group" key={i + 1}>
-                                    <span className="linha-progresso linha-atual"></span>
 
-                                    <Anime
-                                        in appear
-                                        loop={true}
-                                        easing="linear"
-                                        duration={1000}
-                                        // delay={500}
-                                        onEntering={{ backgroundColor: ["#4c3cb4", "#999"], duration: 1000 }}
-                                    >
+                                    <li className="fase-group" key={i + 1}>
+                                        <span className="linha-progresso linha-atual"></span>
+
 
                                         <div className="fase fase-atual"
                                             data-for="fase-tooltip"
                                             data-tip="Você está aqui"
                                         >
                                         </div>
-                                    </ Anime>
-                                </li>
+                                    </li>
                             )
                         }
                         return null;
@@ -213,7 +212,9 @@ export default class Progresso extends Component {
                     <p className="frase-fase">{frase}</p>
                     <p>{texto}</p>
                     <img src={urlImg} alt="" />
-
+                    {fase >= 7 ?
+                        <p>Obrigado por jogar o Memo Rize! A equipe Opus Soluttio agradece!</p>
+                    : null}
                 </Modal>
             </div>
 

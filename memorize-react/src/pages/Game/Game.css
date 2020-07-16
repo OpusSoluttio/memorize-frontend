@@ -277,6 +277,20 @@
     background-color: #EF476F;
 }
 
+.reiniciar-icon{
+    height: 80%;
+    cursor: pointer;
+    opacity: 50%;
+    transition: 0.3s;
+}
+
+.reiniciar-icon:hover{
+    /* height: 75%; */
+    transform:  rotate(180deg);
+    opacity: 100%;
+
+}
+
 .destaque{
     transform: scale(5%); 
     /* filter: brightness(150%); */
@@ -372,3 +386,250 @@
 }
 
 
+@media only screen and (min-width:1920px){
+    
+    *{
+        overflow-x: hidden;
+    }
+    nav{
+        position: relative;
+        top: 0%;
+        
+    }
+    .voltar{
+        font-size: 3em;
+    }
+    .voltar img{
+        width: 0.5em;
+    }
+    .interrogacao{
+        font-size: 5em;
+    }
+    .nav-logo{
+        width: 320px;
+        height: 160px;
+    }
+    .botao-principal{
+        padding: 4.5em;
+        height: 550px;
+        width: 550px;
+        margin-top: 0;
+        
+        position: absolute;
+        top: calc(50% - (550px / 2));
+        left: calc(50% - (550px / 2));
+    }
+    .amarelo{
+        height: 190px;
+        width: 190px;
+    }
+    .azul{
+        height: 190px;
+        width: 190px;
+    }
+    .verde{
+        height: 190px;
+        width: 190px;
+    }
+    .vermelho{
+        height: 190px;
+        width: 190px;
+    }
+    .status-game{
+        font-size: 2em;
+        top: 80%;
+    }
+    .Progresso{
+        position: absolute;
+        left: 5%;
+        top: 20%;
+    }
+    .comojogar-ajuda-content{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .comojogar-ajuda-content > h2{
+        font-size: 3em;
+    }
+    .comojogar-ajuda-content > ul > li{
+        font-size: 1.8em;
+    }
+}
+
+@media only screen and (max-width: 768px){
+    .Game{
+        background-image: url(../../assets/img/ilustracao-game-mobile.png);
+        background-size: 120%;
+        background-position-x: 0%;
+    }
+    .interrogacao{
+        position: absolute;
+        bottom: 0%;
+        right: 3%;
+        font-size: 130px;
+    }
+    .game-nav{
+        margin-top: 1%;
+    }
+    .voltar{
+        margin-left: 4%;
+        
+    }
+    .voltar p{
+        display: none;
+        
+    }
+    /* .status-game{
+        color: #4C3CB4;
+        overflow-y: hidden;
+        font-size: 1.5em;
+        width: 100%;
+        margin-top: -1%;
+    } */
+    .main{
+        margin-top: 1em;
+        flex-flow: column nowrap;
+        align-items: center;
+        height: 60%;
+    }
+
+    .fases{
+        flex-flow: row;
+    }
+
+    .fase{
+        height: 1.5em;
+        width: 1.5em;
+    }
+
+    .fase-final{
+        height: 3em;
+        width: 3em;
+    }
+
+    .fase-group{
+        display: flex;
+        flex-flow: row-reverse;
+    }
+
+    .linha-progresso{
+        height: 4px;
+        width: 1.5em;
+    }
+    .status-game{
+        color: #4C3CB4;
+        overflow-y: hidden;
+        font-size: 2em;
+        width: unset;
+        max-width: 100%;
+        margin-top: -1%;
+        text-align: center;
+        word-wrap: break-word;
+    }
+}
+
+@media only screen and (max-width:425px){
+    
+    .interrogacao{
+        position: absolute;
+        font-size: 75px !important;
+    }
+    .game-nav{
+        margin-top: 1%;
+    }
+    .nav-logo{
+        height: 10vh;
+        width: auto;
+
+    }
+    .voltar{
+        margin-left: 4%;
+    }
+    .voltar p{
+        display: none;
+        /* color: #FFE5E5; */
+    }
+    .botao-principal{
+        height: 235px;
+        width: 235px;
+        margin-top: 0;
+        
+        position: absolute;
+        top: calc(50% - (235px / 2));
+        left: calc(50% - (235px / 2));
+
+    }
+    .amarelo{
+        width: 70px;
+        height: 70px;
+    }
+    .vermelho{
+        width: 70px;
+        height: 70px;
+    }
+    .azul{
+        width: 70px;
+        height: 70px;
+    }
+    .verde{
+        width: 70px;
+        height: 70px;
+    }
+    .Game{
+        background-image: url(../../assets/img/ilustracao-game-mobile.png);
+        background-size: 150%;
+        overflow: hidden;
+        background-position-x: 0%;
+    }
+    .game-content{
+        width: 100%;
+    }
+    
+    .main{
+        margin-top: 1em;
+        flex-flow: column nowrap;
+        align-items: center;
+        height: 85%;
+    }
+
+    .fases{
+        flex-flow: row;
+    }
+
+    .fase{
+        height: 1.5em;
+        width: 1.5em;
+    }
+
+    .fase-final{
+        height: 3em;
+        width: 3em;
+    }
+
+    .fase-group{
+        display: flex;
+        flex-flow: row-reverse;
+    }
+
+    .linha-progresso{
+        height: 4px;
+        width: 1.5em;
+    }
+    .status-game{
+        color: #4C3CB4;
+        overflow-y: hidden;
+        font-size: 1.25em !important;
+        width: 100%;
+        height: unset;
+        min-height: 5em;
+        /* margin-top: 0.25em; */
+        word-wrap: break-word;
+    }
+
+    #fase-tooltip{
+        display: none !important;
+    }
+
+    
+}
