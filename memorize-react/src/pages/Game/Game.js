@@ -103,14 +103,14 @@ export default class Game extends Component {
             })
             .catch(error => {
                 this.setState({ erro: true, codigoErro: error.message });
-                console.log(error);
+                // console.log(error);
             })
 
         // var statusTeste = {
         //     fase: 7,
         //     passarDeFase: true,
-        //     sequenciaCorreta: [2, 3],
-        //     sequenciaRecebida: [2,3],
+        //     sequenciaCorreta: [2,3,4,1,1,2,3,4],
+        //     sequenciaRecebida: [2,3,4,1,1,2,3,4],
         //     errou: false,
         // }
 
@@ -119,7 +119,7 @@ export default class Game extends Component {
 
 
     lidarComStatus = (status) => {
-        console.log(status);
+        // console.log(status);
         if (status.sucesso !== undefined && status.sucesso !== null && !status.sucesso) {
             // se nao tiver uma sessao ainda
             this.criarSessao();
@@ -136,6 +136,7 @@ export default class Game extends Component {
                     if (sequenciaRecebida.length === sequenciaCorreta.length && modalAberto === null && prevState.modalAberto === null && !prevState.errouAFase  && !prevState.passarDeFase) {
                         // se recebeu a sequencia completa, exibe ela:
 
+                        // se nao fizer essa segunda verificação, o modal de acerto/erro abrirá mais de uma vez.
                         if (errou || passarDeFase){
                             return ({
                                 sequenciaExibida: this.transformarEmCores(sequenciaRecebida),
@@ -160,8 +161,18 @@ export default class Game extends Component {
 
                         })
                     } else if (prevState.modalAberto !== null && !errou && !passarDeFase && sequenciaRecebida < sequenciaCorreta) {
-                        alert("a")
-                    }  else if (fase >= 7){
+                        return ({
+                            //SE MUDOU A SEQUENCIA A SER RECEBIDA(quando a sequencia é criada, seja porque passaram de fase ou porque erraram a fase e vão refazê-la)
+                            // mensagemExibida: "Decore essa sequência!",
+                            // sequenciaExibida: this.transformarEmCores(sequenciaCorreta),
+                            sequenciaCorreta: sequenciaCorreta,
+                            fase: fase,
+                            sequenciaRecebida: sequenciaRecebida,
+                            errou: false,
+                            passardeFase : false
+
+                        })
+                    }  else if (fase >= 7 || fase === 6 && passarDeFase){
                         return({
                             mensagemExibida: "Parabéns! Deseja jogar novamente?",
                             finalizarJogo : true,
@@ -185,13 +196,13 @@ export default class Game extends Component {
 
             } catch (error) {
                 this.setState({ erro: true });
-                console.log(error);
+                // console.log(error);
             }
         }
     }
 
     verificarModals = () => {
-        const { passarDeFase, errouAFase, sequenciaRecebida, finalizarJogo } = this.state;
+        const { passarDeFase, errouAFase, sequenciaRecebida, finalizarJogo, fase } = this.state;
 
         // EXPLICANDO O TEMPO DE ESPERA:
         // O 2500 É O DELAY QUE TEM PARA COMEÇAR A ANIMAÇAO DA SEQUENCIA (VEJA EM components/Sequenciador.js) mais um segundo pra dar um tempinho
@@ -199,15 +210,16 @@ export default class Game extends Component {
         // depois do tempo determinado no timeout, ele vai setar o estado como errou de fase, que abrirá o modal de erro
         let tempoDeEspera = 2500 + sequenciaRecebida.length * 1200;
 
-
-        if (finalizarJogo){
-            this.setState({ modalAberto: "finalizou"})
-
-        } else if (passarDeFase && !errouAFase) {
+        if (fase >= 6 && finalizarJogo) {
+            // console.log("Parabéns!")
+            setTimeout(() => {
+                this.setState({ modalAberto: "finalizou"});
+            }, tempoDeEspera);
+        } else if (passarDeFase && !errouAFase && !finalizarJogo && fase <= 5) {
             setTimeout(() => {
                 this.setState({ modalAberto: "acertou"});
             }, tempoDeEspera);
-        } else if (errouAFase && !passarDeFase) {
+        } else if (errouAFase && !passarDeFase &&  !finalizarJogo) {
             // console.log("-*-*-**--*-*-*-")            
             setTimeout(() => {
                 this.setState({ modalAberto: "errou"})
@@ -243,16 +255,15 @@ export default class Game extends Component {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
                 this.setState({ erro: true })
             })
     }
 
     reiniciarJogo = async () => {
-        console.log('nxzero')
         await this.criarFase(1);
         this.setState({modalAberto : null})
     }
@@ -338,7 +349,7 @@ export default class Game extends Component {
                 this.setState({ erro: true, codigoErro: error.message });
             })
 
-        console.log(JSON.stringify(requestBody));
+        // console.log(JSON.stringify(requestBody));
     }
 
     criarSequencia = (quantidade) => {
@@ -385,7 +396,6 @@ export default class Game extends Component {
 
     render() {
         const { open, erro, modalAberto, mensagemExibida, sequenciaExibida, fase, finalizarJogo } = this.state;
-
         return (
             <div className="Game">
                 <nav className='game-nav game-content'>
@@ -403,19 +413,20 @@ export default class Game extends Component {
 
                     <Progresso fase={fase} />
 
-                    {!finalizarJogo ?
+                    {modalAberto !== "finalizou" ?
                     <Sequenciador sequencia={sequenciaExibida}/>
                     :
-                    <span className="botao-principal">
+                    <span className="botao-principal"
+                    onClick={() => this.reiniciarJogo}>
                         <img alt="Reinciar o jogo" src={IconeReiniciar} className="reiniciar-icon"/>
                     </span>
                     }
 
-                    <p className='status-game'>{mensagemExibida}</p>
+                    <p className="status-game">{mensagemExibida}</p>
                     
                 </div>
 
-                {/* modal de erro geral */}
+                {/* /* modal de erro geral  */}
                 <Modal
                     open={erro}
                     onClose={this.onCloseModalErroReq}
@@ -502,41 +513,9 @@ export default class Game extends Component {
                     <span className="avancar-fase" onClick={this.fecharModalDeAcerto}>
                         <p>Ir para próxima fase</p>
                         <img src={SetaHome} className="avancar-fase-seta" alt="" />
-                    </span>
-
-                   
+                    </span>                   
                 </Modal>
 
-                {/* modal de finalização do jogo */}
-                {/* <Modal
-                    open={modalAberto === "finalizou"}
-                    showCloseIcon={false}
-                    onClose={() => null}
-                    center
-                    focusTrapped={false}
-                    styles={{
-                        modal: {
-                            border: "3px solid #06D6A0",
-                            borderRadius: "5px",
-                            textAlign: "center",
-                            backgroundColor: "#ffe9e9dd"
-                        },
-                        overlay: {
-                            backgroundColor: "#06D6A050",
-                            backdropFilter: "blur(15px)",
-                        }
-                    }}
-                >
-                    <h3 className="titulo-acerto">É campeão!</h3>
-
-                    <p>Você finalizou o Memo Rize! Obrigado por jogar!</p>
-                    <img alt="" src={CerebroAcerto} className="imagem-acerto" />
-
-                    <span className="avancar-fase" onClick={this.reiniciarJogo}>
-                        <p>Deseja jogar novamente?</p>
-                        <img src={SetaHome} className="avancar-fase-seta" alt="" />
-                    </span>
-                </Modal> */}
 
                 {/* Modal de duvida */}
                 <Modal open={open} onClose={this.onCloseModal} center focusTrapped={false}

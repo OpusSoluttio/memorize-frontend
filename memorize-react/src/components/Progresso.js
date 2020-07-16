@@ -6,6 +6,7 @@ import "react-responsive-modal/styles.css";
 import fases from '../modalFases.js';
 
 
+
 export default class Progresso extends Component {
     constructor(props) {
         super(props);
@@ -14,12 +15,13 @@ export default class Progresso extends Component {
             frase: '',
             titulo: '',
             faseModal: "",
-            urlImg: "",
+            urlImg: null,
         }
     }
 
     onOpenModal = (fase) => {
         let faseBuscada = fases.modalFases.find(item => item.faseModal === fase);
+        // let foto = require(faseBuscada.urlimg)
 
         this.setState({
             open: true,
@@ -27,7 +29,7 @@ export default class Progresso extends Component {
             texto: faseBuscada.texto,
             frase: faseBuscada.frase,
             titulo: faseBuscada.titulo,
-            urlImg: faseBuscada.urlimg,
+            urlImg: faseBuscada.urlImg,
         })
     };
 
@@ -46,25 +48,33 @@ export default class Progresso extends Component {
         }
     }
 
-
-
     componentDidUpdate(prevProps) {
 
-        if (prevProps.fase < 7 && this.props.fase >= 7)  {
+        if (prevProps.fase < 7 && this.props.fase >= 7) {
             console.log("exibir modal de vitoria")
             //fase atual menos uma (mostra a ultima desbloqueada)
             let faseBuscada = fases.modalFases.find(item => item.faseModal === 6);
 
-            if (faseBuscada !== null && faseBuscada !== undefined) {
-                this.setState({
-                    open: true,
-                    faseModal: faseBuscada.faseModal,
-                    texto: faseBuscada.texto,
-                    frase: faseBuscada.frase,
-                    titulo: faseBuscada.titulo,
-                    urlImg: faseBuscada.urlimg,
-                })
-            }
+
+            // EXPLICANDO O TEMPO DE ESPERA:
+            // O 2500 É O DELAY QUE TEM PARA COMEÇAR A ANIMAÇAO DA SEQUENCIA (VEJA EM components/Sequenciador.js) mais um segundo pra dar um tempinho
+            // 1200 é o tempo de cada animação completa mais o delay (VEJA EM components/Sequenciador.js)
+            // depois do tempo determinado no timeout, ele vai setar o estado como errou de fase, que abrirá o modal de erro
+            let tempoDeEspera = 2500 + 8 * 1200;
+
+            setTimeout(() => {
+                if (faseBuscada !== null && faseBuscada !== undefined) {
+                    this.setState({
+                        open: true,
+                        faseModal: faseBuscada.faseModal,
+                        texto: faseBuscada.texto,
+                        frase: faseBuscada.frase,
+                        titulo: faseBuscada.titulo,
+                        urlImg: faseBuscada.urlimg,
+                    })
+                }
+            }, tempoDeEspera);
+
         }
     }
 
@@ -86,8 +96,6 @@ export default class Progresso extends Component {
         }
 
         const { texto, frase, titulo, urlImg, open } = this.state;
-        const {fase} = this.props;
-
 
         return (
             <div className="Progresso">
@@ -161,27 +169,32 @@ export default class Progresso extends Component {
                             return (
                                 <li className="fase-group" key={i + 1}>
                                     <span className="linha-progresso"></span>
-                                    <div className="fase"
-                                        onClick={() => this.onOpenModal(i + 1)}
-                                        data-for="fase-tooltip"
-                                        data-tip={"Capítulo " + (i + 1)}
-                                    >
-                                    </div>
+                                        <div className="fase"
+                                            onClick={() => this.onOpenModal(i + 1)}
+                                            data-for="fase-tooltip"
+                                            data-tip={"Capítulo " + (i + 1)}
+                                        >
+                                        </div>
                                 </li>
                             )
                         } else if (item === "atual") {
                             return (
 
-                                    <li className="fase-group" key={i + 1}>
-                                        <span className="linha-progresso linha-atual"></span>
-
-
+                                <li className="fase-group" key={i + 1}>
+                                    <span className="linha-progresso linha-atual"></span>
+                                    <Anime
+                                        in appear
+                                        loop={true}
+                                        easing="linear"
+                                        onEntering={{ backgroundColor: ["#4c3cb4", "#999"], duration: 1000 }}
+                                    >
                                         <div className="fase fase-atual"
                                             data-for="fase-tooltip"
                                             data-tip="Você está aqui"
-                                        >
-                                        </div>
-                                    </li>
+                                        ></div>
+                                    </Anime>
+
+                                </li>
                             )
                         }
                         return null;
@@ -211,10 +224,12 @@ export default class Progresso extends Component {
                     <h2>{titulo}</h2>
                     <p className="frase-fase">{frase}</p>
                     <p>{texto}</p>
-                    <img src={urlImg} alt="" />
-                    {fase >= 7 ?
-                        <p>Obrigado por jogar o Memo Rize! A equipe Opus Soluttio agradece!</p>
-                    : null}
+                    {/* {urlImg === null || urlImg === undefined ? null : 
+                    // <img src={require(urlImg)} alt=""/>
+                    } */}
+
+
+                    {/* {fase === 7 ? null: <p>Obrigado por jogar o Memo Rize! A equipe Opus Soluttio agradece!</p>} */}
                 </Modal>
             </div>
 
