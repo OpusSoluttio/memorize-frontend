@@ -29,7 +29,7 @@ export default class Progresso extends Component {
             texto: faseBuscada.texto,
             frase: faseBuscada.frase,
             titulo: faseBuscada.titulo,
-            urlImg: faseBuscada.urlImg,
+            urlImg: faseBuscada.urlimg,
         })
     };
 
@@ -51,29 +51,18 @@ export default class Progresso extends Component {
     componentDidUpdate(prevProps) {
 
         if (prevProps.fase < 7 && this.props.fase >= 7) {
-            console.log("exibir modal de vitoria")
             //fase atual menos uma (mostra a ultima desbloqueada)
             let faseBuscada = fases.modalFases.find(item => item.faseModal === 6);
 
 
-            // EXPLICANDO O TEMPO DE ESPERA:
-            // O 2500 É O DELAY QUE TEM PARA COMEÇAR A ANIMAÇAO DA SEQUENCIA (VEJA EM components/Sequenciador.js) mais um segundo pra dar um tempinho
-            // 1200 é o tempo de cada animação completa mais o delay (VEJA EM components/Sequenciador.js)
-            // depois do tempo determinado no timeout, ele vai setar o estado como errou de fase, que abrirá o modal de erro
-            let tempoDeEspera = 2500 + 8 * 1200;
-
-            setTimeout(() => {
-                if (faseBuscada !== null && faseBuscada !== undefined) {
-                    this.setState({
-                        open: true,
-                        faseModal: faseBuscada.faseModal,
-                        texto: faseBuscada.texto,
-                        frase: faseBuscada.frase,
-                        titulo: faseBuscada.titulo,
-                        urlImg: faseBuscada.urlimg,
-                    })
-                }
-            }, tempoDeEspera);
+            this.setState({
+                open: true,
+                faseModal: faseBuscada.faseModal,
+                texto: faseBuscada.texto,
+                frase: faseBuscada.frase,
+                titulo: faseBuscada.titulo,
+                urlImg: faseBuscada.urlimg,
+            })
 
         }
     }
@@ -96,7 +85,6 @@ export default class Progresso extends Component {
         }
 
         const { texto, frase, titulo, urlImg, open } = this.state;
-
         return (
             <div className="Progresso">
 
@@ -224,9 +212,10 @@ export default class Progresso extends Component {
                     <h2>{titulo}</h2>
                     <p className="frase-fase">{frase}</p>
                     <p>{texto}</p>
-                    {/* {urlImg === null || urlImg === undefined ? null : 
-                    // <img src={require(urlImg)} alt=""/>
-                    } */}
+                    
+                    {urlImg === null || urlImg === undefined ? null : 
+                        <img src={urlImg} alt="" className="modal-fase-img"/>
+                    }
 
 
                     {/* {fase === 7 ? null: <p>Obrigado por jogar o Memo Rize! A equipe Opus Soluttio agradece!</p>} */}

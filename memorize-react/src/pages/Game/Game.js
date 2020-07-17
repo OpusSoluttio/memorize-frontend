@@ -35,62 +35,42 @@ export default class Game extends Component {
             modalAberto: null,
 
             finalizarJogo: false,
+            fasesCompletas : 0,
         };
     }
 
-    transformarEmCores = (arrayDeCores) => {
-        let novaArray = [];
-        for (let i = 0; i < arrayDeCores.length; i++) {
-            const numero = arrayDeCores[i];
-
-            switch (numero) {
-                case 1:
-                    novaArray.push('AMARELO');
-                    break;
-                case 2:
-                    novaArray.push('AZUL');
-                    break;
-                case 3:
-                    novaArray.push('VERDE');
-                    break;
-                case 4:
-                    novaArray.push('VERMELHO');
-                    break;
-                default:
-                    break;
-            }
-        }
-        return novaArray;
-    }
-
-    transformarEmNumeros = (arrayDeNumeros) => {
-        let arrayNova = [];
-        for (let i = 0; i < arrayDeNumeros.length; i++) {
-            const cor = arrayDeNumeros[i];
-
-            switch (cor.toUpperCase()) {
-                case 'AMARELO':
-                    arrayNova.push(1);
-                    break;
-                case 'AZUL':
-                    arrayNova.push(2);
-                    break;
-                case 'VERDE':
-                    arrayNova.push(3);
-                    break;
-                case 'VERMELHO':
-                    arrayNova.push(4);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        return arrayNova;
-    }
 
     obterStatus = async () => {
+        // let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao';
+
+        // await fetch(url, {
+        //     headers: {
+        //         "Access-Control-Allow-Headers": "*",
+        //     }
+        // })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         this.lidarComStatus(data);
+        //     })
+        //     .catch(error => {
+        //         this.setState({ erro: true, codigoErro: error.message });
+        //         // console.log(error);
+        //     })
+
+        var statusTeste = {
+            fase: 6,
+            passarDeFase: false,
+            sequenciaCorreta: [2,3,4],
+            sequenciaRecebida: [1,1],
+            errou: false,
+        }
+
+        this.lidarComStatus(statusTeste);
+    }
+
+    obterStatusComRetorno = async() => {
         let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao';
+        let retorno
 
         await fetch(url, {
             headers: {
@@ -98,28 +78,19 @@ export default class Game extends Component {
             }
         })
             .then(response => response.json())
-            .then(data => {
-                this.lidarComStatus(data);
-            })
+            .then(data =>  {retorno = data})
             .catch(error => {
                 this.setState({ erro: true, codigoErro: error.message });
                 // console.log(error);
             })
 
-        // var statusTeste = {
-        //     fase: 7,
-        //     passarDeFase: true,
-        //     sequenciaCorreta: [2,3,4,1,1,2,3,4],
-        //     sequenciaRecebida: [2,3,4,1,1,2,3,4],
-        //     errou: false,
-        // }
-
-        // this.lidarComStatus(statusTeste);
+        return retorno;
     }
 
 
     lidarComStatus = (status) => {
         // console.log(status);
+        console.log(this.state)
         if (status.sucesso !== undefined && status.sucesso !== null && !status.sucesso) {
             // se nao tiver uma sessao ainda
             this.criarSessao();
@@ -128,13 +99,14 @@ export default class Game extends Component {
             // se ja tiver uma sessao acontecendo
             try {
                 var { sequenciaRecebida, sequenciaCorreta, fase, passarDeFase, errou, id } = status;
-                var  { modalAberto } = this.state;
+                var { modalAberto, fasesCompletas } = this.state;
 
                 this.setState({ idSessao: id, sequenciaExibida : []});
                 this.setState((prevState) => {
 
-                    if (sequenciaRecebida.length === sequenciaCorreta.length && modalAberto === null && prevState.modalAberto === null && !prevState.errouAFase  && !prevState.passarDeFase) {
+                    if (sequenciaRecebida.length === sequenciaCorreta.length && modalAberto === null && prevState.modalAberto === null && !prevState.errouAFase  && !prevState.passarDeFase  && fasesCompletas < fase) {
                         // se recebeu a sequencia completa, exibe ela:
+                        console.log("if1")
 
                         // se nao fizer essa segunda verificação, o modal de acerto/erro abrirá mais de uma vez.
                         if (errou || passarDeFase){
@@ -150,7 +122,9 @@ export default class Game extends Component {
                         } 
 
     
-                    } else if (prevState.sequenciaCorreta.length !== sequenciaCorreta.length  && modalAberto === null) {
+                    } else if (prevState.sequenciaCorreta.length !== sequenciaCorreta.length  && modalAberto === null && fase < 7) {
+                        console.log("if2")
+
                         return ({
                             //SE MUDOU A SEQUENCIA A SER RECEBIDA(quando a sequencia é criada, seja porque passaram de fase ou porque erraram a fase e vão refazê-la)
                             mensagemExibida: "Decore essa sequência!",
@@ -160,10 +134,13 @@ export default class Game extends Component {
                             sequenciaRecebida: sequenciaRecebida,
 
                         })
-                    } else if (prevState.modalAberto !== null && !errou && !passarDeFase && sequenciaRecebida < sequenciaCorreta) {
+                    } else if (prevState.modalAberto !== null && !errou && !passarDeFase && sequenciaRecebida.length < sequenciaCorreta.length) {
+                        console.log("if3")
+
                         return ({
-                            //SE MUDOU A SEQUENCIA A SER RECEBIDA(quando a sequencia é criada, seja porque passaram de fase ou porque erraram a fase e vão refazê-la)
-                            // mensagemExibida: "Decore essa sequência!",
+                            //verificacao padrão caso haja alguma alteracao inesperada
+
+                            // mensagemExibida: "Roi?",
                             // sequenciaExibida: this.transformarEmCores(sequenciaCorreta),
                             sequenciaCorreta: sequenciaCorreta,
                             fase: fase,
@@ -172,23 +149,30 @@ export default class Game extends Component {
                             passardeFase : false
 
                         })
-                    }  else if (fase >= 7 || fase === 6 && passarDeFase){
-                        return({
-                            mensagemExibida: "Parabéns! Deseja jogar novamente?",
-                            finalizarJogo : true,
-                        })
-                    }else {
-                        //SE JA EXIBIU A SEQUENCIA QUE TEM QUE DECORAR E AINDA NAO RECEBEU A SEQUENCIA COMPLETA DOS SENSORES (esse é o caso mais comum)
+                    } else if (fase >= 7 || (fase === 6 && passarDeFase)) {
+                        console.log("if4")
 
                         return ({
-                            mensagemExibida: "Sua vez! Aguardando sequência completa dos botões...",
-                            sequenciaCorreta: sequenciaCorreta,
-                            fase: fase,
-                            sequenciaRecebida: sequenciaRecebida,
-                            errouAFase : false,
-                            passarDeFase : false,
-                            sequenciaExibida : [],
+                            // sequenciaExibida: this.transformarEmCores(sequenciaRecebida),
+                            // mensagemExibida: "Essa foi sua sequência",
+                            finalizarJogo: true,
+                            fasesCompletas : 6
                         })
+                    } else {
+                        console.log("else")
+                        //SE JA EXIBIU A SEQUENCIA QUE TEM QUE DECORAR E AINDA NAO RECEBEU A SEQUENCIA COMPLETA DOS SENSORES (esse é o caso mais comum)
+                        if (modalAberto === null && prevState.modalAberto === null)
+                        {
+                            return ({
+                                mensagemExibida: "Sua vez! Aguardando sequência completa dos botões...",
+                                sequenciaCorreta: sequenciaCorreta,
+                                fase: fase,
+                                sequenciaRecebida: sequenciaRecebida,
+                                errouAFase: false,
+                                passarDeFase: false,
+                                sequenciaExibida: [],
+                            })
+                        }
                     }
 
                     //verificarModals acontece no callback do setstate
@@ -202,7 +186,7 @@ export default class Game extends Component {
     }
 
     verificarModals = () => {
-        const { passarDeFase, errouAFase, sequenciaRecebida, finalizarJogo, fase } = this.state;
+        const { passarDeFase, errouAFase, sequenciaRecebida, finalizarJogo, fase, fasesCompletas } = this.state;
 
         // EXPLICANDO O TEMPO DE ESPERA:
         // O 2500 É O DELAY QUE TEM PARA COMEÇAR A ANIMAÇAO DA SEQUENCIA (VEJA EM components/Sequenciador.js) mais um segundo pra dar um tempinho
@@ -210,17 +194,23 @@ export default class Game extends Component {
         // depois do tempo determinado no timeout, ele vai setar o estado como errou de fase, que abrirá o modal de erro
         let tempoDeEspera = 2500 + sequenciaRecebida.length * 1200;
 
-        if (fase >= 6 && finalizarJogo) {
-            // console.log("Parabéns!")
+        if (fasesCompletas >= 6 && finalizarJogo) {
+            console.log("Parabéns!")
             setTimeout(() => {
-                this.setState({ modalAberto: "finalizou"});
+                this.setState({ 
+                    modalAberto: "finalizou",
+                    mensagemExibida: "Parabéns! Deseja jogar novamente?",
+                    fase : 7,
+                });
             }, tempoDeEspera);
         } else if (passarDeFase && !errouAFase && !finalizarJogo && fase <= 5) {
+            // o fasesCompletas evita que ele abra o modal mais de uma vez ao acertar
+            this.setState({fasesCompletas : fase})
             setTimeout(() => {
                 this.setState({ modalAberto: "acertou"});
             }, tempoDeEspera);
         } else if (errouAFase && !passarDeFase &&  !finalizarJogo) {
-            // console.log("-*-*-**--*-*-*-")            
+            console.log("-*-*-**--*-*-*-")            
             setTimeout(() => {
                 this.setState({ modalAberto: "errou"})
             }, tempoDeEspera);
@@ -255,11 +245,11 @@ export default class Game extends Component {
         })
             .then(response => response.json())
             .then(data => {
-                // console.log(data);
+                console.log(data);
             })
             .catch(error => {
                 // console.log(error);
-                this.setState({ erro: true })
+                this.setState({ erro: true, codigoErro : error.message })
             })
     }
 
@@ -270,7 +260,8 @@ export default class Game extends Component {
 
     fecharModalDeErro = () => {
         this.criarFase(this.state.fase);
-        this.setState({ errouAFase: false, modalAberto: null });
+        this.setState({ errouAFase: false, modalAberto: null, sequenciaExibida : [] });
+        this.obterStatus();
     }
 
     fecharModalDeAcerto = () => {
@@ -278,6 +269,7 @@ export default class Game extends Component {
         this.setState({ passarDeFase: false, modalAberto: null });
         this.obterStatus();
     }
+
 
 
 
@@ -309,21 +301,9 @@ export default class Game extends Component {
                 break;
         }
 
-        // this.obterStatus();
-        // // se deve criar a mesma fase,
-        // if (this.state.errouAFase && this.state.fase === fase) {
-        //     console.log("errou: deve criar a mesma fase");
-        // }
+
 
         let sequenciaCorreta = this.criarSequencia(quantidade);
-
-        // this.setState({
-        //     mensagemExibida: 'Decore essa sequência!',
-        //     sequenciaCorreta: sequenciaCorreta,
-        //     sequenciaExibida: this.transformarEmCores(sequenciaCorreta),
-        // });
-        // this.setState({ mensagemExibida: 'Aguardando sequência...' });
-
 
         let requestBody = {
             NovaFase: fase,
@@ -331,25 +311,31 @@ export default class Game extends Component {
             id: this.state.idSessao,
         }
 
-
-        // CRIAR SESSAO OU PASSAR DE FASE
-        let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao/passarfase';
-        await fetch(url, {
-            method: 'PUT',
-            headers: {
-                'Content-type': 'application/json',
-                'Accept': 'application/json',
-                "Access-Control-Allow-Headers": "*",
-            },
-            body: JSON.stringify(requestBody)
-        })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => {
-                this.setState({ erro: true, codigoErro: error.message });
+        let statusAtual = this.obterStatusComRetorno();
+        if (!statusAtual.passarDeFase && !statusAtual.errou && !this.state.finalizarJogo) {
+            console.log('nao deveria criar')
+        } else {
+            // CRIAR SESSAO OU PASSAR DE FASE
+            let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao/passarfase';
+            await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/json',
+                    "Access-Control-Allow-Headers": "*",
+                },
+                body: JSON.stringify(requestBody)
             })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => {
+                    this.setState({ erro: true, codigoErro: error.message });
+                })
 
-        // console.log(JSON.stringify(requestBody));
+            // console.log(JSON.stringify(requestBody));
+        }
+
+        
     }
 
     criarSequencia = (quantidade) => {
@@ -395,7 +381,7 @@ export default class Game extends Component {
     };
 
     render() {
-        const { open, erro, modalAberto, mensagemExibida, sequenciaExibida, fase, finalizarJogo } = this.state;
+        const { open, erro, modalAberto, mensagemExibida, sequenciaExibida, fase } = this.state;
         return (
             <div className="Game">
                 <nav className='game-nav game-content'>
@@ -546,5 +532,57 @@ export default class Game extends Component {
                 </Modal>
             </div>
         )
+    }
+
+    
+    transformarEmCores = (arrayDeCores) => {
+        let novaArray = [];
+        for (let i = 0; i < arrayDeCores.length; i++) {
+            const numero = arrayDeCores[i];
+
+            switch (numero) {
+                case 1:
+                    novaArray.push('AMARELO');
+                    break;
+                case 2:
+                    novaArray.push('AZUL');
+                    break;
+                case 3:
+                    novaArray.push('VERDE');
+                    break;
+                case 4:
+                    novaArray.push('VERMELHO');
+                    break;
+                default:
+                    break;
+            }
+        }
+        return novaArray;
+    }
+
+    transformarEmNumeros = (arrayDeNumeros) => {
+        let arrayNova = [];
+        for (let i = 0; i < arrayDeNumeros.length; i++) {
+            const cor = arrayDeNumeros[i];
+
+            switch (cor.toUpperCase()) {
+                case 'AMARELO':
+                    arrayNova.push(1);
+                    break;
+                case 'AZUL':
+                    arrayNova.push(2);
+                    break;
+                case 'VERDE':
+                    arrayNova.push(3);
+                    break;
+                case 'VERMELHO':
+                    arrayNova.push(4);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return arrayNova;
     }
 }
