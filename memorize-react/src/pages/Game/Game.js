@@ -384,8 +384,6 @@ export default class Game extends Component {
         return (
             <div className="Game">
 
-                
-
                 <nav className='game-nav game-content'>
                     <Link to={"/"} className='voltar'>
                         <img src={SetaHome} alt="" />
@@ -549,10 +547,10 @@ export default class Game extends Component {
 
             switch (numero) {
                 case 1:
-                    novaArray.push('AMARELO');
+                    novaArray.push('AZUL');
                     break;
                 case 2:
-                    novaArray.push('AZUL');
+                    novaArray.push('AMARELO');
                     break;
                 case 3:
                     novaArray.push('VERDE');
