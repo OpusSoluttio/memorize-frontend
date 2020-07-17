@@ -162,9 +162,9 @@
     .linha-atual{
         background-color: #949494;
     }
-
+/* 
     .fase-atual{
-    }
+    } */
 
 /* 
     .fase-atual::before{
@@ -315,11 +315,6 @@
     font-size: 2em;
 }
 
-.frase-fase{
-    text-align: center;
-    color: #06D6A0;
-}
-
 .avancar-fase{
     display: flex;
     justify-content: center;
@@ -385,9 +380,20 @@
     margin-top: 1.5em;
 }
 
+.frase-fase{
+    text-align: justify;
+    font-size: 1.2em;
+    color: rgb(97, 255, 92);
+}
+.texto-fase{
+    text-align: justify;
+    color: #fff;
+}
 .modal-fase-img{
     margin: auto;
     max-height: 50%;
+    align-self: center;
+    max-width: 80%;
 }
 
 
@@ -532,6 +538,9 @@
         text-align: center;
         word-wrap: break-word;
     }
+    .frase-fase{
+        font-size: 0.9em;
+    }
 }
 
 @media only screen and (max-width:425px){
@@ -636,5 +645,9 @@
         display: none !important;
     }
 
+    .modal-fase-img{
+        margin-top: 1em;
+        width: 100%;
+    }
     
 }

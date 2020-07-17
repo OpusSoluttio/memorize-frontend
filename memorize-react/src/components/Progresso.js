@@ -200,6 +200,9 @@ export default class Progresso extends Component {
                                 borderRadius: "0.2em",
                                 color: "#fff",
                                 width: "80%",
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
                             },
                             overlay: {
                                 backdropFilter: "blur(15px)",
@@ -209,9 +212,10 @@ export default class Progresso extends Component {
                         }}
                 >
 
-                    <h2>{titulo}</h2>
+                    <h2 className="titulo-fase">{titulo}</h2>
                     <p className="frase-fase">{frase}</p>
-                    <p>{texto}</p>
+                    <br/>
+                    <p className="texto-fase">{texto}</p>
                     
                     {urlImg === null || urlImg === undefined ? null : 
                         <img src={urlImg} alt="" className="modal-fase-img"/>

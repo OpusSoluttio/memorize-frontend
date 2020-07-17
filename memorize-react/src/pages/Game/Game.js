@@ -10,7 +10,8 @@ import { Modal } from 'react-responsive-modal';
 import "react-responsive-modal/styles.css";
 import ImagemErro from '../../assets/img/erro.png';
 import CerebroAcerto from "../../assets/img/acerto.png";
-import IconeReiniciar from "../../assets/icons/restart-icon.png"
+import IconeReiniciar from "../../assets/icons/restart-icon.png";
+import MusicaSucesso from "../../assets/sounds/456966__funwithsound__success-fanfare-trumpets_1.mp3";
 
 const cores = ['AMARELO', 'AZUL', 'VERDE', 'VERMELHO'];
 
@@ -41,31 +42,31 @@ export default class Game extends Component {
 
 
     obterStatus = async () => {
-        // let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao';
+        let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao';
 
-        // await fetch(url, {
-        //     headers: {
-        //         "Access-Control-Allow-Headers": "*",
-        //     }
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         this.lidarComStatus(data);
-        //     })
-        //     .catch(error => {
-        //         this.setState({ erro: true, codigoErro: error.message });
-        //         // console.log(error);
-        //     })
+        await fetch(url, {
+            headers: {
+                "Access-Control-Allow-Headers": "*",
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                this.lidarComStatus(data);
+            })
+            .catch(error => {
+                this.setState({ erro: true, codigoErro: error.message });
+                // console.log(error);
+            })
 
-        var statusTeste = {
-            fase: 6,
-            passarDeFase: false,
-            sequenciaCorreta: [2,3,4],
-            sequenciaRecebida: [1,1],
-            errou: false,
-        }
+        // var statusTeste = {
+        //     fase: 2,
+        //     passarDeFase: true,
+        //     sequenciaCorreta: [2,3,4],
+        //     sequenciaRecebida: [1,1,1],
+        //     errou: false,
+        // }
 
-        this.lidarComStatus(statusTeste);
+        // this.lidarComStatus(statusTeste);
     }
 
     obterStatusComRetorno = async() => {
@@ -253,15 +254,17 @@ export default class Game extends Component {
             })
     }
 
-    reiniciarJogo = async () => {
-        await this.criarFase(1);
-        this.setState({modalAberto : null})
+    reiniciarJogo = () => {
+        this.criarFase(1);
+        this.setState({modalAberto : null});
+        this.props.history.go();
     }
 
     fecharModalDeErro = () => {
         this.criarFase(this.state.fase);
-        this.setState({ errouAFase: false, modalAberto: null, sequenciaExibida : [] });
-        this.obterStatus();
+        this.setState({ errouAFase: false, modalAberto: null});
+        // this.obterStatus();
+        this.props.history.go();
     }
 
     fecharModalDeAcerto = () => {
@@ -312,9 +315,7 @@ export default class Game extends Component {
         }
 
         let statusAtual = this.obterStatusComRetorno();
-        if (!statusAtual.passarDeFase && !statusAtual.errou && !this.state.finalizarJogo) {
-            console.log('nao deveria criar')
-        } else {
+        
             // CRIAR SESSAO OU PASSAR DE FASE
             let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao/passarfase';
             await fetch(url, {
@@ -333,8 +334,6 @@ export default class Game extends Component {
                 })
 
             // console.log(JSON.stringify(requestBody));
-        }
-
         
     }
 
@@ -384,6 +383,9 @@ export default class Game extends Component {
         const { open, erro, modalAberto, mensagemExibida, sequenciaExibida, fase } = this.state;
         return (
             <div className="Game">
+
+                
+
                 <nav className='game-nav game-content'>
                     <Link to={"/"} className='voltar'>
                         <img src={SetaHome} alt="" />
@@ -403,7 +405,7 @@ export default class Game extends Component {
                     <Sequenciador sequencia={sequenciaExibida}/>
                     :
                     <span className="botao-principal"
-                    onClick={() => this.reiniciarJogo}>
+                    onClick={() => this.reiniciarJogo()}>
                         <img alt="Reinciar o jogo" src={IconeReiniciar} className="reiniciar-icon"/>
                     </span>
                     }
@@ -499,7 +501,12 @@ export default class Game extends Component {
                     <span className="avancar-fase" onClick={this.fecharModalDeAcerto}>
                         <p>Ir para próxima fase</p>
                         <img src={SetaHome} className="avancar-fase-seta" alt="" />
-                    </span>                   
+                    </span>            
+
+                    <audio autoplay="autoplay">
+                        <source src={MusicaSucesso} type="audio/mp3" />
+                    seu navegador não suporta HTML5
+                    </audio>       
                 </Modal>
 
 
