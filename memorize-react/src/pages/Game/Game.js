@@ -42,31 +42,31 @@ export default class Game extends Component {
 
 
     obterStatus = async () => {
-        // let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao';
+        let url = 'https://memorize.southcentralus.cloudapp.azure.com:5001/api/sessao';
 
-        // await fetch(url, {
-        //     headers: {
-        //         "Access-Control-Allow-Headers": "*",
-        //     }
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         this.lidarComStatus(data);
-        //     })
-        //     .catch(error => {
-        //         this.setState({ erro: true, codigoErro: error.message });
-        //         // console.log(error);
-        //     })
+        await fetch(url, {
+            headers: {
+                "Access-Control-Allow-Headers": "*",
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                this.lidarComStatus(data);
+            })
+            .catch(error => {
+                this.setState({ erro: true, codigoErro: error.message });
+                // console.log(error);
+            })
 
-        var statusTeste = {
-            fase: 7,
-            passarDeFase: false,
-            sequenciaCorreta: [2,3,4],
-            sequenciaRecebida: [],
-            errou: false,
-        }
+        // var statusTeste = {
+        //     fase: 7,
+        //     passarDeFase: false,
+        //     sequenciaCorreta: [2,3,4],
+        //     sequenciaRecebida: [],
+        //     errou: false,
+        // }
 
-        this.lidarComStatus(statusTeste);
+        // this.lidarComStatus(statusTeste);
     }
 
     obterStatusComRetorno = async() => {
