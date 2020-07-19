@@ -33,7 +33,7 @@ exports.modalFases = [
         titulo: 'Massa Cinzenta',
         frase: 'Incrível! Seu cérebro está se tornando uma máquina super potente, você obteve o controle total de seu cérebro!',
         texto: 'O Cérebro é o orgão mais incrível do corpo humano, ele é responsável por tornar-nos quem somos e o que pensamos, além de atuar em milhares de outras atividades.',
-        urlimg: ''
+        urlimg: '../../assets/img/fase5.png'
     },
     {
         faseModal: 6,
